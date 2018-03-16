@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
+    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
     </head>
     <body>
     	<div class="container">
@@ -18,7 +18,7 @@
             <div class="order_form_cons">
                 <div class="order_form_main outer">
                     <div class="order_form_img">
-                        <img src="images/info_img.png" alt="">
+                        <img src="../../resources/images/info_img.png" alt="">
                     </div>
                     <div class="order_form_info">
                         <h5>新能源汽车低级轿车</h5>

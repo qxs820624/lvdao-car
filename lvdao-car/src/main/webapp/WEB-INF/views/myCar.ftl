@@ -8,7 +8,7 @@
     	<meta name="apple-mobile-web-app-capable" content="yes">
         <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=Yxk3CU7QLBCn4guiIsjjmZj6"></script>
         <script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=8325164e247e15eea68b59e89200988b"></script>
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="css/carRental.css">
     </head>
     <body>
@@ -21,7 +21,7 @@
                 <div class="driver_info">
                     <div class="outer">
                         <div class="info_left">
-                            <img src="images/icon_carG.png" alt="">
+                            <img src="../../resources/images/icon_carG.png" alt="">
                         </div>
                         <div class="info_right">宝安区西乡宝源路123号</div>
                     </div>
@@ -50,7 +50,7 @@
                 </a>
             </footer>
         </div>
-        <script type="text/javascript" src="js/baiduMap.js"></script>
+        <script type="text/javascript" src="../../resources/js/baiduMap.js"></script>
         <script type="text/javascript">
             //地图高度
             var Height = $(window).height()*0.47;

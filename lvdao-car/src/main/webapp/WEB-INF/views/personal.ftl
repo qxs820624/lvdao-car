@@ -7,8 +7,8 @@
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="dist/css/swiper.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/dist/css/swiper.css">
     </head>
     <body>
     	<div class="container">
@@ -157,7 +157,7 @@
                 </a>
             </footer>
         </div>
-        <script type="text/javascript" src="dist/js/swiper.min.js"></script>
+        <script type="text/javascript" src="../../resources/dist/js/swiper.min.js"></script>
         <script type="text/javascript">
             var Height = $(window).height()*0.43;
             $(".personal_info .personal_box").height(Height);

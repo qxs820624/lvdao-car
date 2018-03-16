@@ -7,8 +7,8 @@
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
     <body>
     	<div class="container">
@@ -23,7 +23,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="layui/layui.js"></script>
+        <script type="text/javascript" src="../../resources/layui/layui.js"></script>
         <script type="text/javascript">
             layui.use('upload', function(){
                 var $ = layui.jquery,
