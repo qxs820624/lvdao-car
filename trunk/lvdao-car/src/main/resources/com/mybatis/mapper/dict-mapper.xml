@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DictEntity">
+  <resultMap id="DictResultMap" type="com.lvdao.entity.DictEntity" >
+  	<result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DICT_ID" property="dictId" jdbcType="VARCHAR" />
+    <result column="DICT_NAME" property="dictName" jdbcType="VARCHAR" />
+    <result column="DICT_VALUE" property="dictValue" jdbcType="VARCHAR" />
+    <result column="DICT_TYPE" property="dictType" jdbcType="VARCHAR" />
+    <result column="DICT_GROUP_ID" property="dictGroupId" jdbcType="VARCHAR" /> 
+    <result column="DICT_GROUP_NAME" property="dictGroupName" jdbcType="VARCHAR" />
+    <result column="DICT_ORDER" property="dictOrder" jdbcType="VARCHAR" />
+    <result column="DICT_DESC" property="dictDesc" jdbcType="VARCHAR" /> 
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  </resultMap>
+  
+	<insert id="insert" parameterType="com.lvdao.entity.DictEntity">
+	 	INSERT INTO t_dict(
+	    	ID,
+    		DICT_ID,
+	    	DICT_NAME,
+	    	DICT_VALUE,
+	    	DICT_TYPE,
+	    	DICT_GROUP_ID,
+	    	DICT_GROUP_NAME,
+	    	DICT_ORDER,
+	    	DICT_DESC,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	UPDATE_USER_ID,
+	    	UPDATE_USER_NAME,
+	    	UPDATE_TIME,
+	    	VERSION
+		) VALUES(	
+			#{id, jdbcType=VARCHAR},
+			#{dictId, jdbcType=VARCHAR},
+			#{dictName, jdbcType=VARCHAR},
+			#{dictValue, jdbcType=VARCHAR},
+			#{dictType, jdbcType=VARCHAR},
+			#{dictGroupId, jdbcType=VARCHAR},
+			#{dictGroupName, jdbcType=VARCHAR},
+			#{dictOrder, jdbcType=NUMERIC},
+			#{dictDesc, jdbcType=VARCHAR},
+			#{active, jdbcType=TINYINT},	
+			#{createUserId, jdbcType=VARCHAR},
+			#{createUserName, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},
+			#{updateUserId, jdbcType=VARCHAR},
+			#{updateUserName, jdbcType=VARCHAR},
+			#{updateTime, jdbcType=TIMESTAMP},
+			#{version, jdbcType=NUMERIC}
+		)
+	</insert>
+	
+  	<update id="update" parameterType="com.lvdao.entity.DictEntity" >
+		UPDATE t_dict D SET
+		<if test="dictId != null and dictId != ''" >
+        	D.DICT_ID = #{dictId, jdbcType=VARCHAR},
+      	</if>
+		<if test="dictName != null and dictName != ''" >
+        	D.DICT_NAME = #{dictName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="dictValue != null and dictValue != ''" >
+        	D.DICT_VALUE = #{dictValue , jdbcType=VARCHAR},
+      	</if>
+      	<if test="dictType != null and dictType != ''" >
+        	D.DICT_TYPE = #{dictType , jdbcType=VARCHAR},
+      	</if>
+      	<if test="dictGroupId != null and dictGroupId != ''" >
+        	D.DICT_GROUP_ID = #{dictGroupId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="dictGroupName != null and dictGroupName != ''" >
+        	D.DICT_GROUP_NAME = #{dictGroupName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="dictOrder != null" >
+        	D.DICT_ORDER = #{dictOrder , jdbcType=NUMERIC},
+      	</if>
+      	<if test="dictDesc != null and  dictDesc != ''" >
+        	D.DICT_DESC= #{dictDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	D.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null " >
+        	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      		D.VERSION = D.VERSION + 1
+		<where>
+			D.ACTIVE = '1'
+	   			AND	
+			D.DICT_ID = #{dictId, jdbcType=VARCHAR}
+		</where>
+	</update>
+	
+	
+	<update id="delete" parameterType="com.lvdao.entity.DictEntity" >
+	    UPDATE t_dict D SET
+	     	D.ACTIVE = '0'
+	  	<where>
+			 D.ACTIVE = '1'
+	   			AND	
+			D.DICT_ID = #{dictId, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  
+  
+  	<select id="queryAll" resultMap="DictResultMap">
+		SELECT 
+		<include refid="query_dict_param"/>		
+		FROM t_dict D
+		<where>
+			D.ACTIVE = '1'  
+			ORDER BY D.CREATE_TIME DESC
+		</where>
+	</select>
+	
+	<select id="queryPage" resultMap="DictResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_dict_param"/>
+		FROM T_DICT D
+		<where>
+			D.ACTIVE = '1'
+	      	ORDER BY D.ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(1)
+	    FROM T_DICT D
+		<where>
+			D.ACTIVE = '1'
+		</where>
+  	</select>
+	
+	 <sql id="query_dict_param" >
+	   		D.ID,
+	   		D.DICT_ID,
+	    	D.DICT_NAME,
+	    	D.DICT_VALUE,
+	    	D.DICT_GROUP_ID,
+	    	D.DICT_GROUP_NAME,
+	    	D.DICT_ORDER,
+	    	D.DICT_DESC,
+	    	D.ACTIVE,
+	    	D.CREATE_USER_ID,
+	    	D.CREATE_USER_NAME,
+	    	D.CREATE_TIME,
+	    	D.UPDATE_USER_ID,
+	    	D.UPDATE_USER_NAME,
+	    	D.UPDATE_TIME,
+	    	D.VERSION
+  	</sql>
+	
+	<select id="queryList" resultMap="DictResultMap" parameterType="java.util.Map">
+		  SELECT
+			<include refid="query_dict_param"/>
+		  FROM T_DICT D
+		<where>
+			D.ACTIVE = '1'
+		<if test="dictId != null and dictId != ''" >
+        	AND  D.DICT_ID = #{dictId, jdbcType=VARCHAR}
+      	</if>
+		<if test="dictName != null and dictName  != ''" >
+        	AND D.DICT_NAME = #{dictName, jdbcType=VARCHAR}
+      	</if>
+      	<if test="dictNames != null and dictNames != ''" >
+        	AND R.DICT_NAME LIKE CONCAT('%',#{dictNames, jdbcType=VARCHAR},'%')
+      	</if>
+      	<if test=" dictValue != null and dictValue != ''" >
+        	AND D.DICT_VALUE = #{dictValue , jdbcType=VARCHAR}
+      	</if>
+      	<if test="dictType != null and dictType != ''" >
+        	AND D.DICT_TYPE = #{dictType , jdbcType=VARCHAR}
+      	</if>
+      	<if test="dictGroupId != null and dictGroupId  != ''" >
+        	AND D.DICT_GROUP_ID = #{dictGroupId, jdbcType=VARCHAR}
+      	</if>
+      	<if test=" dictGroupName != null and dictGroupName  != ''" >
+        	AND D.DICT_GROUP_NAME = #{dictGroupName, jdbcType=VARCHAR}
+      	</if>
+      	<if test=" dictOrder != null" >
+        	AND D.DICT_ORDER = #{dictOrder , jdbcType=NUMERIC}
+      	</if>
+      	<if test="dictDesc != null and  dictDesc != ''" >
+        	AND D.DICT_DESC= #{dictDesc, jdbcType=VARCHAR}
+      	</if>
+      	<if test="active != null and active != ''" >
+        	AND D.ACTIVE = #{active, jdbcType=TINYINT}
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	AND D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	AND D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+      	</if>
+      	<if test="createTime != null " >
+        	AND D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	AND D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	AND D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+      	</if>
+      	<if test="updateTime != null" >
+      		AND D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP} 
+      	</if>
+	      	ORDER BY D.ID DESC
+		</where>
+	</select>
+	
+	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(DICT_ID + 1) FROM T_DICT
+	</select>
+	
+    <!-- 根据DictId 获取DictValue -->
+    <select id="queryDitcValueByDictId" resultMap="DictResultMap" parameterType="java.lang.String">
+		SELECT
+		<include refid="query_dict_param"/>
+		FROM T_DICT D
+		<where>
+			D.ACTIVE = '1'
+	      	AND  D.DICT_ID = #{dictId, jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+    <select id="queryDictGroupList" resultMap="DictResultMap" parameterType="java.util.Map">
+		SELECT DISTINCT D.DICT_GROUP_ID, D.DICT_GROUP_NAME
+		FROM T_DICT D
+		<where>
+			D.ACTIVE = '1'
+			<if test="dictNames != null and dictNames != ''" >
+	        	AND R.DICT_NAME LIKE CONCAT('%',#{dictNames, jdbcType=VARCHAR},'%')
+	      	</if>
+		</where>
+	</select>
+	
+</mapper>

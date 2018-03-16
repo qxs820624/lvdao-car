@@ -1,0 +1,486 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="RechargeEntity" >
+  <resultMap id="BaseResultMap" type="com.lvdao.entity.RechargeEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="RECHARGE_ACCOUNT_TYPE" property="rechargeAccountType" jdbcType="VARCHAR" />
+    <result column="RECHARGE_ACCOUNT" property="rechargeAccount" jdbcType="VARCHAR" />
+    <result column="RECHARGE_MONEY" property="rechargeMoney" jdbcType="VARCHAR" />
+    <result column="RECHARGE_WAY" property="rechargeWay" jdbcType="INTEGER" />
+    <result column="RECHARGE_ORDERID" property="rechargeOrderid" jdbcType="VARCHAR" />
+    <result column="RECHARGE_TRANSACTIONID" property="rechargeTransactionid" jdbcType="VARCHAR" />
+    <result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="VARCHAR" />
+    <result column="COMMENT" property="comment" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="INTEGER" />
+    <result column="ACTIVE" property="active" jdbcType="INTEGER" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_NAME, USER_ID, RECHARGE_ACCOUNT_TYPE, RECHARGE_ACCOUNT, RECHARGE_MONEY, 
+    RECHARGE_WAY, RECHARGE_ORDERID, RECHARGE_TRANSACTIONID, ACCOUNT_BALANCE, COMMENT, 
+    STATUS, ACTIVE, CREATE_USER_ID, CREATE_USER_NAME, CREATE_TIME, UPDATE_USER_ID, UPDATE_USER_NAME, 
+    UPDATE_TIME, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_recharge
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_recharge
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lvdao.entity.RechargeEntity" >
+    insert into t_recharge (ID, USER_NAME, USER_ID, 
+      RECHARGE_ACCOUNT_TYPE, RECHARGE_ACCOUNT, RECHARGE_MONEY, 
+      RECHARGE_WAY, RECHARGE_ORDERID, RECHARGE_TRANSACTIONID, 
+      ACCOUNT_BALANCE, COMMENT, STATUS, 
+      ACTIVE, CREATE_USER_ID, CREATE_USER_NAME, 
+      CREATE_TIME, UPDATE_USER_ID, UPDATE_USER_NAME, 
+      UPDATE_TIME, VERSION)
+    values (#{id,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{rechargeAccountType,jdbcType=VARCHAR}, #{rechargeAccount,jdbcType=VARCHAR}, #{rechargeMoney,jdbcType=VARCHAR}, 
+      #{rechargeWay,jdbcType=INTEGER}, #{rechargeOrderid,jdbcType=VARCHAR}, #{rechargeTransactionid,jdbcType=VARCHAR}, 
+      #{accountBalance,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{active,jdbcType=INTEGER}, #{createUserId,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.lvdao.entity.RechargeEntity" >
+    insert into t_recharge
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="rechargeAccountType != null" >
+        RECHARGE_ACCOUNT_TYPE,
+      </if>
+      <if test="rechargeAccount != null" >
+        RECHARGE_ACCOUNT,
+      </if>
+      <if test="rechargeMoney != null" >
+        RECHARGE_MONEY,
+      </if>
+      <if test="rechargeWay != null" >
+        RECHARGE_WAY,
+      </if>
+      <if test="rechargeOrderid != null" >
+        RECHARGE_ORDERID,
+      </if>
+      <if test="rechargeTransactionid != null" >
+        RECHARGE_TRANSACTIONID,
+      </if>
+      <if test="accountBalance != null" >
+        ACCOUNT_BALANCE,
+      </if>
+      <if test="comment != null" >
+        COMMENT,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAccountType != null" >
+        #{rechargeAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAccount != null" >
+        #{rechargeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeMoney != null" >
+        #{rechargeMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeWay != null" >
+        #{rechargeWay,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeOrderid != null" >
+        #{rechargeOrderid,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTransactionid != null" >
+        #{rechargeTransactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        #{accountBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.lvdao.entity.RechargeEntity" >
+    update t_recharge
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAccountType != null" >
+        RECHARGE_ACCOUNT_TYPE = #{rechargeAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAccount != null" >
+        RECHARGE_ACCOUNT = #{rechargeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeMoney != null" >
+        RECHARGE_MONEY = #{rechargeMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeWay != null" >
+        RECHARGE_WAY = #{rechargeWay,jdbcType=INTEGER},
+      </if>
+      <if test="rechargeOrderid != null" >
+        RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeTransactionid != null" >
+        RECHARGE_TRANSACTIONID = #{rechargeTransactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        ACCOUNT_BALANCE = #{accountBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lvdao.entity.RechargeEntity" >
+    update t_recharge
+    set USER_NAME = #{userName,jdbcType=VARCHAR},
+      USER_ID = #{userId,jdbcType=VARCHAR},
+      RECHARGE_ACCOUNT_TYPE = #{rechargeAccountType,jdbcType=VARCHAR},
+      RECHARGE_ACCOUNT = #{rechargeAccount,jdbcType=VARCHAR},
+      RECHARGE_MONEY = #{rechargeMoney,jdbcType=VARCHAR},
+      RECHARGE_WAY = #{rechargeWay,jdbcType=INTEGER},
+      RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR},
+      RECHARGE_TRANSACTIONID = #{rechargeTransactionid,jdbcType=VARCHAR},
+      ACCOUNT_BALANCE = #{accountBalance,jdbcType=VARCHAR},
+      COMMENT = #{comment,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=INTEGER},
+      ACTIVE = #{active,jdbcType=INTEGER},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="delete" parameterType="map" >
+	    UPDATE t_recharge R SET
+	    R.ACTIVE = '0'
+	  	<where>
+			R.ACTIVE = '1'
+	   		AND
+			R.ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  	
+  	<select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_recharge 
+	    <where>
+	    	 ACTIVE = '1'
+	      	 <if test="userName != null and userName != ''" >
+		       AND USER_NAME = #{userName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="userId != null and userId != ''" >
+		       AND USER_ID = #{userId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeAccountType != null and rechargeAccountType != ''" >
+		       AND RECHARGE_ACCOUNT_TYPE = #{rechargeAccountType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeAccount != null and rechargeAccount != ''" >
+		       AND RECHARGE_ACCOUNT = #{rechargeAccount,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeMoney != null and rechargeMoney != '' " >
+		       AND RECHARGE_MONEY = #{rechargeMoney,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeWay != null" >
+		       AND RECHARGE_WAY = #{rechargeWay,jdbcType=INTEGER}
+		      </if>
+		      <if test="rechargeOrderid != null and rechargeOrderid != '' " >
+		       AND RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeTransactionid != null and rechargeTransactionid != '' " >
+		       AND RECHARGE_TRANSACTIONID = #{rechargeTransactionid,jdbcType=VARCHAR}
+		      </if>
+		      <if test="accountBalance != null and accountBalance != '' " >
+		      AND  ACCOUNT_BALANCE = #{accountBalance,jdbcType=VARCHAR}
+		      </if>
+		      <if test="comment != null and comment != '' " >
+		       AND COMMENT = #{comment,jdbcType=VARCHAR}
+		      </if>
+		      <if test="status != null" >
+		       AND STATUS = #{status,jdbcType=INTEGER}
+		      </if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_recharge 
+	    <where>
+			ACTIVE = '1'
+	     	 <if test="userName != null and userName != ''" >
+		       AND USER_NAME = #{userName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="userId != null and userId != ''" >
+		       AND USER_ID = #{userId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeAccountType != null and rechargeAccountType != ''" >
+		       AND RECHARGE_ACCOUNT_TYPE = #{rechargeAccountType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeAccount != null and rechargeAccount != ''" >
+		       AND RECHARGE_ACCOUNT = #{rechargeAccount,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeMoney != null and rechargeMoney != '' " >
+		       AND RECHARGE_MONEY = #{rechargeMoney,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeWay != null" >
+		       AND RECHARGE_WAY = #{rechargeWay,jdbcType=INTEGER}
+		      </if>
+		      <if test="rechargeOrderid != null and rechargeOrderid != '' " >
+		       AND RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeTransactionid != null and rechargeTransactionid != '' " >
+		       AND RECHARGE_TRANSACTIONID = #{rechargeTransactionid,jdbcType=VARCHAR}
+		      </if>
+		      <if test="accountBalance != null and accountBalance != '' " >
+		      AND  ACCOUNT_BALANCE = #{accountBalance,jdbcType=VARCHAR}
+		      </if>
+		      <if test="comment != null and comment != '' " >
+		       AND COMMENT = #{comment,jdbcType=VARCHAR}
+		      </if>
+		      <if test="status != null" >
+		       AND STATUS = #{status,jdbcType=INTEGER}
+		      </if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_recharge 
+		<where>
+			ACTIVE = '1'
+	      		 <if test="userName != null and userName != ''" >
+		       AND USER_NAME = #{userName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="userId != null and userId != ''" >
+		       AND USER_ID = #{userId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeAccountType != null and rechargeAccountType != ''" >
+		       AND RECHARGE_ACCOUNT_TYPE = #{rechargeAccountType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeAccount != null and rechargeAccount != ''" >
+		       AND RECHARGE_ACCOUNT = #{rechargeAccount,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeMoney != null and rechargeMoney != '' " >
+		       AND RECHARGE_MONEY = #{rechargeMoney,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeWay != null" >
+		       AND RECHARGE_WAY = #{rechargeWay,jdbcType=INTEGER}
+		      </if>
+		      <if test="rechargeOrderid != null and rechargeOrderid != '' " >
+		       AND RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR}
+		      </if>
+		      <if test="rechargeTransactionid != null and rechargeTransactionid != '' " >
+		       AND RECHARGE_TRANSACTIONID = #{rechargeTransactionid,jdbcType=VARCHAR}
+		      </if>
+		      <if test="accountBalance != null and accountBalance != '' " >
+		      AND  ACCOUNT_BALANCE = #{accountBalance,jdbcType=VARCHAR}
+		      </if>
+		      <if test="comment != null and comment != '' " >
+		       AND COMMENT = #{comment,jdbcType=VARCHAR}
+		      </if>
+		      <if test="status != null" >
+		       AND STATUS = #{status,jdbcType=INTEGER}
+		      </if>
+	      	ORDER BY CREATE_TIME DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+ 	
+ 	<select id="queryAll" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"/>		
+		FROM t_recharge R
+		<where>
+			R.ACTIVE = '1'  
+			ORDER BY R.ID DESC
+		</where>
+	</select>
+  	
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(ID + 0) FROM t_recharge
+	</select>
+	
+	 <update id="updateByRechargeOrderid" parameterType="com.lvdao.entity.RechargeEntity" >
+    update t_recharge
+    <set >
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAccountType != null" >
+        RECHARGE_ACCOUNT_TYPE = #{rechargeAccountType,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeAccount != null" >
+        RECHARGE_ACCOUNT = #{rechargeAccount,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeMoney != null" >
+        RECHARGE_MONEY = #{rechargeMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="rechargeWay != null" >
+        RECHARGE_WAY = #{rechargeWay,jdbcType=INTEGER},
+      </if>
+<!--       <if test="rechargeOrderid != null" > -->
+<!--         RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR}, -->
+<!--       </if> -->
+      <if test="rechargeTransactionid != null" >
+        RECHARGE_TRANSACTIONID = #{rechargeTransactionid,jdbcType=VARCHAR},
+      </if>
+      <if test="accountBalance != null" >
+        ACCOUNT_BALANCE = #{accountBalance,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        COMMENT = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=INTEGER},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where RECHARGE_ORDERID = #{rechargeOrderid,jdbcType=VARCHAR}
+  </update>
+	
+</mapper>

@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="RolePermissionEntity" >
+	<resultMap id="RolePermissionResultMap" type="com.lvdao.entity.RolePermissionEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+	    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_ID" property="permissionId" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_NAME" property="permissionName" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_role_permission_param" >
+	    RP.ID,
+	    RP.ROLE_ID,
+	    RP.ROLE_NAME,
+	    RP.PERMISSION_ID,
+	    RP.PERMISSION_NAME,
+	    RP.ACTIVE,
+	    RP.CREATE_USER_ID,
+	    RP.CREATE_USER_NAME, 
+	    RP.CREATE_TIME,
+	    RP.UPDATE_USER_ID,
+	    RP.UPDATE_USER_NAME,
+	    RP.UPDATE_TIME,
+	    RP.VERSION
+  	</sql>
+
+  	<insert id="insert" 
+  		parameterType="com.lvdao.entity.RolePermissionEntity" >
+    	INSERT INTO T_ROLE_PERMISSION (
+	    	ID,
+	    	ROLE_ID,
+	    	ROLE_NAME, 
+	      	PERMISSION_ID,
+	      	PERMISSION_NAME,
+	      	ACTIVE, 
+	      	CREATE_USER_ID,
+	      	CREATE_USER_NAME,
+	      	CREATE_TIME, 
+	      	UPDATE_USER_ID,
+	      	UPDATE_USER_NAME,
+	      	UPDATE_TIME, 
+	      	VERSION
+      	) VALUES
+	   	(
+	      	#{id, jdbcType=VARCHAR},
+	      	#{roleId, jdbcType=VARCHAR},
+	      	#{roleName, jdbcType=VARCHAR}, 
+		    #{permissionId, jdbcType=VARCHAR},
+		    #{permissionName, jdbcType=VARCHAR},
+		    #{active, jdbcType=TINYINT}, 
+		    #{createUserId, jdbcType=VARCHAR},
+		    #{createUserName, jdbcType=VARCHAR},
+		    #{createTime, jdbcType=TIMESTAMP}, 
+		    #{updateUserId, jdbcType=VARCHAR},
+		    #{updateUserName, jdbcType=VARCHAR},
+		    #{updateTime, jdbcType=TIMESTAMP}, 
+		    #{version,jdbcType=DECIMAL}
+		)
+  	</insert>
+  	
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.RolePermissionEntity" >
+    	UPDATE T_ROLE_PERMISSION RP SET
+      	<if test="roleId != null and roleId != ''" >
+        	RP.ROLE_ID = #{roleId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="roleName != null and roleName != ''" >
+        	RP.ROLE_NAME = #{roleName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="permissionId != null and permissionId != ''" >
+        	RP.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="permissionName != null and permissionName != ''" >
+        	RP.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	RP.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	RP.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	RP.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	RP.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	RP.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	RP.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	RP.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		RP.VERSION = RP.VERSION + 1
+		<where>
+			RP.ACTIVE = '1'
+			AND
+			RP.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+			AND
+			RP.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_ROLE_PERMISSION RP SET
+	    RP.ACTIVE = '0'
+	  	<where>
+			RP.ACTIVE = '1'
+			AND
+			RP.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+			<if test="permissionId != null and permissionId != ''" >
+			AND
+			RP.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+			</if>
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="RolePermissionResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_role_permission_param" />
+	    FROM T_ROLE_PERMISSION RP
+	    <where>
+			RP.ACTIVE = '1'
+			<if test="roleId != null and roleId != ''" >
+			AND
+			RP.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+			</if>
+			<if test="permissionId != null and permissionId != ''" >
+			AND
+			RP.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+			</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND RP.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="permissionName != null and permissionName != ''" >
+	        	AND RP.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select> 
+  
+  	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_ROLE_PERMISSION RP
+	    <where>
+			RP.ACTIVE = '1'
+			<if test="roleId != null and roleId != ''" >
+	        	AND RP.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND RP.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="permissionId != null and permissionId != ''" >
+	        	AND RP.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="permissionName != null and permissionName != ''" >
+	        	AND RP.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="RolePermissionResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_role_permission_param"/>
+		FROM T_ROLE_PERMISSION RP
+		<where>
+			RP.ACTIVE = '1'
+			<if test="roleId != null and roleId != ''" >
+	        	AND RP.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND RP.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="permissionId != null and permissionId != ''" >
+	        	AND RP.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="permissionName != null and permissionName != ''" >
+	        	AND RP.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	ORDER BY RP.ROLE_ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="RolePermissionResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_role_permission_param"/>		
+		FROM T_ROLE_PERMISSION RP
+		<where>
+			RP.ACTIVE = '1'  
+			ORDER BY RP.ROLE_ID DESC
+		</where>
+	</select>
+	
+	<select id="queryPermissionListByRoleId" resultMap="RolePermissionResultMap"  parameterType="java.util.Map">
+		SELECT 
+			RP.PERMISSION_ID
+			FROM T_ROLE_PERMISSION RP
+		<where>
+			RP.ACTIVE = '1' 
+			<if test="roleId != null and roleId != ''" >
+	        	AND RP.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if> 
+		</where>
+	</select>
+</mapper>

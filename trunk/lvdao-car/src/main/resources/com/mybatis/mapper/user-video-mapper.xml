@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserViedoEntity" >
+	<resultMap id="UserViedoEntityMap" type="com.lvdao.entity.UserViedoEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	   	<result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	   	<result column="VIEDO_ID" property="viedoId" jdbcType="VARCHAR" />
+	   	<result column="VIEDO_URL" property="viedoUrl" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+ 	<sql id="query_UserViedo" >
+ 		UV.ID,
+ 		UV.USER_ID,
+ 		UV.USER_NAME,
+ 		UV.VIEDO_ID,
+ 		UV.VIEDO_URL,
+    	UV.ACTIVE,
+    	UV.CREATE_USER_ID,
+    	UV.CREATE_USER_NAME,
+    	UV.CREATE_TIME,
+    	UV.UPDATE_USER_ID,
+    	UV.UPDATE_USER_NAME,
+    	UV.UPDATE_TIME,
+    	UV.VERSION
+  	</sql>
+  
+  	<insert id="insert" parameterType="com.lvdao.entity.UserViedoEntity">
+	 	INSERT INTO t_user_viedo (
+	    	ID,
+	    	USER_ID,
+ 			USER_NAME,
+ 			VIEDO_ID,
+ 			VIEDO_URL,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	VERSION
+		) VALUES(	
+		#{id, jdbcType=VARCHAR},
+		#{userId, jdbcType=VARCHAR},
+		#{userName, jdbcType=VARCHAR},
+		#{viedoId, jdbcType=VARCHAR},
+		#{viedoUrl, jdbcType=VARCHAR},
+		#{active, jdbcType=TINYINT},	
+		#{createUserId, jdbcType=VARCHAR},
+		#{createUserName, jdbcType=VARCHAR},
+		#{createTime, jdbcType=TIMESTAMP},
+		#{version, jdbcType=NUMERIC}
+	)
+	</insert>
+  	
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.UserViedoEntity" >
+    	UPDATE t_user_viedo UV SET
+      	<if test=" userId != null and userId  != ''" >
+        	UV.USER_ID = #{userId , jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName  != ''" >
+        	UV.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test=" viedoId != null and viedoId != ''" >
+        	UV.VIEDO_ID = #{viedoId, jdbcType=VARCHAR},
+      	</if>
+      	<if test=" viedoUrl != null and viedoUrl != ''" >
+        	UV.VIEDO_URL = #{viedoUrl, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	UV.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	UV.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	UV.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	UV.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	UV.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	UV.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	UV.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		UV.VERSION = UV.VERSION + 1
+		<where>
+	    	UV.ACTIVE = '1'
+	    	AND
+			UV.ID = #{id, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  	
+  
+  	<update id="delete" parameterType="map" >
+	    UPDATE t_user_viedo UV SET
+	    UV.ACTIVE = '0'
+	  	<where>
+	    	UV.ACTIVE = '1'
+			<if test="id != null and id != ''" >	
+				AND UV.ID = #{id, jdbcType=VARCHAR}
+			</if>	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="UserViedoEntityMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_UserViedo" />
+	    FROM t_user_viedo UV
+	    <where>
+	    	UV.ACTIVE = '1'
+	    	<if test=" userId != null and userId  != ''" >
+	         	AND	UV.USER_ID = #{userId , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName  != ''" >
+	        	AND  UV.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" viedoId != null and viedoId != ''" >
+	        	AND UV.VIEDO_ID = #{viedoId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" viedoUrl != null and viedoUrl != ''" >
+	        	AND UV.VIEDO_URL = #{viedoUrl, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+ 	</select>
+  	
+    <select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_user_viedo UV
+	    <where>
+	    	UV.ACTIVE = '1'
+			<if test=" userId != null and userId  != ''" >
+	        	AND UV.USER_ID = #{userId , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName  != ''" >
+	        	AND UV.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" viedoId != null and viedoId != ''" >
+	        	AND UV.VIEDO_ID = #{viedoId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" viedoUrl != null and viedoUrl != ''" >
+	        	AND UV.VIEDO_URL = #{viedoUrl, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="UserViedoEntityMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_UserViedo"/>
+		FROM t_user_viedo UV
+		<where>
+			UV.ACTIVE = '1'
+			<if test=" userId != null and userId  != ''" >
+	        	AND UV.USER_ID = #{userId , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName  != ''" >
+	        	AND UV.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" viedoId != null and viedoId != ''" >
+	        	AND UV.VIEDO_ID = #{viedoId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" viedoUrl != null and viedoUrl != ''" >
+	        	AND UV.VIEDO_URL = #{viedoUrl, jdbcType=VARCHAR}
+	      	</if>
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="UserViedoEntityMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_UserViedo"/>		
+		FROM t_user_viedo UV
+		<where>
+			UV.ACTIVE = '1'  
+		</where>
+	</select>
+</mapper>

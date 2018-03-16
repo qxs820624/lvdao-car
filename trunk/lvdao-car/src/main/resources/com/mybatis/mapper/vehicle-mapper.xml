@@ -1,0 +1,588 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="VehicleEntity" >
+  <resultMap id="BaseResultMap" type="com.lvdao.entity.VehicleEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="VEHICLE_ID" property="vehicleId" jdbcType="VARCHAR" />
+    <result column="VEHICLE_BRAND" property="vehicleBrand" jdbcType="VARCHAR" />
+    <result column="VEHICLE_MODEL" property="vehicleModel" jdbcType="VARCHAR" />
+    <result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="VEHICLE_ENGINE_NO" property="vehicleEngineNo" jdbcType="VARCHAR" />
+    <result column="VEHICLE_VIN_NO" property="vehicleVinNo" jdbcType="VARCHAR" />
+    <result column="VEHICLE_TYPE" property="vehicleType" jdbcType="VARCHAR" />
+    <result column="VEHICLE_LENGTH" property="vehicleLength" jdbcType="VARCHAR" />
+    <result column="VEHICLE_HEIGHT" property="vehicleHeight" jdbcType="VARCHAR" />
+    <result column="VEHICLE_WEIGHT" property="vehicleWeight" jdbcType="VARCHAR" />
+    <result column="VEHICLE_SEAT_NO" property="vehicleSeatNo" jdbcType="VARCHAR" />
+    <result column="VEHICLE_LOAD_CAPACITY" property="vehicleLoadCapacity" jdbcType="VARCHAR" />
+    <result column="VEHICLE_DRIVER_ID" property="vehicleDriverId" jdbcType="VARCHAR" />
+    <result column="VEHICLE_DRIVER_NAME" property="vehicleDriverName" jdbcType="VARCHAR" />
+    <result column="VEHICLE_DRIVER_MOBILE_NO" property="vehicleDriverMobileNo" jdbcType="VARCHAR" />
+    <result column="VEHICLE_LEVEL" property="vehicleLevel" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    
+    <result column="VEHICLE_LOAD_VOLUME" property="vehicleLoadVolume" jdbcType="VARCHAR" />
+    <result column="VEHICLE_COLOR" property="vehicleColor" jdbcType="VARCHAR" />
+    <result column="VEHICLE_WIDTH" property="vehicleWidth" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, VEHICLE_ID, VEHICLE_BRAND, VEHICLE_MODEL, VEHICLE_NO, VEHICLE_ENGINE_NO, VEHICLE_VIN_NO, 
+    VEHICLE_TYPE, VEHICLE_LENGTH, VEHICLE_HEIGHT, VEHICLE_WEIGHT, VEHICLE_SEAT_NO, VEHICLE_LOAD_CAPACITY, 
+    VEHICLE_DRIVER_ID, VEHICLE_DRIVER_NAME, VEHICLE_DRIVER_MOBILE_NO, VEHICLE_LEVEL, 
+    ACTIVE, CREATE_USER_ID, CREATE_USER_NAME, CREATE_TIME, UPDATE_USER_ID, UPDATE_USER_NAME, 
+    UPDATE_TIME, VERSION,VEHICLE_LOAD_VOLUME,VEHICLE_COLOR,VEHICLE_WIDTH
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_vehicle
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_vehicle
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  <insert id="insert" parameterType="com.lvdao.entity.VehicleEntity" >
+    insert into t_vehicle (ID, VEHICLE_ID, VEHICLE_BRAND, 
+      VEHICLE_MODEL, VEHICLE_NO, VEHICLE_ENGINE_NO, 
+      VEHICLE_VIN_NO, VEHICLE_TYPE, VEHICLE_LENGTH, 
+      VEHICLE_HEIGHT, VEHICLE_WEIGHT, VEHICLE_SEAT_NO, 
+      VEHICLE_LOAD_CAPACITY, VEHICLE_DRIVER_ID, VEHICLE_DRIVER_NAME, 
+      VEHICLE_DRIVER_MOBILE_NO, VEHICLE_LEVEL, ACTIVE, 
+      CREATE_USER_ID, CREATE_USER_NAME, CREATE_TIME, 
+      UPDATE_USER_ID, UPDATE_USER_NAME, UPDATE_TIME, 
+      VERSION,VEHICLE_LOAD_VOLUME,VEHICLE_COLOR,VEHICLE_WIDTH
+      )
+    values (#{id,jdbcType=VARCHAR}, #{vehicleId,jdbcType=VARCHAR}, #{vehicleBrand,jdbcType=VARCHAR}, 
+      #{vehicleModel,jdbcType=VARCHAR}, #{vehicleNo,jdbcType=VARCHAR}, #{vehicleEngineNo,jdbcType=VARCHAR}, 
+      #{vehicleVinNo,jdbcType=VARCHAR}, #{vehicleType,jdbcType=VARCHAR}, #{vehicleLength,jdbcType=VARCHAR}, 
+      #{vehicleHeight,jdbcType=VARCHAR}, #{vehicleWeight,jdbcType=VARCHAR}, #{vehicleSeatNo,jdbcType=VARCHAR}, 
+      #{vehicleLoadCapacity,jdbcType=VARCHAR}, #{vehicleDriverId,jdbcType=VARCHAR}, #{vehicleDriverName,jdbcType=VARCHAR}, 
+      #{vehicleDriverMobileNo,jdbcType=VARCHAR}, #{vehicleLevel,jdbcType=VARCHAR}, #{active,jdbcType=TINYINT}, 
+      #{createUserId,jdbcType=VARCHAR}, #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateUserId,jdbcType=VARCHAR}, #{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, 
+      #{version,jdbcType=DECIMAL}, #{vehicleLoadVolume,jdbcType=VARCHAR}, #{vehicleColor,jdbcType=VARCHAR}, #{vehicleWidth,jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.lvdao.entity.VehicleEntity" >
+    insert into t_vehicle
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="vehicleId != null" >
+        VEHICLE_ID,
+      </if>
+      <if test="vehicleBrand != null" >
+        VEHICLE_BRAND,
+      </if>
+      <if test="vehicleModel != null" >
+        VEHICLE_MODEL,
+      </if>
+      <if test="vehicleNo != null" >
+        VEHICLE_NO,
+      </if>
+      <if test="vehicleEngineNo != null" >
+        VEHICLE_ENGINE_NO,
+      </if>
+      <if test="vehicleVinNo != null" >
+        VEHICLE_VIN_NO,
+      </if>
+      <if test="vehicleType != null" >
+        VEHICLE_TYPE,
+      </if>
+      <if test="vehicleLength != null" >
+        VEHICLE_LENGTH,
+      </if>
+      <if test="vehicleHeight != null" >
+        VEHICLE_HEIGHT,
+      </if>
+      <if test="vehicleWeight != null" >
+        VEHICLE_WEIGHT,
+      </if>
+      <if test="vehicleSeatNo != null" >
+        VEHICLE_SEAT_NO,
+      </if>
+      <if test="vehicleLoadCapacity != null" >
+        VEHICLE_LOAD_CAPACITY,
+      </if>
+      <if test="vehicleDriverId != null" >
+        VEHICLE_DRIVER_ID,
+      </if>
+      <if test="vehicleDriverName != null" >
+        VEHICLE_DRIVER_NAME,
+      </if>
+      <if test="vehicleDriverMobileNo != null" >
+        VEHICLE_DRIVER_MOBILE_NO,
+      </if>
+      <if test="vehicleLevel != null" >
+        VEHICLE_LEVEL,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleId != null" >
+        #{vehicleId,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleBrand != null" >
+        #{vehicleBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleModel != null" >
+        #{vehicleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleEngineNo != null" >
+        #{vehicleEngineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVinNo != null" >
+        #{vehicleVinNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null" >
+        #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLength != null" >
+        #{vehicleLength,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleHeight != null" >
+        #{vehicleHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleWeight != null" >
+        #{vehicleWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleSeatNo != null" >
+        #{vehicleSeatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLoadCapacity != null" >
+        #{vehicleLoadCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleDriverId != null" >
+        #{vehicleDriverId,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleDriverName != null" >
+        #{vehicleDriverName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleDriverMobileNo != null" >
+        #{vehicleDriverMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLevel != null" >
+        #{vehicleLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.lvdao.entity.VehicleEntity" >
+    update t_vehicle
+    <set >
+      <if test="vehicleId != null" >
+        VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleBrand != null" >
+        VEHICLE_BRAND = #{vehicleBrand,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleModel != null" >
+        VEHICLE_MODEL = #{vehicleModel,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleEngineNo != null" >
+        VEHICLE_ENGINE_NO = #{vehicleEngineNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleVinNo != null" >
+        VEHICLE_VIN_NO = #{vehicleVinNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleType != null" >
+        VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLength != null" >
+        VEHICLE_LENGTH = #{vehicleLength,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleHeight != null" >
+        VEHICLE_HEIGHT = #{vehicleHeight,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleWeight != null" >
+        VEHICLE_WEIGHT = #{vehicleWeight,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleSeatNo != null" >
+        VEHICLE_SEAT_NO = #{vehicleSeatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLoadCapacity != null" >
+        VEHICLE_LOAD_CAPACITY = #{vehicleLoadCapacity,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleDriverId != null" >
+        VEHICLE_DRIVER_ID = #{vehicleDriverId,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleDriverName != null" >
+        VEHICLE_DRIVER_NAME = #{vehicleDriverName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleDriverMobileNo != null" >
+        VEHICLE_DRIVER_MOBILE_NO = #{vehicleDriverMobileNo,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLevel != null" >
+        VEHICLE_LEVEL = #{vehicleLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="vehicleLoadVolume != null" >
+        VEHICLE_LOAD_VOLUME = #{vehicleLoadVolume,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleColor != null" >
+        VEHICLE_COLOR = #{vehicleColor,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleWidth != null" >
+        VEHICLE_WIDTH = #{vehicleWidth,jdbcType=VARCHAR},
+      </if>
+      VERSION = VERSION + 1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.lvdao.entity.VehicleEntity" >
+    update t_vehicle
+    set VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR},
+      VEHICLE_BRAND = #{vehicleBrand,jdbcType=VARCHAR},
+      VEHICLE_MODEL = #{vehicleModel,jdbcType=VARCHAR},
+      VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR},
+      VEHICLE_ENGINE_NO = #{vehicleEngineNo,jdbcType=VARCHAR},
+      VEHICLE_VIN_NO = #{vehicleVinNo,jdbcType=VARCHAR},
+      VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR},
+      VEHICLE_LENGTH = #{vehicleLength,jdbcType=VARCHAR},
+      VEHICLE_HEIGHT = #{vehicleHeight,jdbcType=VARCHAR},
+      VEHICLE_WEIGHT = #{vehicleWeight,jdbcType=VARCHAR},
+      VEHICLE_SEAT_NO = #{vehicleSeatNo,jdbcType=VARCHAR},
+      VEHICLE_LOAD_CAPACITY = #{vehicleLoadCapacity,jdbcType=VARCHAR},
+      VEHICLE_DRIVER_ID = #{vehicleDriverId,jdbcType=VARCHAR},
+      VEHICLE_DRIVER_NAME = #{vehicleDriverName,jdbcType=VARCHAR},
+      VEHICLE_DRIVER_MOBILE_NO = #{vehicleDriverMobileNo,jdbcType=VARCHAR},
+      VEHICLE_LEVEL = #{vehicleLevel,jdbcType=VARCHAR},
+      ACTIVE = #{active,jdbcType=TINYINT},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL},
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+   
+   
+   <update id="delete" parameterType="map" >
+	    UPDATE t_vehicle  SET
+	       ACTIVE = '0'
+	  	<where>
+			ACTIVE = '1'
+	   		AND
+			VEHICLE_ID = #{vehicleId, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_vehicle 
+	    <where>
+	    ACTIVE = '1'
+	  <if test="vehicleId != null" >
+		AND VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleBrand != null" >
+		AND VEHICLE_BRAND = #{vehicleBrand,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleModel != null" >
+		AND VEHICLE_MODEL = #{vehicleModel,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleNo != null" >
+		AND VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleEngineNo != null" >
+		AND VEHICLE_ENGINE_NO = #{vehicleEngineNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleVinNo != null" >
+		AND VEHICLE_VIN_NO = #{vehicleVinNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleType != null" >
+		AND VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleLength != null" >
+		AND VEHICLE_LENGTH = #{vehicleLength,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleHeight != null" >
+		AND VEHICLE_HEIGHT = #{vehicleHeight,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleWeight != null" >
+        AND VEHICLE_WEIGHT = #{vehicleWeight,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleSeatNo != null" >
+        AND VEHICLE_SEAT_NO = #{vehicleSeatNo, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleLoadCapacity != null" >
+        AND VEHICLE_LOAD_CAPACITY = #{vehicleLoadCapacity, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleDriverId != null" >
+		AND VEHICLE_DRIVER_ID = #{vehicleDriverId, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleDriverName != null" >
+        AND VEHICLE_DRIVER_NAME = #{vehicleDriverName,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleDriverMobileNo != null" >
+        AND VEHICLE_DRIVER_MOBILE_NO = #{vehicleDriverMobileNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleLevel != null" >
+        AND VEHICLE_LEVEL = #{vehicleLevel,jdbcType=VARCHAR}
+      </if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_vehicle 
+	      <where>
+	    	ACTIVE = '1'
+	  <if test="vehicleId != null" >
+		AND VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleBrand != null" >
+		AND VEHICLE_BRAND = #{vehicleBrand,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleModel != null" >
+		AND VEHICLE_MODEL = #{vehicleModel,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleNo != null" >
+		AND VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleEngineNo != null" >
+		AND VEHICLE_ENGINE_NO = #{vehicleEngineNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleVinNo != null" >
+		AND VEHICLE_VIN_NO = #{vehicleVinNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleType != null" >
+		AND VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleLength != null" >
+		AND VEHICLE_LENGTH = #{vehicleLength,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleHeight != null" >
+		AND VEHICLE_HEIGHT = #{vehicleHeight,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleWeight != null" >
+        AND VEHICLE_WEIGHT = #{vehicleWeight,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleSeatNo != null" >
+        AND VEHICLE_SEAT_NO = #{vehicleSeatNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleLoadCapacity != null" >
+        AND VEHICLE_LOAD_CAPACITY = #{vehicleLoadCapacity,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleDriverId != null" >
+        AND VEHICLE_DRIVER_ID = #{vehicleDriverId,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleDriverName != null" >
+        AND VEHICLE_DRIVER_NAME = #{vehicleDriverName,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleDriverMobileNo != null" >
+        AND VEHICLE_DRIVER_MOBILE_NO = #{vehicleDriverMobileNo,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleLevel != null" >
+        AND VEHICLE_LEVEL = #{vehicleLevel,jdbcType=VARCHAR}
+      </if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_vehicle 
+		   <where>
+	    	ACTIVE = '1'
+		  <if test="vehicleId != null" >
+			AND VEHICLE_ID = #{vehicleId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleBrand != null" >
+			AND VEHICLE_BRAND = #{vehicleBrand,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleModel != null" >
+			AND VEHICLE_MODEL = #{vehicleModel,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleNo != null" >
+			AND VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleEngineNo != null" >
+			AND VEHICLE_ENGINE_NO = #{vehicleEngineNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleVinNo != null" >
+			AND VEHICLE_VIN_NO = #{vehicleVinNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleType != null" >
+			AND VEHICLE_TYPE = #{vehicleType,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleLength != null" >
+			AND VEHICLE_LENGTH = #{vehicleLength,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleHeight != null" >
+			AND VEHICLE_HEIGHT = #{vehicleHeight,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleWeight != null" >
+	        AND VEHICLE_WEIGHT = #{vehicleWeight,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleSeatNo != null" >
+	        AND VEHICLE_SEAT_NO = #{vehicleSeatNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleLoadCapacity != null" >
+	        AND VEHICLE_LOAD_CAPACITY = #{vehicleLoadCapacity,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleDriverId != null" >
+	        AND VEHICLE_DRIVER_ID = #{vehicleDriverId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleDriverName != null" >
+	        AND VEHICLE_DRIVER_NAME = #{vehicleDriverName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleDriverMobileNo != null" >
+	        AND VEHICLE_DRIVER_MOBILE_NO = #{vehicleDriverMobileNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleLevel != null" >
+	        AND VEHICLE_LEVEL = #{vehicleLevel,jdbcType=VARCHAR}
+	      </if>
+	      	ORDER BY CREATE_TIME DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+ 	
+ 	<select id="queryAll" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"/>		
+		FROM t_vehicle 
+		<where>
+			ACTIVE = '1'  
+			ORDER BY ID DESC
+		</where>
+	</select>
+  	
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(VEHICLE_ID + 0) FROM t_vehicle
+	</select>
+	
+	<select id="findNearDriverUser" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT 
+		v.VEHICLE_ID,
+		v.VEHICLE_BRAND,
+		v.VEHICLE_MODEL,
+		v.VEHICLE_NO,
+		v.VEHICLE_TYPE,
+		v.VEHICLE_LENGTH,
+		v.VEHICLE_HEIGHT,
+		v.VEHICLE_WEIGHT,
+		v.VEHICLE_SEAT_NO,
+		v.VEHICLE_LOAD_CAPACITY,
+		v.VEHICLE_DRIVER_ID,
+		v.VEHICLE_DRIVER_NAME,
+		v.VEHICLE_DRIVER_MOBILE_NO,
+		v.VEHICLE_LEVEL,
+		u.USER_LONGITUDE as userLongitude,
+		u.USER_LATITUDE as userLatitude
+		FROM T_VEHICLE v
+		LEFT JOIN T_USER u
+		on v.VEHICLE_DRIVER_ID = u.USER_ID  
+		<where>
+			v.ACTIVE = '1'
+			AND u.active = '1'
+			<if test="vehicleType != null and vehicleType != ''" >
+        		AND	v.VEHICLE_TYPE = #{vehicleType, jdbcType=VARCHAR}
+      		</if>
+			<if test="minLat != null and maxLat != null" >
+        		AND	u.USER_LATITUDE BETWEEN  #{minLat, jdbcType=DOUBLE} AND #{maxLat, jdbcType=DOUBLE}
+      		</if>
+      		<if test="minLon != null and maxLon != null" >
+	        	AND	u.USER_LONGITUDE BETWEEN  #{minLon, jdbcType=DOUBLE} AND #{maxLon, jdbcType=DOUBLE}
+	      	</if>
+	      	<if test="userId != null" >
+				AND u.USER_ID != #{userId, jdbcType=VARCHAR}
+		    </if>
+	      	ORDER BY u.USER_LATITUDE ASC, u.USER_LATITUDE ASC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>	
+</mapper>

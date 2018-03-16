@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="AccountEntity" >
+	<resultMap id="AccountResultMap"
+		type="com.lvdao.entity.AccountEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_ID" property="accountId" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_NAME" property="accountName" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_TYPE" property="accountType" jdbcType="VARCHAR" />
+	    <result column="BONUS_LIMIT_AMOUNT" property="bonusLimitAmount" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_account_param" >
+	    A.ACCOUNT_ID,
+	    A.ACCOUNT_NAME,
+	    A.ACCOUNT_TYPE,
+	    A.BONUS_LIMIT_AMOUNT,
+	    A.ACTIVE,
+	    A.CREATE_USER_ID, 
+	    A.CREATE_USER_NAME,
+	    A.CREATE_TIME,
+	    A.UPDATE_USER_ID,
+	    A.UPDATE_USER_NAME,
+	    A.UPDATE_TIME,
+	    A.VERSION
+  	</sql>
+  
+  	<insert id="insert" parameterType="com.lvdao.entity.AccountEntity" >
+    	INSERT INTO T_ACCOUNT (
+	    	ID,
+	    	ACCOUNT_ID,
+	    	ACCOUNT_NAME, 
+	      	ACCOUNT_TYPE,
+	      	BONUS_LIMIT_AMOUNT,
+	      	ACTIVE, 
+	      	CREATE_USER_ID,
+	      	CREATE_USER_NAME,
+	      	CREATE_TIME, 
+	      	UPDATE_USER_ID,
+	      	UPDATE_USER_NAME,
+	      	UPDATE_TIME, 
+	      	VERSION
+      	) VALUES
+	   	(
+	      	#{id, jdbcType=VARCHAR},
+	      	#{accountId, jdbcType=VARCHAR},
+	      	#{accountName, jdbcType=VARCHAR}, 
+		    #{accountType, jdbcType=VARCHAR},
+		    #{bonusLimitAmount, jdbcType=VARCHAR},
+		    #{active, jdbcType=TINYINT}, 
+		    #{createUserId, jdbcType=VARCHAR},
+		    #{createUserName, jdbcType=VARCHAR},
+		    #{createTime, jdbcType=TIMESTAMP}, 
+		    #{updateUserId, jdbcType=VARCHAR},
+		    #{updateUserName, jdbcType=VARCHAR},
+		    #{updateTime, jdbcType=TIMESTAMP}, 
+		    #{version,jdbcType=DECIMAL}
+		)
+  	</insert>
+  	
+  	<update id="update" parameterType="com.lvdao.entity.AccountEntity" >
+    	UPDATE T_ACCOUNT A SET
+      	<if test="accountId != null and accountId != ''" >
+        	A.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="accountName != null and accountName != ''" >
+        	A.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="accountType != null and accountType != ''" >
+        	A.ACCOUNT_TYPE = #{accountType, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusLimitAmount != null and bonusLimitAmount != ''" >
+        	A.BONUS_LIMIT_AMOUNT = #{bonusLimitAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	A.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	A.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	A.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	A.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	A.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	A.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	A.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		A.VERSION = A.VERSION + 1
+		<where>
+			A.ACTIVE = '1'
+	   		AND
+			A.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_ACCOUNT A SET
+	    A.ACTIVE = '0'
+	  	<where>
+			A.ACTIVE = '1'
+	   		AND
+			A.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="AccountResultMap" parameterType="map" >
+	    SELECT 
+	    <include refid="query_account_param" />
+	    FROM T_ACCOUNT A
+	    <where>
+	   		A.ACTIVE = '1'
+	   		<if test="accountId != null and accountId != ''" >
+	   		AND A.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	   		</if>
+	      	<if test="accountName != null and accountName != ''" >
+	        	AND A.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountType != null and accountType != ''" >
+	        	AND A.ACCOUNT_TYPE = #{accountType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusLimitAmount != null and bonusLimitAmount != ''" >
+	        	AND A.BONUS_LIMIT_AMOUNT = #{bonusLimitAmount, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_ACCOUNT A
+	    <where>
+			A.ACTIVE = '1'
+			<if test="accountId != null and accountId != ''" >
+	        	AND A.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountName != null and accountName != ''" >
+	        	AND A.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountType != null and accountType != ''" >
+	        	AND A.ACCOUNT_TYPE = #{accountType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusLimitAmount != null and bonusLimitAmount != ''" >
+	        	AND A.BONUS_LIMIT_AMOUNT = #{bonusLimitAmount, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="AccountResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_account_param"/>
+		FROM T_ACCOUNT A
+		<where>
+			A.ACTIVE = '1'
+			<if test="accountId != null and accountId != ''" >
+	        	AND A.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountName != null and accountName != ''" >
+	        	AND A.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountType != null and accountType != ''" >
+	        	AND A.ACCOUNT_TYPE = #{accountType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusLimitAmount != null and bonusLimitAmount != ''" >
+	        	AND A.BONUS_LIMIT_AMOUNT = #{bonusLimitAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	ORDER BY A.ACCOUNT_ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="AccountResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_account_param"/>		
+		FROM T_ACCOUNT A
+		<where>
+			A.ACTIVE = '1'  
+			ORDER BY A.ACCOUNT_ID DESC
+		</where>
+	</select>	
+	
+	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(ACCOUNT_ID + 0) FROM T_ACCOUNT
+	</select>
+</mapper>

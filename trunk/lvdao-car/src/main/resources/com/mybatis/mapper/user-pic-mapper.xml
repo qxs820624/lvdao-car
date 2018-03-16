@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserPicEntity" >
+	<resultMap id="UserPicResultMap" type="com.lvdao.entity.UserPicEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="PIC_ID" property="picId" jdbcType="VARCHAR" />
+	    <result column="PIC_URL" property="picUrl" jdbcType="VARCHAR" />
+	    <result column="PIC_DESC" property="picDesc" jdbcType="VARCHAR" />
+	    <result column="PIC_GROUP_ID" property="picGroupId" jdbcType="VARCHAR" />
+	    <result column="PIC_USE" property="picUse" jdbcType="TINYINT" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_user_pic_param" >
+	    ID,
+	    USER_ID,
+	    USER_NAME,
+	    PIC_ID,
+	    PIC_URL,
+	    PIC_DESC,
+	    PIC_GROUP_ID,
+	    PIC_USE,
+	    ACTIVE,
+	    CREATE_USER_ID, 
+	    CREATE_USER_NAME,
+	    CREATE_TIME,
+	    UPDATE_USER_ID,
+	    UPDATE_USER_NAME,
+	    UPDATE_TIME,
+	    VERSION
+  	</sql>
+
+    <insert id="insert" 
+  		parameterType="com.lvdao.entity.UserPicEntity" >
+    	INSERT INTO t_user_pic (
+	    	ID,
+		    USER_ID,
+		    USER_NAME,
+		    PIC_ID,
+		    PIC_URL,
+		    PIC_DESC,
+		    PIC_GROUP_ID,
+		    PIC_USE,
+		    ACTIVE,
+		    CREATE_USER_ID, 
+		    CREATE_USER_NAME,
+		    CREATE_TIME,
+		    UPDATE_USER_ID,
+		    UPDATE_USER_NAME,
+		    UPDATE_TIME,
+		    VERSION
+      	) VALUES
+   	(
+      	#{id, jdbcType=VARCHAR},
+      	#{userId, jdbcType=VARCHAR},
+      	#{userName, jdbcType=VARCHAR}, 
+      	#{picId, jdbcType=VARCHAR},
+      	#{picUrl, jdbcType=VARCHAR},
+      	#{picDesc, jdbcType=VARCHAR},
+      	#{picGroupId, jdbcType=VARCHAR},
+      	#{picUse, jdbcType=TINYINT},
+	    #{active, jdbcType=TINYINT}, 
+	    #{createUserId, jdbcType=VARCHAR},
+	    #{createUserName, jdbcType=VARCHAR},
+	    #{createTime, jdbcType=TIMESTAMP}, 
+	    #{updateUserId, jdbcType=VARCHAR},
+	    #{updateUserName, jdbcType=VARCHAR},
+	    #{updateTime, jdbcType=TIMESTAMP}, 
+	    #{version, jdbcType=NUMERIC}
+	 )
+  	</insert>
+  	
+  	<insert id="insertList" parameterType="java.util.List" >
+    	INSERT INTO t_user_pic (
+	    	ID,
+		    USER_ID,
+		    USER_NAME,
+		    PIC_ID,
+		    PIC_URL,
+		    PIC_DESC,
+		    PIC_GROUP_ID,
+		    PIC_USE,
+		    ACTIVE,
+		    CREATE_USER_ID, 
+		    CREATE_USER_NAME,
+		    CREATE_TIME,
+		    UPDATE_USER_ID,
+		    UPDATE_USER_NAME,
+		    UPDATE_TIME,
+		    VERSION
+      	) VALUES
+      	<foreach collection="list" item="item" index="index" separator="," >
+      	(
+	      	#{item.id, jdbcType=VARCHAR},
+	      	#{item.userId, jdbcType=VARCHAR},
+	      	#{item.userName, jdbcType=VARCHAR}, 
+	      	#{item.picId, jdbcType=VARCHAR},
+	      	#{item.picUrl, jdbcType=VARCHAR},
+	      	#{item.picDesc, jdbcType=VARCHAR},
+      		#{item.picGroupId, jdbcType=VARCHAR},
+	      	#{item.picUse, jdbcType=TINYINT},
+		    #{item.active, jdbcType=TINYINT}, 
+		    #{item.createUserId, jdbcType=VARCHAR},
+		    #{item.createUserName, jdbcType=VARCHAR},
+		    #{item.createTime, jdbcType=TIMESTAMP}, 
+		    #{item.updateUserId, jdbcType=VARCHAR},
+		    #{item.updateUserName, jdbcType=VARCHAR},
+		    #{item.updateTime, jdbcType=TIMESTAMP}, 
+		    #{item.version, jdbcType=NUMERIC}
+		)  
+    	</foreach>
+  	</insert>
+  	
+  	<select id="queryAll" resultMap="UserPicResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_pic_param"/>		
+		FROM T_USER_PIC UA
+		<where>
+			UA.ACTIVE = '1'  
+		</where>
+	</select>
+	
+	
+	<!-- 根据用户的信息查询用户有多少张照片  byzhaoming-->
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER_PIC U
+	    <where>
+	    	U.ACTIVE = '1'
+	    	<if test="id != null and id != ''" >
+	        	AND U.ID = #{ID, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userId != null and userId != ''" >
+	        	AND U.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+        		AND U.USER_NAME = #{userName, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="picId != null and picId != ''" >
+	        	AND U.PIC_ID = #{picId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="picUrl != null and picUrl != ''" >
+	        	AND U.PIC_URL = #{picUrl, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picUse != null" >
+	        	AND U.PIC_USE = #{picUse, jdbcType=TINYINT}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<update id="delete" parameterType="com.lvdao.entity.UserPicEntity" >
+	    UPDATE t_user_pic A SET
+	    A.ACTIVE = '0'
+	  	<where>
+			A.USER_ID = #{userId, jdbcType=VARCHAR}
+			AND
+			A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}
+			AND	
+			A.ACTIVE = '1'	
+		</where>
+  	</update>
+  	
+  	<update id="batchDelete" parameterType="java.util.List" >
+	    UPDATE t_user_pic A SET
+	    A.ACTIVE = '0' WHERE A.ACTIVE = '1' and A.PIC_URL IN
+	  	<foreach collection="list" item="item" index="index" open="(" separator="," close=")" >
+	        #{item.picUrl}
+	    </foreach>
+  	</update>
+  	
+  	<select id="queryList" resultMap="UserPicResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_pic_param" />
+	    FROM t_user_pic M
+	    <where>
+			M.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND M.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND M.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picId != null and picId != ''" >
+	        	AND M.PIC_ID = #{picId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picUse != null" >
+	        	AND M.PIC_USE = #{picUse, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="picGroupId != null" >
+	        	AND M.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}
+	      	</if>
+	      	ORDER BY M.CREATE_TIME DESC
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="UserPicResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_pic_param"/>
+		FROM t_user_pic M
+		<where>
+			M.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND M.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND M.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picId != null and picId != ''" >
+	        	AND M.PIC_ID = #{picId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picUse != null" >
+	        	AND M.PIC_USE = #{picUse, jdbcType=TINYINT}
+	      	</if>
+	      	ORDER BY M.CREATE_TIME DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	
+	<!-- 根据用户Id修改头像 byzhaoming -->
+	<update id="updateUserPicByUserId" parameterType="com.lvdao.entity.UserPicEntity" >
+    	UPDATE t_user_pic U SET
+      	<if test="picId != null and picId != ''" >
+        	U.PIC_ID = #{picId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="picUrl != null and picUrl != ''" >
+        	U.PIC_URL = #{picUrl, jdbcType=VARCHAR},
+      	</if>
+      	<if test="picGroupId != null and picGroupId != ''" >
+        	U.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR},
+      	</if>
+        <if test="updateUserId != null and updateUserId != ''" >
+        	U.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	U.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null " >
+        	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		U.VERSION = U.VERSION + 1
+		<where>
+	    	U.USER_ID = #{userId, jdbcType=VARCHAR} AND U.ACTIVE = '1'
+	    	<if test="picUse != null" >
+	        	AND U.PIC_USE = #{picUse, jdbcType=TINYINT}
+	      	</if>
+		</where>
+  	</update>
+
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(PIC_ID + 0) FROM t_user_pic
+	</select>
+</mapper>

@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="PictureGroupEntity" >
+	<resultMap id="PictureGroupResultMap"
+		type="com.lvdao.entity.PictureGroupEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="PIC_GROUP_ID" property="picGroupId" jdbcType="VARCHAR" />
+	    <result column="PIC_GROUP_NAME" property="picGroupName" jdbcType="VARCHAR" />
+	    <result column="PIC_GROUP_DESC" property="picGroupDesc" jdbcType="VARCHAR" />
+	    <result column="PIC_ID" property="picId" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_picture_group_param" >
+  		A.ID,
+	    A.PIC_GROUP_ID,
+	    A.PIC_GROUP_NAME,
+	    A.PIC_GROUP_DESC,
+	    A.PIC_ID,
+	    A.ACTIVE,
+	    A.CREATE_USER_ID, 
+	    A.CREATE_USER_NAME,
+	    A.CREATE_TIME,
+	    A.UPDATE_USER_ID,
+	    A.UPDATE_USER_NAME,
+	    A.UPDATE_TIME,
+	    A.VERSION
+  	</sql>
+  
+  	<insert id="insert" 
+  		parameterType="com.lvdao.entity.PictureGroupEntity" >
+    	INSERT INTO T_PIC_GROUP (
+    	ID,
+    	PIC_GROUP_ID,
+    	PIC_GROUP_NAME,
+    	PIC_GROUP_DESC,
+    	PIC_ID,
+      	ACTIVE, 
+      	CREATE_USER_ID,
+      	CREATE_USER_NAME,
+      	CREATE_TIME, 
+      	UPDATE_USER_ID,
+      	UPDATE_USER_NAME,
+      	UPDATE_TIME, 
+      	VERSION
+      	) VALUES
+   	(
+      	#{id, jdbcType=VARCHAR},
+      	#{picGroupId, jdbcType=VARCHAR}, 
+      	#{picGroupName, jdbcType=VARCHAR}, 
+      	#{picGroupDesc, jdbcType=VARCHAR}, 
+      	#{picId, jdbcType=VARCHAR},
+	    #{active, jdbcType=TINYINT}, 
+	    #{createUserId, jdbcType=VARCHAR},
+	    #{createUserName, jdbcType=VARCHAR},
+	    #{createTime, jdbcType=TIMESTAMP}, 
+	    #{updateUserId, jdbcType=VARCHAR},
+	    #{updateUserName, jdbcType=VARCHAR},
+	    #{updateTime, jdbcType=TIMESTAMP}, 
+	    #{version,jdbcType=DECIMAL}
+	)
+  	</insert>
+  	
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.PictureGroupEntity" >
+    	UPDATE T_PIC_GROUP A SET
+   		<if test="picGroupId != null and picGroupId != ''" >
+        	A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR},
+      	</if>
+		<if test="picGroupName != null and picGroupName != ''" >
+        	A.PIC_GROUP_NAME = #{picGroupName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="picGroupDesc != null and picGroupDesc != ''" >
+        	A.PIC_GROUP_DESC = #{picGroupDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="picId != null and picId != ''" >
+        	A.PIC_ID = #{picId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	A.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	A.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	A.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	A.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	A.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	A.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	A.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		A.VERSION = A.VERSION + 1
+		<where>
+			A.ACTIVE = '1'
+	   		AND
+			A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_PIC_GROUP A SET
+	    A.ACTIVE = '0'
+	  	<where>
+			A.ACTIVE = '1'
+	   		AND
+			A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="PictureGroupResultMap" parameterType="map" >
+	    SELECT 
+	    <include refid="query_picture_group_param" />
+	    FROM T_PIC_GROUP A
+	    <where>
+	   		A.ACTIVE = '1'
+			<if test="picGroupId != null and picGroupId != ''" >
+	        	AND A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="picGroupName != null and picGroupName != ''" >
+	        	AND A.PIC_GROUP_NAME = #{picGroupName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picGroupDesc != null and picGroupDesc != ''" >
+	        	AND A.PIC_GROUP_DESC = #{picGroupDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picId != null and picId != ''" >
+	        	AND A.PIC_ID = #{picId, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_PIC_GROUP A
+	    <where>
+			A.ACTIVE = '1'
+			<if test="picGroupId != null and picGroupId != ''" >
+	        	AND A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="picGroupName != null and picGroupName != ''" >
+	        	AND A.PIC_GROUP_NAME = #{picGroupName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picGroupDesc != null and picGroupDesc != ''" >
+	        	AND A.PIC_GROUP_DESC = #{picGroupDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picId != null and picId != ''" >
+	        	AND A.PIC_ID = #{picId, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="PictureGroupResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_picture_group_param"/>
+		FROM T_PIC_GROUP A
+		<where>
+			A.ACTIVE = '1'
+			<if test="picGroupId != null and picGroupId != ''" >
+	        	AND A.PIC_GROUP_ID = #{picGroupId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="picGroupName != null and picGroupName != ''" >
+	        	AND A.PIC_GROUP_NAME = #{picGroupName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="picGroupDesc != null and picGroupDesc != ''" >
+	        	AND A.PIC_GROUP_DESC = #{picGroupDesc, jdbcType=VARCHAR}
+	      	</if>
+			<if test="picId != null and picId != ''" >
+	        	AND A.PIC_ID = #{picId, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	ORDER BY A.CREATE_TIME DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="PictureGroupResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_picture_group_param"/>		
+		FROM T_PIC_GROUP A
+		<where>
+			A.ACTIVE = '1'  
+			ORDER BY A.CREATE_TIME DESC
+		</where>
+	</select>	
+	
+	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(PIC_GROUP_ID + 0) FROM T_PIC_GROUP
+	</select>
+</mapper>

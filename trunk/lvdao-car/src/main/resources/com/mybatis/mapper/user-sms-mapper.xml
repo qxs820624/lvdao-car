@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserSmsEntity" >
+	<resultMap id="UserSmsResultMap"
+		type="com.lvdao.entity.UserSmsEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="SMS_ID" property="smsId" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_user_sms_param" >
+	    ID,
+	    USER_ID,
+	    USER_NAME,
+	    SMS_ID,
+	    ACTIVE,
+	    CREATE_USER_ID, 
+	    CREATE_USER_NAME,
+	    CREATE_TIME,
+	    UPDATE_USER_ID,
+	    UPDATE_USER_NAME,
+	    UPDATE_TIME,
+	    VERSION
+  	</sql>
+
+    <insert id="insert" 
+  		parameterType="com.lvdao.entity.UserSmsEntity" >
+    	INSERT INTO t_user_sms (
+	    	ID,
+		    USER_ID,
+		    USER_NAME,
+		    SMS_ID,
+		    ACTIVE,
+		    CREATE_USER_ID, 
+		    CREATE_USER_NAME,
+		    CREATE_TIME,
+		    UPDATE_USER_ID,
+		    UPDATE_USER_NAME,
+		    UPDATE_TIME,
+		    VERSION
+      	) VALUES
+   	(
+      	#{id, jdbcType=VARCHAR},
+      	#{userId, jdbcType=VARCHAR},
+      	#{userName, jdbcType=VARCHAR}, 
+      	#{smsId, jdbcType=VARCHAR},
+	    #{active, jdbcType=TINYINT}, 
+	    #{createUserId, jdbcType=VARCHAR},
+	    #{createUserName, jdbcType=VARCHAR},
+	    #{createTime, jdbcType=TIMESTAMP}, 
+	    #{updateUserId, jdbcType=VARCHAR},
+	    #{updateUserName, jdbcType=VARCHAR},
+	    #{updateTime, jdbcType=TIMESTAMP}, 
+	    #{version, jdbcType=NUMERIC}
+	 )
+  	</insert>
+  	
+  	<select id="queryList" resultMap="UserSmsResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_sms_param" />
+	    FROM T_USER_SMS M
+	    <where>
+			M.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND M.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND M.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="smsId != null and smsId != ''" >
+	        	AND M.SMS_ID = #{smsId, jdbcType=VARCHAR}
+	      	</if>
+	      	ORDER BY M.CREATE_TIME DESC
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="UserSmsResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_sms_param"/>
+		FROM T_USER_SMS M
+		<where>
+			M.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND M.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND M.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="smsId != null and smsId != ''" >
+	        	AND M.SMS_ID = #{smsId, jdbcType=VARCHAR}
+	      	</if>
+	      	ORDER BY M.CREATE_TIME DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+  	
+  	<select id="queryAll" resultMap="UserSmsResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_sms_param"/>		
+		FROM T_USER_SMS UA
+		<where>
+			UA.ACTIVE = '1'  
+		</where>
+	</select>
+	
+	<update id="delete" parameterType="map" >
+	    UPDATE T_USER_SMS UA SET
+	    UA.ACTIVE = '0'
+	  	<where>
+			UA.USER_ID = #{userId, jdbcType=VARCHAR}
+			AND
+			UA.SMS_ID = #{smsId, jdbcType=VARCHAR}
+			AND	
+			UA.ACTIVE = '1'	
+		</where>
+  	</update>
+  	
+  	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER_SMS UA
+	    <where>
+			UA.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UA.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UA.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="smsId != null and smsId != ''" >
+	        	AND UA.SMS_ID = #{smsId, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+
+</mapper>

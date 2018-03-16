@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserAddressEntity" >
+  <resultMap id="BaseResultMap" type="com.lvdao.entity.UserAddressEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID, 
+    USER_ID, 
+    USER_NAME, 
+    ADDRESS, 
+    ACTIVE, 
+    CREATE_USER_ID, 
+    CREATE_USER_NAME, 
+    CREATE_TIME, 
+    UPDATE_USER_ID, 
+    UPDATE_USER_NAME, 
+    UPDATE_TIME, 
+    VERSION
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_address
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_address
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  
+  
+  <insert id="insert" parameterType="com.lvdao.entity.UserAddressEntity" >
+    insert into t_user_address (ID, USER_ID, USER_NAME, 
+      ADDRESS, ACTIVE, CREATE_USER_ID, 
+      CREATE_USER_NAME, CREATE_TIME, UPDATE_USER_ID, 
+      UPDATE_USER_NAME, UPDATE_TIME, VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{active,jdbcType=TINYINT}, #{createUserId,jdbcType=VARCHAR}, 
+      #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.lvdao.entity.UserAddressEntity" >
+    insert into t_user_address
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="update" parameterType="com.lvdao.entity.UserAddressEntity" >
+    update t_user_address
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+<!--       <if test="version != null" > -->
+<!--         VERSION = #{version,jdbcType=DECIMAL}, -->
+<!--       </if> -->
+       VERSION = VERSION + 1
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.lvdao.entity.UserAddressEntity" >
+    update t_user_address
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      ACTIVE = #{active,jdbcType=TINYINT},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+   	<update id="delete" parameterType="java.util.Map" >
+	    UPDATE t_user_address UV SET
+	    UV.ACTIVE = '0'
+	  	<where>
+	    	UV.ACTIVE = '1'
+			<if test="id != null and id != ''" >	
+				AND UV.ID = #{id, jdbcType=VARCHAR}
+			</if>	
+		</where>
+  	</update>
+  	
+    <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_user_address UV
+	    <where>
+	    	UV.ACTIVE = '1'
+	    	<if test=" userId != null and userId  != ''" >
+	         	AND	UV.USER_ID = #{userId , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName  != ''" >
+	        	AND  UV.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" address != null and address != ''" >
+	        	AND UV.ADDRESS = #{address, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+ 	</select>
+  	
+    <select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_user_address UV
+	    <where>
+	    	UV.ACTIVE = '1'
+		    <if test=" userId != null and userId  != ''" >
+	         	AND	UV.USER_ID = #{userId , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName  != ''" >
+	        	AND  UV.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" address != null and address != ''" >
+	        	AND UV.ADDRESS = #{address, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_user_address UV
+		<where>
+			UV.ACTIVE = '1'
+			<if test=" userId != null and userId  != ''" >
+	         	AND	UV.USER_ID = #{userId , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName  != ''" >
+	        	AND  UV.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test=" address != null and address != ''" >
+	        	AND UV.ADDRESS = #{address, jdbcType=VARCHAR}
+	      	</if>
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"/>		
+		FROM t_user_address UV
+		<where>
+			UV.ACTIVE = '1'  
+		</where>
+	</select>
+	
+	<select id="queryFrequencyAddress" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		select * from t_user_address where USER_ID =#{userId , jdbcType=VARCHAR} and ACTIVE = 1 GROUP BY ADDRESS having count(*)>=#{frequency,jdbcType=INTEGER}
+	</select>
+</mapper>

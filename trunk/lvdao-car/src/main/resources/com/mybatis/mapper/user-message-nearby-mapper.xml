@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserMessageNearbyEntity" >
+	<resultMap id="UserMessageNearbyEntityMap" type="com.lvdao.entity.UserMessageNearbyEntity" >
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="USER_REAL_NAME" property="userRealName" jdbcType="VARCHAR" />
+	    <result column="USER_GENDER" property="userGender" jdbcType="VARCHAR" />
+	    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
+	    <result column="MESSAGE_ID" property="messageId" jdbcType="VARCHAR" />
+		<result column="MESSAGE_TITLE" property="messageTitle" jdbcType="VARCHAR" />
+	    <result column="MESSAGE_CONTENT" property="messageContent" jdbcType="VARCHAR" />
+	    <result column="USER_IMAGE" property="userImage" jdbcType="TINYINT" />
+	    <result column="MESSAGE_IMAGES" property="messageImages" jdbcType="VARCHAR" />
+	    <result column="VIDEO_URL" property="videoUrl" jdbcType="VARCHAR" />
+	    <result column="WIDTH" property="width" jdbcType="VARCHAR" />
+	    <result column="HEIGHT" property="height" jdbcType="VARCHAR" />
+	    <result column="SKILL_VALIDATION" property="skillValidation" jdbcType="TINYINT" />
+	    <result column="IDENTITY_VALIDATION" property="identityValidation" jdbcType="TINYINT" />
+	    <result column="USER_LONGITUDE" property="userLongitude" jdbcType="VARCHAR" />
+	    <result column="USER_LATITUDE" property="userLatitude" jdbcType="VARCHAR" />
+	    <result column="DISTANCE" property="distance" jdbcType="VARCHAR" />
+	    <result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="USER_BANK_FULL_NAME" property="userBankFullName" jdbcType="VARCHAR" />
+	    <result column="USER_BANK_NAME" property="userBankName" jdbcType="VARCHAR" />
+	    <result column="USER_BANK_CARD_NO" property="userBankCardNo" jdbcType="VARCHAR" />
+	    <result column="USER_BANK_ACCOUNT_NAME" property="userBankAccountName" jdbcType="VARCHAR" />
+	    <result column="MESSAGE_PIC_URL_LIST" property="messagePicUrlList" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+  	</resultMap>
+
+ 	<sql id="query_user_message_nearby" >
+    	UM.USER_ID,
+    	UM.USER_NAME,
+    	UM.USER_REAL_NAME,
+    	UM.USER_GENDER,
+    	UM.MOBILE,
+    	UM.MESSAGE_ID,
+    	UM.MESSAGE_TITLE,
+    	UM.MESSAGE_CONTENT,
+    	UM.USER_IMAGE,
+    	UM.MESSAGE_IMAGES,
+    	UM.VIDEO_URL,
+    	UM.WIDTH,
+    	UM.HEIGHT,
+    	UM.SKILL_VALIDATION,
+    	UM.IDENTITY_VALIDATION,
+    	UM.USER_LONGITUDE,
+    	UM.USER_LATITUDE,
+    	UM.DISTANCE,
+    	UM.USER_ADDRESS,
+    	UM.CREATE_TIME,
+    	UM.USER_BANK_FULL_NAME,
+    	UM.USER_BANK_NAME,
+    	UM.USER_BANK_CARD_NO,
+    	UM.USER_BANK_ACCOUNT_NAME,
+    	UM.MESSAGE_PIC_URL_LIST,
+    	UM.ACTIVE
+  	</sql>
+  	
+  	<insert id="insert" parameterType="com.lvdao.entity.UserMessageNearbyEntity">
+	 	INSERT INTO t_user_message_nearby (
+	    	USER_ID,
+	    	USER_NAME,
+	    	USER_REAL_NAME,
+	    	USER_GENDER,
+	    	MOBILE,
+	    	MESSAGE_ID,
+	    	MESSAGE_TITLE,
+	    	MESSAGE_CONTENT,
+    		USER_IMAGE,
+	    	MESSAGE_IMAGES,
+	    	VIDEO_URL,
+	    	WIDTH,
+	    	HEIGHT,
+	    	SKILL_VALIDATION,
+	    	IDENTITY_VALIDATION,
+	    	USER_LONGITUDE,
+	    	USER_LATITUDE,
+	    	DISTANCE,
+	    	USER_ADDRESS,
+	    	CREATE_TIME,
+	    	USER_BANK_FULL_NAME,
+	    	USER_BANK_NAME,
+	    	USER_BANK_CARD_NO,
+	    	USER_BANK_ACCOUNT_NAME,
+	    	MESSAGE_PIC_URL_LIST,
+	    	ACTIVE
+		) VALUES(	
+		#{userId, jdbcType=VARCHAR},
+		#{userName, jdbcType=VARCHAR},
+		#{userRealName, jdbcType=VARCHAR},
+		#{userGender, jdbcType=VARCHAR},
+		#{mobile, jdbcType=VARCHAR},
+		#{messageId, jdbcType=TIMESTAMP},
+		#{messageTitle, jdbcType=TIMESTAMP},
+		#{messageContent, jdbcType=VARCHAR},
+		#{userImage, jdbcType=VARCHAR},
+		#{messageImages, jdbcType=VARCHAR},
+		#{videoUrl, jdbcType=TINYINT},
+		#{width, jdbcType=VARCHAR},
+		#{height, jdbcType=VARCHAR},
+		#{skillValidation, jdbcType=TINYINT},
+		#{identityValidation, jdbcType=TINYINT},	
+		#{userLongitude, jdbcType=VARCHAR},
+		#{userLatitude, jdbcType=VARCHAR},
+		#{distance, jdbcType=VARCHAR},
+		#{userAddress, jdbcType=VARCHAR},
+		#{createTime, jdbcType=TIMESTAMP},
+		#{userBankFullName, jdbcType=VARCHAR},
+		#{userBankName, jdbcType=VARCHAR},
+		#{userBankCardNo, jdbcType=VARCHAR},
+		#{userBankAccountName, jdbcType=VARCHAR},
+		#{messagePicUrlList, jdbcType=VARCHAR},
+		#{active, jdbcType=VARCHAR}
+	)
+	</insert>
+  	
+  	<update id="delete" parameterType="map" >
+	    UPDATE t_user_message_nearby UM SET
+	    UM.ACTIVE = '0'
+	  	<where>
+	    	UM.ACTIVE = '1'
+			<if test="messageId != null and messageId != '' " >	
+				AND UM.MESSAGE_ID = #{messageId, jdbcType=VARCHAR}
+			</if>
+		</where>
+  	</update>
+  	
+    <select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_user_message_nearby UM
+	    <where>
+			UM.ACTIVE = '1'
+			<if test="messageId != null and messageId != '' " >	
+				AND UM.MESSAGE_ID = #{messageId, jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null and userId != ''" >
+	        	AND UM.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UM.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="active != null and active != ''" >
+	        	AND UM.ACTIVE = #{active, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="createTime != null" >
+	        	AND UM.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="UserMessageNearbyEntityMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_message_nearby"/>
+		FROM t_user_message_nearby UM
+		<where>
+			UM.ACTIVE = 1
+			<if test="messageId != null and messageId != '' " >	
+				AND UM.MESSAGE_ID = #{messageId, jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null and userId != ''" >
+	        	AND UM.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UM.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+			ORDER BY UM.CREATE_TIME DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="UserMessageNearbyEntityMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_message_nearby"/>		
+		FROM t_user_message_nearby UM
+		<where>
+			UM.ACTIVE = '1'  
+		</where>
+	</select>
+
+</mapper>

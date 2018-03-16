@@ -1,0 +1,92 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+	xsi:schemaLocation="http://www.springframework.org/schema/aop   
+        http://www.springframework.org/schema/aop/spring-aop-3.0.xsd   
+        http://www.springframework.org/schema/beans   
+        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd   
+        http://www.springframework.org/schema/context   
+        http://www.springframework.org/schema/context/spring-context-3.0.xsd   
+        http://www.springframework.org/schema/mvc   
+        http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd 
+        http://www.springframework.org/schema/task 
+        http://www.springframework.org/schema/task/spring-task-3.0.xsd 
+        http://www.springframework.org/schema/data/mongo    
+        http://www.springframework.org/schema/data/mongo/spring-mongo.xsd   
+        http://www.springframework.org/schema/tx   
+        http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
+        
+	<!-- 除去扫描controller -->
+	<context:component-scan base-package="com.lvdao">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+	</context:component-scan>
+	<context:property-placeholder location="classpath:mysql.properties" />
+	
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">  
+            <property name="driverClassName" value="${jdbc.driverClassName}"></property>  
+            <property name="url" value="${jdbc.url}"></property>  
+            <property name="username" value="${jdbc.username}"></property>  
+            <property name="password" value="${jdbc.password}"></property>  
+            <property name="filters" value="stat" />  
+            <!-- 配置初始化大小、最小、最大 -->  
+            <property name="initialSize" value="1" />  
+            <property name="minIdle" value="1" />   
+            <property name="maxActive" value="300" />  
+            <!-- 配置获取连接等待超时的时间 -->  
+            <property name="maxWait" value="60000" />  
+  
+            <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->  
+            <property name="timeBetweenEvictionRunsMillis" value="60000" />  
+  
+            <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->  
+            <property name="minEvictableIdleTimeMillis" value="300000" />  
+      
+            <property name="testWhileIdle" value="true" />  
+            <property name="testOnBorrow" value="false" />  
+            <property name="testOnReturn" value="true" />  
+            <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->  
+            <property name="poolPreparedStatements" value="true" />  
+            <property name="maxPoolPreparedStatementPerConnectionSize" value="20" /> 
+            
+            <!-- 超过时间限制是否回收 -->  
+			<property name="removeAbandoned" value="true" />  
+			<!-- 超时时间；单位为秒。180秒=3分钟 -->  
+			<property name="removeAbandonedTimeout" value="180" />  
+			<!-- 关闭abanded连接时输出错误日志 -->  
+			<property name="logAbandoned" value="true" />   
+    </bean>
+
+	<!-- Transaction Management -->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<!-- Database Connection Management -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+	
+	<!-- scan for mappers and let them be autowired -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.mybatis.mappers" /> 
+	</bean>
+
+     <!-- MyBatis Mapper Files -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="mapperLocations" value="classpath*:com/mybatis/mapper/*mapper.xml"/>
+    </bean>
+    
+   	<bean id="baseDao" class="org.mybatis.spring.support.SqlSessionDaoSupport" abstract="true" lazy-init="true">
+	    <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+   	</bean>
+   	
+   	<!-- spring定时任务注解配置 -->
+  	<task:executor id="executor" pool-size="5" />
+	<task:scheduler id="scheduler" pool-size="10" />
+	<task:annotation-driven executor="executor" scheduler="scheduler" />
+   	
+</beans>

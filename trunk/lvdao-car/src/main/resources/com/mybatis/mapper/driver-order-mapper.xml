@@ -1,0 +1,820 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DriverOrderEntity" >
+  <resultMap id="BaseResultMap" type="com.lvdao.entity.DriverOrderEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DRIVER_ORDER_ID" property="driverOrderId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="VEHICLE_BRAND" property="vehicleBrand" jdbcType="VARCHAR" />
+    <result column="VEHICLE_MODEL" property="vehicleModel" jdbcType="VARCHAR" />
+    <result column="VEHICLE_COLOR" property="vehicleColor" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_PLACE_NAME" property="originalPlaceName" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_LONGTITUDE" property="originalLongtitude" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_LATITUDE" property="originalLatitude" jdbcType="VARCHAR" />
+    <result column="TARGET_PLACE_NAME" property="targetPlaceName" jdbcType="VARCHAR" />
+    <result column="TARGET_LONGTITUDE" property="targetLongtitude" jdbcType="VARCHAR" />
+    <result column="TARGET_LATITUDE" property="targetLatitude" jdbcType="VARCHAR" />
+    <result column="ORDER_DISTANCE" property="orderDistance" jdbcType="VARCHAR" />
+    <result column="ORDER_APPOINT_TIME" property="orderAppointTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_DESC" property="orderDesc" jdbcType="VARCHAR" />
+    <!-- 新增一个字段 -->
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="ROUTE" property="route" jdbcType="VARCHAR" />
+    <result column="RESIDUAL" property="residual" jdbcType="VARCHAR" />
+    <result column="CHARTER_FEE" property="charterFee" jdbcType="VARCHAR" />
+    <result column="CONTACTS" property="contacts" jdbcType="VARCHAR" />
+    <result column="CONTACT_NUMBER" property="contactNumber" jdbcType="VARCHAR" />
+    
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+   
+    <result column="SEAT_NO" property="seatNo" jdbcType="VARCHAR" />
+    <result column="ORDER_START_TIME" property="orderStartTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_END_TIME" property="orderEndTime" jdbcType="TIMESTAMP" />
+    <result column="MEAN_EXPENSE" property="meanExpense" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+    <result column="VEHICLE_LEVEL" property="vehicleLevel" jdbcType="VARCHAR" />
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+    ID,
+    DRIVER_ORDER_ID, 
+    USER_ID, 
+    USER_NAME, 
+    VEHICLE_NO, 
+    VEHICLE_BRAND, 
+    VEHICLE_MODEL, 
+    VEHICLE_COLOR, 
+    ORIGINAL_PLACE_NAME, 
+    ORIGINAL_LONGTITUDE, 
+    ORIGINAL_LATITUDE, 
+    TARGET_PLACE_NAME, 
+    TARGET_LONGTITUDE, 
+    TARGET_LATITUDE, 
+    ORDER_DISTANCE, 
+    ORDER_APPOINT_TIME,
+    ORDER_DESC,
+    ORDER_STATUS,
+    ROUTE,
+    RESIDUAL,
+    CHARTER_FEE,
+    CONTACTS,
+    CONTACT_NUMBER,
+    
+    ACTIVE, 
+    CREATE_USER_ID, 
+    CREATE_USER_NAME, 
+    CREATE_TIME, 
+    UPDATE_USER_ID, 
+    UPDATE_USER_NAME, 
+    UPDATE_TIME, 
+    VERSION,
+    
+    SEAT_NO,
+    ORDER_START_TIME,
+    ORDER_END_TIME,
+    MEAN_EXPENSE,
+    ORDER_TYPE,
+    VEHICLE_LEVEL
+   
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_driver_order
+    where ID = #{id, jdbcType=VARCHAR}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_driver_order
+    where ID = #{id, jdbcType=VARCHAR}
+  </delete>
+  
+  <!-- desc作为关键字 需要引号 -->
+  <insert id="insert" parameterType="com.lvdao.entity.DriverOrderEntity" >
+    insert into t_driver_order 
+     (
+      ID, 
+      DRIVER_ORDER_ID, 
+      USER_ID, 
+      USER_NAME, 
+      VEHICLE_NO,
+      VEHICLE_BRAND, 
+      VEHICLE_MODEL, 
+      VEHICLE_COLOR,  
+      ORIGINAL_PLACE_NAME, 
+      ORIGINAL_LONGTITUDE, 
+      ORIGINAL_LATITUDE, 
+      TARGET_PLACE_NAME, 
+      TARGET_LONGTITUDE, 
+      TARGET_LATITUDE, 
+      ORDER_DISTANCE, 
+      ORDER_APPOINT_TIME, 
+      ORDER_DESC, 
+      ORDER_STATUS,
+      ROUTE,
+      RESIDUAL,
+      CHARTER_FEE,
+      CONTACTS,
+      CONTACT_NUMBER, 
+      ACTIVE, 
+      CREATE_USER_ID, 
+      CREATE_USER_NAME, 
+      CREATE_TIME, 
+      UPDATE_USER_ID, 
+      UPDATE_USER_NAME, 
+      UPDATE_TIME, 
+      VERSION,
+      SEAT_NO,
+      ORDER_START_TIME,
+      ORDER_END_TIME,
+      MEAN_EXPENSE,
+      ORDER_TYPE,
+      VEHICLE_LEVEL
+      )
+    values 
+     (
+      #{id, jdbcType=VARCHAR}, 
+      #{driverOrderId, jdbcType=VARCHAR},
+      #{userId, jdbcType=VARCHAR}, 
+      #{userName, jdbcType=VARCHAR}, 
+      #{vehicleNo, jdbcType=VARCHAR}, 
+      #{vehicleBrand, jdbcType=VARCHAR}, 
+      #{vehicleModel, jdbcType=VARCHAR}, 
+      #{vehicleColor, jdbcType=VARCHAR}, 
+      #{originalPlaceName, jdbcType=VARCHAR},
+      #{originalLongtitude, jdbcType=VARCHAR}, 
+      #{originalLatitude, jdbcType=VARCHAR}, 
+      #{targetPlaceName, jdbcType=VARCHAR}, 
+      #{targetLongtitude, jdbcType=VARCHAR}, 
+      #{targetLatitude, jdbcType=VARCHAR}, 
+      #{orderDistance, jdbcType=VARCHAR}, 
+      #{orderAppointTime, jdbcType=TIMESTAMP}, 
+      #{orderDesc, jdbcType=VARCHAR},
+      #{orderStatus, jdbcType=VARCHAR},
+      #{route, jdbcType=VARCHAR},
+      #{residual, jdbcType=VARCHAR},
+      #{charterFee, jdbcType=VARCHAR},
+      #{contacts, jdbcType=VARCHAR},
+      #{contactNumber, jdbcType=VARCHAR},
+      #{active, jdbcType=TINYINT}, 
+      #{createUserId, jdbcType=VARCHAR}, 
+      #{createUserName, jdbcType=VARCHAR}, 
+      #{createTime, jdbcType=TIMESTAMP}, 
+      #{updateUserId, jdbcType=VARCHAR}, 
+      #{updateUserName, jdbcType=VARCHAR}, 
+      #{updateTime, jdbcType=TIMESTAMP}, 
+      #{version, jdbcType=DECIMAL},
+      #{seatNo, jdbcType=VARCHAR},
+      #{orderStartTime, jdbcType=TIMESTAMP},
+      #{orderEndTime, jdbcType=TIMESTAMP},
+      #{meanExpense, jdbcType=VARCHAR},
+      #{orderType, jdbcType=VARCHAR},
+      #{vehicleLevel, jdbcType=VARCHAR}
+      )
+  </insert>
+  
+  <insert id="insertSelective" parameterType="com.lvdao.entity.DriverOrderEntity" >
+    insert into t_driver_order
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="driverOrderId != null" >
+        DRIVER_ORDER_ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="vehicleNo != null" >
+        VEHICLE_NO,
+      </if>
+      <if test="originalPlaceName != null" >
+        ORIGINAL_PLACE_NAME,
+      </if>
+      <if test="originalLongtitude != null" >
+        ORIGINAL_LONGTITUDE,
+      </if>
+      <if test="originalLatitude != null" >
+        ORIGINAL_LATITUDE,
+      </if>
+      <if test="targetPlaceName != null" >
+        TARGET_PLACE_NAME,
+      </if>
+      <if test="targetLongtitude != null" >
+        TARGET_LONGTITUDE,
+      </if>
+      <if test="targetLatitude != null" >
+        TARGET_LATITUDE,
+      </if>
+      <if test="orderDistance != null" >
+        ORDER_DISTANCE,
+      </if>
+      <if test="orderAppointTime != null" >
+        ORDER_APPOINT_TIME,
+      </if>
+      <if test="desc != null" >
+        ORDER_DESC,
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id, jdbcType=VARCHAR},
+      </if>
+      <if test="driverOrderId != null" >
+        #{driverOrderId, jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId, jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName, jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        #{vehicleNo, jdbcType=VARCHAR},
+      </if>
+      <if test="originalPlaceName != null" >
+        #{originalPlaceName, jdbcType=VARCHAR},
+      </if>
+      <if test="originalLongtitude != null" >
+        #{originalLongtitude, jdbcType=VARCHAR},
+      </if>
+      <if test="originalLatitude != null" >
+        #{originalLatitude, jdbcType=VARCHAR},
+      </if>
+      <if test="targetPlaceName != null" >
+        #{targetPlaceName, jdbcType=VARCHAR},
+      </if>
+      <if test="targetLongtitude != null" >
+        #{targetLongtitude, jdbcType=VARCHAR},
+      </if>
+      <if test="targetLatitude != null" >
+        #{targetLatitude, jdbcType=VARCHAR},
+      </if>
+      <if test="orderDistance != null" >
+        #{orderDistance, jdbcType=VARCHAR},
+      </if>
+      <if test="orderAppointTime != null" >
+        #{orderAppointTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderDesc != null" >
+        #{orderDesc, jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        #{active, jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId, jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName, jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId, jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName, jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version, jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+ 
+  <update id="update" parameterType="com.lvdao.entity.DriverOrderEntity" >
+    update t_driver_order
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId, jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName, jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        VEHICLE_NO = #{vehicleNo, jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleBrand != null" >
+        VEHICLE_BRAND = #{vehicleBrand, jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleModel != null" >
+        VEHICLE_MODEL = #{vehicleModel, jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleColor != null" >
+        VEHICLE_COLOR = #{vehicleColor, jdbcType=VARCHAR},
+      </if>
+      <if test="originalPlaceName != null" >
+        ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR},
+      </if>
+      <if test="originalLongtitude != null" >
+        ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR},
+      </if>
+      <if test="originalLatitude != null" >
+        ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR},
+      </if>
+      <if test="targetPlaceName != null" >
+        TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR},
+      </if>
+      <if test="targetLongtitude != null" >
+        TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR},
+      </if>
+      <if test="targetLatitude != null" >
+        TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR},
+      </if>
+      <if test="orderDistance != null" >
+        ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR},
+      </if>
+      <if test="orderAppointTime != null" >
+        ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderDesc != null" >
+        ORDER_DESC = #{orderDesc, jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+        ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+        ROUTE = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="residual != null" >
+        RESIDUAL = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="charterFee != null" >
+        CHARTER_FEE = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="contacts != null" >
+        CONTACTS = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="contactNumber != null" >
+        CONTACT_NUMBER = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active, jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version, jdbcType=DECIMAL},
+      </if>
+      
+      <if test="seatNo != null" >
+        SEAT_NO = #{seatNo, jdbcType=VARCHAR},
+      </if>
+      <if test="orderStartTime != null" >
+        ORDER_START_TIME = #{orderStartTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderEndTime != null" >
+         ORDER_END_TIME = #{orderEndTime, jdbcType=TIMESTAMP},
+      </if>
+      <if test="meanExpense != null" >
+       MEAN_EXPENSE  = #{meanExpense, jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE = #{orderType, jdbcType=VARCHAR},
+      </if>
+       <if test="vehicleLevel != null" >
+        VEHICLE_LEVEL = #{vehicleLevel, jdbcType=VARCHAR},
+      </if>
+    </set>
+    where DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.lvdao.entity.DriverOrderEntity" >
+    update t_driver_order
+    set USER_ID = #{userId, jdbcType=VARCHAR},
+      USER_NAME = #{userName, jdbcType=VARCHAR},
+      VEHICLE_NO = #{vehicleNo, jdbcType=VARCHAR},
+      VEHICLE_BRAND = #{vehicleBrand, jdbcType=VARCHAR},
+      VEHICLE_MODEL = #{vehicleModel, jdbcType=VARCHAR},
+      VEHICLE_COLOR = #{vehicleColor, jdbcType=VARCHAR},
+      ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR},
+      ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR},
+      ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR},
+      TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR},
+      TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR},
+      TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR},
+      ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR},
+      ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP},
+      ORDER_DESC = #{orderDesc, jdbcType=VARCHAR},
+      ORDERSTATUS = #{orderStatus, jdbcType=VARCHAR},
+      ACTIVE = #{active, jdbcType=TINYINT},
+      CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      VERSION = #{version, jdbcType=DECIMAL}
+    where ID = #{id, jdbcType=VARCHAR}
+  </update>
+  
+  <update id="delete" parameterType="map" >
+	    UPDATE t_driver_order SET
+	     ACTIVE = '0'
+	  	<where>
+			ACTIVE = '1'
+	   		AND
+			ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_driver_order 
+	    <where>
+	    	ACTIVE = '1'
+		  <if test="driverOrderId != null" >
+	        AND DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+	      </if>
+		  <if test="userId != null" >
+	        AND USER_ID = #{userId, jdbcType=VARCHAR}
+	      </if>
+	      <if test="userName != null" >
+	        AND USER_NAME = #{userName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleNo != null" >
+	       AND VEHICLE_NO = #{vehicleNo, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleBrand != null" >
+	       AND VEHICLE_BRAND = #{vehicleBrand, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleModel != null" >
+	       AND VEHICLE_MODEL = #{vehicleModel, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleColor != null" >
+	       AND VEHICLE_COLOR = #{vehicleColor, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalPlaceName != null" >
+	        AND ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalLongtitude != null" >
+	       AND ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalLatitude != null" >
+	       AND ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetPlaceName != null" >
+	       AND TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetLongtitude != null" >
+	       AND TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetLatitude != null" >
+	       AND TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderDistance != null" >
+	       AND ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderAppointTime != null" >
+	      AND ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="orderDesc != null" >
+	      AND ORDER_DESC = #{orderDesc, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderStatus != null" >
+	      AND ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR}
+	      </if>
+	      <if test="route != null" >
+	      AND ROUTE = #{route, jdbcType=VARCHAR}
+	      </if>
+	      <if test="residual != null" >
+	      AND RESIDUAL = #{residual, jdbcType=VARCHAR}
+	      </if>
+	      <if test="charterFee != null" >
+	      AND CHARTER_FEE = #{charterFee, jdbcType=VARCHAR}
+	      </if>
+	      <if test="contacts != null" >
+	      AND CONTACTS = #{contacts, jdbcType=VARCHAR}
+	      </if>
+	      <if test="contactNumber != null" >
+	      AND CONTACT_NUMBER = #{contactNumber, jdbcType=VARCHAR}
+	      </if>
+		  <if test="orderType != null" >
+	       AND ORDER_TYPE = #{orderType, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleLevel != null" >
+	       AND VEHICLE_LEVEL = #{vehicleLevel, jdbcType=VARCHAR}
+	      </if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_driver_order 
+	    <where>
+			ACTIVE = '1'
+		  <if test="driverOrderId != null" >
+	        AND DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+	      </if>
+		  <if test="userId != null" >
+ 			AND USER_ID = #{userId, jdbcType=VARCHAR}
+	      </if>
+	      <if test="userName != null" >
+			AND USER_NAME = #{userName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleNo != null" >
+	        AND VEHICLE_NO = #{vehicleNo, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleBrand != null" >
+	       AND VEHICLE_BRAND = #{vehicleBrand, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleModel != null" >
+	       AND VEHICLE_MODEL = #{vehicleModel, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleColor != null" >
+	       AND VEHICLE_COLOR = #{vehicleColor, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalPlaceName != null" >
+	      	AND ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalLongtitude != null" >
+	      	AND ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalLatitude != null" >
+	      	AND ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetPlaceName != null" >
+	      	AND TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetLongtitude != null" >
+	      	AND TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetLatitude != null" >
+	      	AND TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderDistance != null" >
+	      	AND ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderAppointTime != null" >
+	      	AND ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="desc != null" >
+	      	AND ORDER_DESC = #{orderDesc, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderStatus != null" >
+	      	AND ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR}
+	      </if>
+	      <if test="route != null" >
+	      	AND ROUTE = #{route, jdbcType=VARCHAR}
+	      </if>
+	      <if test="residual != null" >
+	      	AND RESIDUAL = #{residual, jdbcType=VARCHAR}
+	      </if>
+	      <if test="charterFee != null" >
+	      	AND CHARTER_FEE = #{charterFee, jdbcType=VARCHAR}
+	      </if>
+	      <if test="contacts != null" >
+	      	AND CONTACTS = #{contacts, jdbcType=VARCHAR}
+	      </if>
+	      <if test="contactNumber != null" >
+	      	AND CONTACT_NUMBER = #{contactNumber, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderType != null" >
+	       AND ORDER_TYPE = #{orderType, jdbcType=VARCHAR},
+	      </if>
+	      <if test="vehicleLevel != null" >
+	       AND VEHICLE_LEVEL = #{vehicleLevel, jdbcType=VARCHAR},
+	      </if>
+	     
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_driver_order 
+		<where>
+			ACTIVE = '1'
+	  <if test="driverOrderId != null" >
+        AND DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+      </if>		
+	  <if test="userId != null" >
+        AND USER_ID = #{userId, jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null" >
+		AND USER_NAME = #{userName, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleNo != null" >
+		AND VEHICLE_NO = #{vehicleNo, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleBrand != null" >
+       AND VEHICLE_BRAND = #{vehicleBrand, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleModel != null" >
+       AND VEHICLE_MODEL = #{vehicleModel, jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleColor != null" >
+       AND VEHICLE_COLOR = #{vehicleColor, jdbcType=VARCHAR}
+      </if>
+      <if test="originalPlaceName != null" >
+		AND ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+      </if>
+      <if test="originalLongtitude != null" >
+        AND ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+      </if>
+      <if test="originalLatitude != null" >
+		AND ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+      </if>
+      <if test="targetPlaceName != null" >
+		AND TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+      </if>
+      <if test="targetLongtitude != null" >
+		AND TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+      </if>
+      <if test="targetLatitude != null" >
+		AND TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+      </if>
+      <if test="orderDistance != null" >
+		AND ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+      </if>
+      <if test="orderAppointTime != null" >
+		AND ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+      </if>
+      <if test="orderDesc != null" >
+		AND ORDER_DESC = #{orderDesc, jdbcType=VARCHAR},
+      </if>
+      <if test="orderStatus != null" >
+		AND ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR},
+      </if>
+      <if test="route != null" >
+      	AND ROUTE = #{route, jdbcType=VARCHAR}
+      </if>
+      <if test="residual != null" >
+      	AND RESIDUAL = #{residual, jdbcType=VARCHAR}
+      </if>
+      <if test="charterFee != null" >
+      	AND CHARTER_FEE = #{charterFee, jdbcType=VARCHAR}
+      </if>
+      <if test="contacts != null" >
+      	AND CONTACTS = #{contacts, jdbcType=VARCHAR}
+      </if>
+      <if test="contactNumber != null" >
+      	AND CONTACT_NUMBER = #{contactNumber, jdbcType=VARCHAR}
+      </if>
+      <if test="orderType != null" >
+       AND ORDER_TYPE = #{orderType, jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleLevel != null" >
+       AND VEHICLE_LEVEL = #{vehicleLevel, jdbcType=VARCHAR},
+      </if>
+      	ORDER BY CREATE_TIME DESC
+		LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+ 	
+ 	<select id="queryAll" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"/>		
+		FROM t_driver_order 
+		<where>
+			ACTIVE = '1'  
+			ORDER BY CREATE_TIME DESC
+		</where>
+	</select>
+  	
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(DRIVER_ORDER_ID + 1) FROM t_driver_order
+	</select>	
+	
+	 <select id="queryListByOrderType" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_driver_order 
+	    <where>
+	    	ACTIVE = '1'
+		  <if test="driverOrderId != null" >
+	        AND DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+	      </if>
+		  <if test="userId != null" >
+	        AND USER_ID = #{userId, jdbcType=VARCHAR}
+	      </if>
+	      <if test="userName != null" >
+	        AND USER_NAME = #{userName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleNo != null" >
+	       AND VEHICLE_NO = #{vehicleNo, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleBrand != null" >
+	       AND VEHICLE_BRAND = #{vehicleBrand, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleModel != null" >
+	       AND VEHICLE_MODEL = #{vehicleModel, jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleColor != null" >
+	       AND VEHICLE_COLOR = #{vehicleColor, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalPlaceName != null" >
+	        AND ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalLongtitude != null" >
+	       AND ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="originalLatitude != null" >
+	       AND ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetPlaceName != null" >
+	       AND TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetLongtitude != null" >
+	       AND TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="targetLatitude != null" >
+	       AND TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderDistance != null" >
+	       AND ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderAppointTime != null" >
+	      AND ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="orderDesc != null" >
+	      AND ORDER_DESC = #{orderDesc, jdbcType=VARCHAR}
+	      </if>
+<!-- 	      <if test="orderStatus != null" > -->
+<!-- 	      AND ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR} -->
+<!-- 	      </if> -->
+	      <if test="route != null" >
+	      AND ROUTE = #{route, jdbcType=VARCHAR}
+	      </if>
+	      <if test="residual != null" >
+	      AND RESIDUAL = #{residual, jdbcType=VARCHAR}
+	      </if>
+	      <if test="charterFee != null" >
+	      AND CHARTER_FEE = #{charterFee, jdbcType=VARCHAR}
+	      </if>
+	      <if test="contacts != null" >
+	      AND CONTACTS = #{contacts, jdbcType=VARCHAR}
+	      </if>
+	      <if test="contactNumber != null" >
+	      AND CONTACT_NUMBER = #{contactNumber, jdbcType=VARCHAR}
+	      </if>
+	       AND ORDER_TYPE in ('2','3') 
+	       AND ORDER_STATUS =''
+		</where>
+ 	</select>
+ 	
+  	
+</mapper>

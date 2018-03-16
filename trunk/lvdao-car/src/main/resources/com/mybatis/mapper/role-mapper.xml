@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="RoleEntity" >
+	<resultMap id="RoleResultMap" 
+		type="com.lvdao.entity.RoleEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+	    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	    <result column="ROLE_DESC" property="roleDesc" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+ 	<sql id="query_role_param" >
+ 		ID,
+    	ROLE_ID,
+    	ROLE_NAME,
+    	ROLE_DESC,
+    	ACTIVE,
+    	CREATE_USER_ID,
+    	CREATE_USER_NAME,
+    	CREATE_TIME,
+    	UPDATE_USER_ID,
+    	UPDATE_USER_NAME,
+    	UPDATE_TIME,
+    	VERSION
+  	</sql>
+  
+  	<insert id="insert"
+		parameterType="com.lvdao.entity.RoleEntity">
+	 	INSERT INTO T_ROLE (
+		    ID,
+	    	ROLE_ID,
+	    	ROLE_NAME,
+	    	ROLE_DESC,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	UPDATE_USER_ID,
+	    	UPDATE_USER_NAME,
+	    	UPDATE_TIME,
+	    	VERSION
+		) VALUES	
+		(	
+			#{id, jdbcType=VARCHAR},		
+			#{roleId, jdbcType=VARCHAR},
+			#{roleName, jdbcType=VARCHAR},
+			#{roleDesc, jdbcType=VARCHAR},
+			#{active, jdbcType=TINYINT},	
+			#{createUserId, jdbcType=VARCHAR},
+			#{createUserName, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},
+			#{updateUserId, jdbcType=VARCHAR},
+			#{updateUserName, jdbcType=VARCHAR},
+			#{updateTime, jdbcType=TIMESTAMP},
+			#{version, jdbcType=NUMERIC}
+		)
+	</insert>
+  	
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.RoleEntity" >
+    	UPDATE T_ROLE R SET
+      	<if test="roleId != null and roleId != ''" >
+        	R.ROLE_ID = #{roleId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="roleName != null and roleName != ''" >
+        	R.ROLE_NAME = #{roleName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	R.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	R.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	R.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	R.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	R.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	R.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null " >
+        	R.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		R.VERSION = R.VERSION + 1
+		<where>
+	    	R.ACTIVE = '1'
+	    	AND
+			R.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  	
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_ROLE R SET
+	    R.ACTIVE = '0'
+	  	<where>
+			R.ACTIVE = '1'
+	   		AND
+			R.ROLE_ID = #{roleId, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  	
+  	<select id="queryList" resultMap="RoleResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_role_param" />
+	    FROM T_ROLE R
+	    <where>
+	    	R.ACTIVE = '1'
+	      	<if test="roleId != null and roleId != ''" >
+	        	AND R.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND R.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_ROLE R
+	    <where>
+			R.ACTIVE = '1'
+	      	<if test="roleId != null and roleId != ''" >
+	        	AND R.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND R.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleDesc != null and roleDesc != ''" >
+	        	AND R.ROLE_DESC = #{roleDesc, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="RoleResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_role_param"/>
+		FROM T_ROLE R
+		<where>
+			R.ACTIVE = '1'
+	      	<if test="roleId != null and roleId != ''" >
+	        	AND R.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND R.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleDesc != null and roleDesc != ''" >
+	        	AND R.ROLE_DESC = #{roleDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	ORDER BY R.CREATE_TIME DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+ 	
+ 	<select id="queryAll" resultMap="RoleResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_role_param"/>		
+		FROM T_ROLE R
+		<where>
+			R.ACTIVE = '1'  
+			ORDER BY R.ROLE_ID DESC
+		</where>
+	</select>
+  	
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(ROLE_ID + 0) FROM T_ROLE
+	</select>
+  
+</mapper>

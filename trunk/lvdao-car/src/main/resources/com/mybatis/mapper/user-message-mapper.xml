@@ -1,0 +1,568 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserMessageEntity" >
+  <resultMap id="BaseResultMap" type="com.lvdao.entity.UserMessageEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="MESSAGE_ID" property="messageId" jdbcType="VARCHAR" />
+    <result column="MESSAGE_CATEGORY_ID" property="messageCategoryId" jdbcType="VARCHAR" />
+    <result column="MESSAGE_ATTR_IDS" property="messageAttrIds" jdbcType="VARCHAR" />
+    <result column="START_TIME" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="END_TIME" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="CITY_NAME" property="cityName" jdbcType="VARCHAR" />
+    <result column="REGION_ID" property="regionId" jdbcType="VARCHAR" />
+    <result column="LONGITUDE" property="longitude" jdbcType="VARCHAR" />
+    <result column="LATITUDE" property="latitude" jdbcType="VARCHAR" />
+    <result column="STATUS" property="status" jdbcType="TINYINT" />
+    <result column="RECEIVE_TIME" property="receiveTime" jdbcType="VARCHAR" />
+    <result column="GENDER_NEED" property="genderNeed" jdbcType="TINYINT" />
+    <result column="PRICE" property="price" jdbcType="DECIMAL" />
+    <result column="MESSAGE_TYPE" property="messageType" jdbcType="TINYINT" />
+    <result column="HIDDEN_STATUS" property="hiddenStatus" jdbcType="TINYINT" />
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, USER_ID, USER_NAME, MESSAGE_ID, MESSAGE_CATEGORY_ID, MESSAGE_ATTR_IDS, START_TIME, 
+    END_TIME, ADDRESS, CITY_NAME, REGION_ID, LONGITUDE, LATITUDE, STATUS, RECEIVE_TIME, 
+    GENDER_NEED, PRICE, MESSAGE_TYPE, HIDDEN_STATUS, ACTIVE, CREATE_USER_ID, CREATE_USER_NAME, 
+    CREATE_TIME, UPDATE_USER_ID, UPDATE_USER_NAME, UPDATE_TIME, VERSION
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_message
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_user_message
+    where ID = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lvdao.entity.UserMessageEntity" >
+    insert into t_user_message (ID, USER_ID, USER_NAME, 
+      MESSAGE_ID, MESSAGE_CATEGORY_ID, MESSAGE_ATTR_IDS, 
+      START_TIME, END_TIME, ADDRESS, 
+      CITY_NAME, REGION_ID, LONGITUDE, 
+      LATITUDE, STATUS, RECEIVE_TIME, 
+      GENDER_NEED, PRICE, MESSAGE_TYPE, 
+      HIDDEN_STATUS, ACTIVE, CREATE_USER_ID, 
+      CREATE_USER_NAME, CREATE_TIME, UPDATE_USER_ID, 
+      UPDATE_USER_NAME, UPDATE_TIME, VERSION
+      )
+    values (#{id,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{messageId,jdbcType=VARCHAR}, #{messageCategoryId,jdbcType=VARCHAR}, #{messageAttrIds,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{address,jdbcType=VARCHAR}, 
+      #{cityName,jdbcType=VARCHAR}, #{regionId,jdbcType=VARCHAR}, #{longitude,jdbcType=VARCHAR}, 
+      #{latitude,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{receiveTime,jdbcType=VARCHAR}, 
+      #{genderNeed,jdbcType=TINYINT}, #{price,jdbcType=DECIMAL}, #{messageType,jdbcType=TINYINT}, 
+      #{hiddenStatus,jdbcType=TINYINT}, #{active,jdbcType=TINYINT}, #{createUserId,jdbcType=VARCHAR}, 
+      #{createUserName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateUserId,jdbcType=VARCHAR}, 
+      #{updateUserName,jdbcType=VARCHAR}, #{updateTime,jdbcType=TIMESTAMP}, #{version,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.lvdao.entity.UserMessageEntity" >
+    insert into t_user_message
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="userId != null" >
+        USER_ID,
+      </if>
+      <if test="userName != null" >
+        USER_NAME,
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID,
+      </if>
+      <if test="messageCategoryId != null" >
+        MESSAGE_CATEGORY_ID,
+      </if>
+      <if test="messageAttrIds != null" >
+        MESSAGE_ATTR_IDS,
+      </if>
+      <if test="startTime != null" >
+        START_TIME,
+      </if>
+      <if test="endTime != null" >
+        END_TIME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME,
+      </if>
+      <if test="regionId != null" >
+        REGION_ID,
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE,
+      </if>
+      <if test="latitude != null" >
+        LATITUDE,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME,
+      </if>
+      <if test="genderNeed != null" >
+        GENDER_NEED,
+      </if>
+      <if test="price != null" >
+        PRICE,
+      </if>
+      <if test="messageType != null" >
+        MESSAGE_TYPE,
+      </if>
+      <if test="hiddenStatus != null" >
+        HIDDEN_STATUS,
+      </if>
+      <if test="active != null" >
+        ACTIVE,
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID,
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID,
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="version != null" >
+        VERSION,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCategoryId != null" >
+        #{messageCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAttrIds != null" >
+        #{messageAttrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null" >
+        #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="genderNeed != null" >
+        #{genderNeed,jdbcType=TINYINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="messageType != null" >
+        #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="hiddenStatus != null" >
+        #{hiddenStatus,jdbcType=TINYINT},
+      </if>
+      <if test="active != null" >
+        #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        #{version,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="update" parameterType="com.lvdao.entity.UserMessageEntity" >
+    update t_user_message
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCategoryId != null" >
+        MESSAGE_CATEGORY_ID = #{messageCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAttrIds != null" >
+        MESSAGE_ATTR_IDS = #{messageAttrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        REGION_ID = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="genderNeed != null" >
+        GENDER_NEED = #{genderNeed,jdbcType=TINYINT},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="messageType != null" >
+        MESSAGE_TYPE = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="hiddenStatus != null" >
+        HIDDEN_STATUS = #{hiddenStatus,jdbcType=TINYINT},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lvdao.entity.UserMessageEntity" >
+    update t_user_message
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      MESSAGE_CATEGORY_ID = #{messageCategoryId,jdbcType=VARCHAR},
+      MESSAGE_ATTR_IDS = #{messageAttrIds,jdbcType=VARCHAR},
+      START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      ADDRESS = #{address,jdbcType=VARCHAR},
+      CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      REGION_ID = #{regionId,jdbcType=VARCHAR},
+      LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      LATITUDE = #{latitude,jdbcType=VARCHAR},
+      STATUS = #{status,jdbcType=TINYINT},
+      RECEIVE_TIME = #{receiveTime,jdbcType=VARCHAR},
+      GENDER_NEED = #{genderNeed,jdbcType=TINYINT},
+      PRICE = #{price,jdbcType=DECIMAL},
+      MESSAGE_TYPE = #{messageType,jdbcType=TINYINT},
+      HIDDEN_STATUS = #{hiddenStatus,jdbcType=TINYINT},
+      ACTIVE = #{active,jdbcType=TINYINT},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  
+     <update id="delete" parameterType="map" >
+	    UPDATE t_user_message  SET
+	       ACTIVE = '0'
+	  	<where>
+			ACTIVE = '1'
+	   		AND
+			ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_user_message 
+	    <where>
+	    	ACTIVE = '1'
+	    <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCategoryId != null" >
+        MESSAGE_CATEGORY_ID = #{messageCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAttrIds != null" >
+        MESSAGE_ATTR_IDS = #{messageAttrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        REGION_ID = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="genderNeed != null" >
+        GENDER_NEED = #{genderNeed,jdbcType=TINYINT},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="messageType != null" >
+        MESSAGE_TYPE = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="hiddenStatus != null" >
+        HIDDEN_STATUS = #{hiddenStatus,jdbcType=TINYINT},
+      </if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_user_message 
+	    <where>
+			ACTIVE = '1'
+	  <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCategoryId != null" >
+        MESSAGE_CATEGORY_ID = #{messageCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAttrIds != null" >
+        MESSAGE_ATTR_IDS = #{messageAttrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        REGION_ID = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="genderNeed != null" >
+        GENDER_NEED = #{genderNeed,jdbcType=TINYINT},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="messageType != null" >
+        MESSAGE_TYPE = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="hiddenStatus != null" >
+        HIDDEN_STATUS = #{hiddenStatus,jdbcType=TINYINT},
+      </if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_user_message 
+		<where>
+			ACTIVE = '1'
+	   <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="messageId != null" >
+        MESSAGE_ID = #{messageId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageCategoryId != null" >
+        MESSAGE_CATEGORY_ID = #{messageCategoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="messageAttrIds != null" >
+        MESSAGE_ATTR_IDS = #{messageAttrIds,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null" >
+        START_TIME = #{startTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null" >
+        END_TIME = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="cityName != null" >
+        CITY_NAME = #{cityName,jdbcType=VARCHAR},
+      </if>
+      <if test="regionId != null" >
+        REGION_ID = #{regionId,jdbcType=VARCHAR},
+      </if>
+      <if test="longitude != null" >
+        LONGITUDE = #{longitude,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        LATITUDE = #{latitude,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="receiveTime != null" >
+        RECEIVE_TIME = #{receiveTime,jdbcType=VARCHAR},
+      </if>
+      <if test="genderNeed != null" >
+        GENDER_NEED = #{genderNeed,jdbcType=TINYINT},
+      </if>
+      <if test="price != null" >
+        PRICE = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="messageType != null" >
+        MESSAGE_TYPE = #{messageType,jdbcType=TINYINT},
+      </if>
+      <if test="hiddenStatus != null" >
+        HIDDEN_STATUS = #{hiddenStatus,jdbcType=TINYINT},
+      </if>
+	      	ORDER BY CREATE_TIME DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+ 	
+ 	<select id="queryAll" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"/>		
+		FROM t_user_message 
+		<where>
+			ACTIVE = '1'  
+			ORDER BY ID DESC
+		</where>
+	</select>
+  	
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(ID + 0) FROM T_USER_MESSAGE
+	</select>	
+  
+</mapper>

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserAccountEntity" >
+	<resultMap id="UserAccountResultMap"
+		type="com.lvdao.entity.UserAccountEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_ID" property="accountId" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_NAME" property="accountName" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_AMOUNT" property="accountAmount" jdbcType="VARCHAR" />
+	     <result column="OWN_AMOUNT" property="ownAmount" jdbcType="VARCHAR" />
+	    <result column="SHARE_AMOUNT" property="shareAmount" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  
+  	</resultMap>
+  
+  	<sql id="query_user_account_param" >
+	    UA.ID,
+	    UA.USER_ID,
+	    UA.USER_NAME,
+	    UA.ACCOUNT_ID,
+	    UA.ACCOUNT_NAME,
+	    UA.ACCOUNT_AMOUNT,
+	    UA.OWN_AMOUNT,
+	    UA.SHARE_AMOUNT,
+	    UA.ACTIVE,
+	    UA.CREATE_USER_ID, 
+	    UA.CREATE_USER_NAME,
+	    UA.CREATE_TIME,
+	    UA.UPDATE_USER_ID,
+	    UA.UPDATE_USER_NAME,
+	    UA.UPDATE_TIME,
+	    UA.VERSION
+  	</sql>
+  
+    <insert id="insert" 
+  		parameterType="com.lvdao.entity.UserAccountEntity" >
+    	INSERT INTO T_USER_ACCOUNT (
+    	ID,
+    	USER_ID,
+    	USER_NAME, 
+      	ACCOUNT_ID,
+      	ACCOUNT_NAME,
+    	ACCOUNT_AMOUNT,
+    	OWN_AMOUNT,
+	    SHARE_AMOUNT, 
+      	ACTIVE, 
+      	CREATE_USER_ID,
+      	CREATE_USER_NAME,
+      	CREATE_TIME, 
+      	UPDATE_USER_ID,
+      	UPDATE_USER_NAME,
+      	UPDATE_TIME, 
+      	VERSION
+      	) VALUES
+	   	(
+	      	#{id, jdbcType=VARCHAR},
+	      	#{userId, jdbcType=VARCHAR},
+	      	#{userName, jdbcType=VARCHAR}, 
+		    #{accountId, jdbcType=VARCHAR},
+		    #{accountName, jdbcType=VARCHAR}, 
+		    #{accountAmount, jdbcType=VARCHAR},
+		    #{ownAmount, jdbcType=VARCHAR},
+		    #{shareAmount, jdbcType=VARCHAR},
+		    #{active, jdbcType=TINYINT}, 
+		    #{createUserId, jdbcType=VARCHAR},
+		    #{createUserName, jdbcType=VARCHAR},
+		    #{createTime, jdbcType=TIMESTAMP}, 
+		    #{updateUserId, jdbcType=VARCHAR},
+		    #{updateUserName, jdbcType=VARCHAR},
+		    #{updateTime, jdbcType=TIMESTAMP}, 
+		    #{version,jdbcType=DECIMAL}
+		)
+  	</insert>
+
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.UserAccountEntity" >
+    	UPDATE T_USER_ACCOUNT UA SET
+      	<if test="userId != null and userId != ''" >
+        	UA.USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName != ''" >
+        	UA.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="accountId != null and accountId != ''" >
+        	UA.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="accountName != null and accountName != ''" >
+        	UA.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="accountAmount != null and accountAmount != ''" >
+        	UA.ACCOUNT_AMOUNT = #{accountAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="ownAmount != null and ownAmount != ''" >
+        	UA.OWN_AMOUNT = #{ownAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="shareAmount != null and shareAmount != ''" >
+        	UA.SHARE_AMOUNT = #{accountAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	UA.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	UA.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	UA.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	UA.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	UA.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	UA.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	UA.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		UA.VERSION = UA.VERSION + 1
+		<where>
+			<if test="id != null and id != ''" >
+	        	AND UA.ID = #{id, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userId != null and userId != ''" >
+	        	AND UA.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="accountId != null and accountId != ''" >
+	        	AND UA.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	      	</if>
+	      	AND UA.ACTIVE = 1
+		</where>
+  	</update>
+  	
+
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_USER_ACCOUNT UA SET
+	    UA.ACTIVE = '0'
+	  	<where>
+			UA.USER_ID = #{userId, jdbcType=VARCHAR}
+			AND
+			UA.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+			AND	
+			UA.ACTIVE = '1'	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="UserAccountResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_account_param" />
+	    FROM T_USER_ACCOUNT UA
+	    <where>
+	   		 UA.ACTIVE = '1'
+	    	<if test="userId != null and userId != ''" >
+	        	AND UA.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UA.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+			<if test="accountId != null and accountId != ''" >
+	        	AND UA.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="ownAmount != null and ownAmount != ''" >
+	        	AND UA.OWN_AMOUNT = #{ownAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="shareAmount != null and shareAmount != ''" >
+	        	AND UA.SHARE_AMOUNT = #{accountAmount, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER_ACCOUNT UA
+	    <where>
+			UA.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UA.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UA.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountId != null and accountId != ''" >
+	        	AND UA.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountName != null and accountName != ''" >
+	        	AND UA.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountAmount != null and accountAmount != ''" >
+	        	AND UA.ACCOUNT_AMOUNT = #{accountAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="ownAmount != null and ownAmount != ''" >
+	        	AND UA.OWN_AMOUNT = #{ownAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="shareAmount != null and shareAmount != ''" >
+	        	AND UA.SHARE_AMOUNT = #{accountAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="active != null and active != ''" >
+	        	AND UA.ACTIVE = #{active, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND UA.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND UA.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null" >
+	        	AND UA.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND UA.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND UA.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null" >
+	        	AND UA.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+	
+	<select id="queryAll" resultMap="UserAccountResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_account_param"/>		
+		FROM T_USER_ACCOUNT UA
+		<where>
+			UA.ACTIVE = '1'  
+		</where>
+	</select>	
+	
+	<!-- by zhaoming -->
+	<select id="queryPage" resultMap="UserAccountResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_account_param"/>
+		FROM T_USER_ACCOUNT UA
+		<where>
+			UA.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UA.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UA.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountId != null and accountId != ''" >
+	        	AND UA.ACCOUNT_ID = #{accountId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountName != null and accountName != ''" >
+	        	AND UA.ACCOUNT_NAME = #{accountName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="accountAmount != null and accountAmount != ''" >
+	        	AND UA.ACCOUNT_AMOUNT = #{accountAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="ownAmount != null and ownAmount != ''" >
+	        	AND UA.OWN_AMOUNT = #{ownAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="shareAmount != null and shareAmount != ''" >
+	        	AND UA.SHARE_AMOUNT = #{accountAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND UA.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND UA.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null " >
+	        	AND UA.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND UA.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND UA.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null " >
+	        	AND UA.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	ORDER BY UA.ACCOUNT_ID DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<update id="updateAccountAmount" parameterType="com.lvdao.entity.UserAccountEntity">
+		update 
+			T_USER_ACCOUNT UA 
+		set 
+			UA.ACCOUNT_AMOUNT =  #{accountAmount},
+			UA.VERSION = UA.VERSION + 1
+		<where>
+			<if test="userName != null and userName != '' ">
+				AND UA.USER_NAME = #{userName}
+			</if>
+			<if test="accountId != null and accountId != '' ">
+				AND UA.ACCOUNT_ID = #{accountId}
+			</if>
+		</where>
+	</update>
+	
+</mapper>

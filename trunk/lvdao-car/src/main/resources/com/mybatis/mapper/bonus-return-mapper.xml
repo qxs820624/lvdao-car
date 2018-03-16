@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="BonusReturnEntity" >
+	<resultMap id="BonusReturnResultMap"
+		type="com.lvdao.entity.BonusReturnEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="ORDER_AMOUNT" property="orderAmount" jdbcType="VARCHAR" />
+	    <result column="RETURN_AMOUNT" property="returnAmount" jdbcType="VARCHAR" />
+	    <result column="RETURN_TIME" property="returnTime" jdbcType="VARCHAR" />
+	    <result column="RETURN_PERCENT" property="returnPercent" jdbcType="VARCHAR" />
+	    <result column="ORDER_TIME" property="orderTime" jdbcType="TIMESTAMP" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+  	</resultMap>
+  
+  	<sql id="query_bonus_return_param" >
+  		BR.ID,
+	    BR.ORDER_ID,
+	    BR.USER_ID,
+	    BR.USER_NAME,
+	    BR.ORDER_AMOUNT,
+	    BR.RETURN_AMOUNT,
+	    BR.RETURN_TIME, 
+	    BR.RETURN_PERCENT,
+	    BR.ORDER_TIME,
+	    BR.CREATE_TIME
+  	</sql>
+  
+  	<insert id="insert" parameterType="com.lvdao.entity.BonusReturnEntity" >
+    	INSERT INTO T_BONUS_RETURN (
+	    	ID,
+	    	ORDER_ID,
+	    	USER_ID, 
+	      	USER_NAME,
+	      	ORDER_AMOUNT,
+	      	RETURN_AMOUNT, 
+	      	RETURN_TIME,
+	      	RETURN_PERCENT,
+	      	ORDER_TIME,
+	      	CREATE_TIME
+      	) VALUES
+	   	(
+	      	#{id, jdbcType=VARCHAR},
+	      	#{orderId, jdbcType=VARCHAR},
+	      	#{userId, jdbcType=VARCHAR}, 
+		    #{userName, jdbcType=VARCHAR},
+		    #{orderAmount, jdbcType=VARCHAR},
+		    #{returnAmount, jdbcType=TINYINT}, 
+		    #{returnTime, jdbcType=VARCHAR},
+		    #{returnPercent, jdbcType=VARCHAR},
+		    #{orderTime, jdbcType=TIMESTAMP},
+		    #{createTime, jdbcType=TIMESTAMP}
+		)
+  	</insert>
+  	
+  	<update id="update" parameterType="com.lvdao.entity.BonusReturnEntity" >
+    	UPDATE T_BONUS_RETURN BR SET
+      	<if test="id != null and id != ''" >
+        	ID = #{id, jdbcType=VARCHAR},
+      	</if>
+      	<if test="orderId != null and orderId != ''" >
+        	ORDER_ID = #{orderId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userId != null and userId != ''" >
+        	USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName != ''" >
+        	USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="orderAmount != null and orderAmount != ''" >
+        	ORDER_AMOUNT = #{orderAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="returnTime != null and returnTime != ''" >
+        	RETURN_TIME = #{returnTime, jdbcType=VARCHAR},
+      	</if>
+      	<if test="returnPercent != null and returnPercent != ''" >
+        	RETURN_PERCENT = #{returnPercent, jdbcType=VARCHAR},
+      	</if>
+      	<if test="orderTime != null" >
+        	ORDER_TIME = #{orderTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="createTime != null" >
+        	CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+      	</if>
+		<where>
+			ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+
+  
+	<select id="queryList" resultMap="BonusReturnResultMap" parameterType="java.util.Map">
+   		SELECT 
+		<include refid="query_bonus_return_param"/>		
+		FROM T_BONUS_RETURN BR
+	    <where>
+				<if test="id != null and id != ''" >
+		        	AND BR.ID = #{id, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderId != null and orderId != ''" >
+		        	AND BR.ORDER_ID = #{orderId, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="userId != null and userId != ''" >
+		        	AND BR.USER_ID = #{userId, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="userName != null and userName != ''" >
+		        	AND BR.USER_NAME = #{userName, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderAmount != null and orderAmount != ''" >
+		        	AND BR.ORDER_AMOUNT = #{orderAmount, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnTime != null and returnTime != ''" >
+		        	AND BR.RETURN_TIME = #{returnTime, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnPercent != null and returnPercent != ''" >
+		        	AND BR.RETURN_PERCENT = #{returnTime, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnPercentSet != null and returnPercentSet != ''" >
+		        	AND BR.RETURN_PERCENT  &lt; #{returnPercentSet, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderTime != null" >
+		        	AND BR.ORDER_TIME = #{orderTime, jdbcType=TIMESTAMP}
+		      	</if>
+		      	<if test="createTime != null" >
+		        	AND BR.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+		      	</if>
+		</where>
+  	</select>
+
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_BONUS_RETURN A
+	    <where>
+				<if test="id != null and id != ''" >
+		        	AND BR.ID = #{id, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderId != null and orderId != ''" >
+		        	AND BR.ORDER_ID = #{orderId, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="userId != null and userId != ''" >
+		        	AND BR.USER_ID = #{userId, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="userName != null and userName != ''" >
+		        	AND BR.USER_NAME = #{userName, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderAmount != null and orderAmount != ''" >
+		        	AND BR.ORDER_AMOUNT = #{orderAmount, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnTime != null and returnTime != ''" >
+		        	AND BR.RETURN_TIME = #{returnTime, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnPercent != null and returnPercent != ''" >
+		        	AND BR.RETURN_PERCENT = #{returnTime, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderTime != null and orderTime != ''" >
+		        	AND BR.ORDER_TIME = #{orderTime, jdbcType=TIMESTAMP}
+		      	</if>
+		      	<if test="createTime != null and createTime != ''" >
+		        	AND BR.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+		      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BonusReturnResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_bonus_return_param"/>
+		FROM T_BONUS_RETURN BR
+		<where>
+				<if test="id != null and id != ''" >
+		        	AND BR.ID = #{id, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderId != null and orderId != ''" >
+		        	AND BR.ORDER_ID = #{orderId, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="userId != null and userId != ''" >
+		        	AND BR.USER_ID = #{userId, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="userName != null and userName != ''" >
+		        	AND BR.USER_NAME = #{userName, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderAmount != null and orderAmount != ''" >
+		        	AND BR.ORDER_AMOUNT = #{orderAmount, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnTime != null and returnTime != ''" >
+		        	AND BR.RETURN_TIME = #{returnTime, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="returnPercent != null and returnPercent != ''" >
+		        	AND BR.RETURN_PERCENT = #{returnTime, jdbcType=VARCHAR}
+		      	</if>
+		      	<if test="orderTime != null" >
+		        	AND BR.ORDER_TIME = #{orderTime, jdbcType=TIMESTAMP}
+		      	</if>
+		      	<if test="createTime != null" >
+		        	AND BR.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+		      	</if>
+	      	ORDER BY BR.ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="BonusReturnResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_bonus_return_param"/>		
+		FROM T_BONUS_RETURN BR ORDER BY BR.ID DESC
+	</select>	
+	
+</mapper>
