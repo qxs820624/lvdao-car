@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="dist/css/swiper.css">
+    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/dist/css/swiper.css">
     </head>
     <body>
     	<div class="container">
@@ -22,11 +22,11 @@
                     <div class="investment_img">
                         <div class="swiper-container investment01">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
                             </div>
                         </div>
                         <!-- Add Pagination -->
@@ -46,11 +46,11 @@
                     <div class="investment_img">
                         <div class="swiper-container investment02">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
                             </div>
                         </div>
                         <!-- Add Pagination -->
@@ -67,7 +67,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="dist/js/swiper.min.js"></script>
+        <script type="text/javascript" src="../../resources/dist/js/swiper.min.js"></script>
         <script type="text/javascript">
             var swiper = new Swiper('.investment01', {
                 nextButton: '.swiper-button-next01',

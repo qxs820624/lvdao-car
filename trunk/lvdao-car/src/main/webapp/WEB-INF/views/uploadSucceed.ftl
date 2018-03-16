@@ -6,19 +6,19 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
     <body>
     	<div class="container">
             <div class="succeed_cons">
                 <div class="close_btn">
-                    <img src="images/close_btn.png" alt="">
+                    <img src="../../resources/images/close_btn.png" alt="">
                 </div>
                 <div class="succeed_main">
                     <div class="succeed_img">
-                        <img src="images/succeed_icon.png" alt="">
+                        <img src="../../resources/images/succeed_icon.png" alt="">
                     </div>
                     <span>提交成功！</span>
                     <p>待平台审核通过后，可以参加返利～</p>
