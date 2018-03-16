@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="SettlementEntity" >
+	<resultMap id="SettlementResultMap"
+		type="com.lvdao.entity.SettlementEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_TYPE" property="userType" jdbcType="VARCHAR" />
+	    <result column="BONUS_NUM" property="bonusNum" jdbcType="VARCHAR" />
+	    <result column="BONUS_TOTAL_AMOUNT" property="bonusTotalAmount" jdbcType="VARCHAR" />
+	    <result column="BONUS_TOTAL_ACTUAL_AMOUNT" property="bonusTotalActualAmount" jdbcType="VARCHAR" />
+	    <result column="BONUS_AMOUNT" property="bonusAmount" jdbcType="VARCHAR" />
+	    <result column="BONUS_ACTUAL_AMOUNT" property="bonusActualAmount" jdbcType="VARCHAR" />
+	    <result column="BONUS_DATE" property="bonusDate" jdbcType="VARCHAR" />
+	    <result column="BONUS_STATUS" property="bonusStatus" jdbcType="VARCHAR" />
+	    <result column="TOTAL_PROFIT" property="totalProfit" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_settlement_param" >
+  		S.ID,
+	    S.USER_TYPE,
+	    S.BONUS_NUM,
+	    S.BONUS_TOTAL_AMOUNT,
+	    S.BONUS_TOTAL_ACTUAL_AMOUNT,
+	    S.BONUS_AMOUNT,
+	    S.BONUS_ACTUAL_AMOUNT,
+	    S.BONUS_DATE,
+	    S.BONUS_STATUS,
+	    S.TOTAL_PROFIT,
+	    S.ACTIVE,
+	    S.CREATE_USER_ID, 
+	    S.CREATE_USER_NAME,
+	    S.CREATE_TIME,
+	    S.UPDATE_USER_ID,
+	    S.UPDATE_USER_NAME,
+	    S.UPDATE_TIME,
+	    S.VERSION
+  	</sql>
+  
+  	<insert id="insert" parameterType="com.lvdao.entity.SettlementEntity" >
+    	INSERT INTO T_SETTLEMENT (
+	    	ID,
+	    	USER_TYPE,
+	    	BONUS_NUM,
+	   		BONUS_TOTAL_AMOUNT,
+	   		BONUS_TOTAL_ACTUAL_AMOUNT,
+	    	BONUS_AMOUNT,
+	    	BONUS_ACTUAL_AMOUNT,
+	    	BONUS_DATE,
+	    	BONUS_STATUS,
+	    	TOTAL_PROFIT,
+	      	ACTIVE, 
+	      	CREATE_USER_ID,
+	      	CREATE_USER_NAME,
+	      	CREATE_TIME, 
+	      	UPDATE_USER_ID,
+	      	UPDATE_USER_NAME,
+	      	UPDATE_TIME, 
+	      	VERSION
+      	) VALUES
+	   	(
+	      	#{id, jdbcType=VARCHAR},
+	      	#{userType, jdbcType=VARCHAR},
+	      	#{bonusNum, jdbcType=VARCHAR}, 
+		    #{bonusTotalAmount, jdbcType=VARCHAR},
+		    #{bonusTotalActualAmount, jdbcType=VARCHAR},
+		    #{bonusAmount, jdbcType=VARCHAR},
+		    #{bonusActualAmount, jdbcType=VARCHAR},
+		    #{bonusDate, jdbcType=VARCHAR},
+		    #{bonusStatus, jdbcType=VARCHAR},
+		    #{totalProfit, jdbcType=VARCHAR},
+		    #{active, jdbcType=TINYINT}, 
+		    #{createUserId, jdbcType=VARCHAR},
+		    #{createUserName, jdbcType=VARCHAR},
+		    #{createTime, jdbcType=TIMESTAMP}, 
+		    #{updateUserId, jdbcType=VARCHAR},
+		    #{updateUserName, jdbcType=VARCHAR},
+		    #{updateTime, jdbcType=TIMESTAMP}, 
+		    #{version,jdbcType=DECIMAL}
+		)
+  	</insert>
+  	
+  	<update id="update" parameterType="com.lvdao.entity.SettlementEntity" >
+    	UPDATE T_SETTLEMENT S SET
+      	<if test="userType != null and userType != ''" >
+        	S.USER_TYPE = #{userType, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusNum != null and bonusNum != ''" >
+        	S.BONUS_NUM = #{bonusNum, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusTotalAmount != null and bonusTotalAmount != ''" >
+        	S.BONUS_TOTAL_AMOUNT = #{bonusTotalAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusTotalActualAmount != null and bonusTotalActualAmount != ''" >
+        	S.BONUS_TOTAL_ACTUAL_AMOUNT = #{bonusTotalActualAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusAmount != null and bonusAmount != ''" >
+        	S.BONUS_AMOUNT = #{bonusAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusActualAmount != null and bonusActualAmount != ''" >
+        	S.BONUS_ACTUAL_AMOUNT = #{bonusActualAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusDate != null and bonusDate != ''" >
+        	S.BONUS_DATE = #{bonusDate, jdbcType=VARCHAR},
+      	</if>
+      	<if test="bonusStatus != null and bonusStatus != ''" >
+        	S.BONUS_STATUS = #{bonusStatus, jdbcType=VARCHAR},
+      	</if>
+      	<if test="totalProfit != null and totalProfit != ''" >
+        	S.TOTAL_PROFIT = #{totalProfit, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	S.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	S.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	S.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	S.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	S.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	S.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	S.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		S.VERSION = S.VERSION + 1
+		<where>
+			S.ACTIVE = '1'
+	   		AND
+			S.USER_TYPE = #{userType, jdbcType=VARCHAR}	
+			AND
+			S.BONUS_DATE = #{bonusDate, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_SETTLEMENT S SET
+	    S.ACTIVE = '0'
+	  	<where>
+			S.ACTIVE = '1'
+	   		AND
+			S.USER_TYPE = #{userType, jdbcType=VARCHAR}	
+			AND
+			S.BONUS_DATE = #{bonusDate, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="SettlementResultMap" parameterType="map" >
+	    SELECT 
+	    <include refid="query_settlement_param" />
+	    FROM T_SETTLEMENT S
+	    <where>
+	   		S.ACTIVE = '1'
+	   		<if test="id != null and id != ''" >
+	        	AND S.ID = #{id, jdbcType=VARCHAR}
+	      	</if>
+	   		<if test="userType != null and userType != ''" >
+	        	AND S.USER_TYPE = #{userType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusNum != null and bonusNum != ''" >
+	        	AND S.BONUS_NUM = #{bonusNum, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusTotalAmount != null and bonusTotalAmount != ''" >
+	        	AND S.BONUS_TOTAL_AMOUNT = #{bonusTotalAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusTotalActualAmount != null and bonusTotalActualAmount != ''" >
+	        	AND S.BONUS_TOTAL_ACTUAL_AMOUNT = #{bonusTotalActualAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusAmount != null and bonusAmount != ''" >
+	        	AND S.BONUS_AMOUNT = #{bonusAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusActualAmount != null and bonusActualAmount != ''" >
+	        	AND S.BONUS_ACTUAL_AMOUNT = #{bonusActualAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusDate != null and bonusDate != ''" >
+	        	AND S.BONUS_DATE = #{bonusDate, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusStatus != null and bonusStatus != ''" >
+	        	AND S.BONUS_STATUS = #{bonusStatus, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="totalProfit != null and totalProfit != ''" >
+	        	AND S.TOTAL_PROFIT = #{totalProfit, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_SETTLEMENT S
+	    <where>
+			S.ACTIVE = '1'
+			<if test="id != null and id != ''" >
+	        	AND S.ID = #{id, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userType != null and userType != ''" >
+	        	AND S.USER_TYPE = #{userType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusNum != null and bonusNum != ''" >
+	        	AND S.BONUS_NUM = #{bonusNum, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusTotalAmount != null and bonusTotalAmount != ''" >
+	        	AND S.BONUS_TOTAL_AMOUNT = #{bonusTotalAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusTotalActualAmount != null and bonusTotalActualAmount != ''" >
+	        	AND S.BONUS_TOTAL_ACTUAL_AMOUNT = #{bonusTotalActualAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusAmount != null and bonusAmount != ''" >
+	        	AND S.BONUS_AMOUNT = #{bonusAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusActualAmount != null and bonusActualAmount != ''" >
+	        	AND S.BONUS_ACTUAL_AMOUNT = #{bonusActualAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusDate != null and bonusDate != ''" >
+	        	AND S.BONUS_DATE = #{bonusDate, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusStatus != null and bonusStatus != ''" >
+	        	AND S.BONUS_STATUS = #{bonusStatus, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="totalProfit != null and totalProfit != ''" >
+	        	AND S.TOTAL_PROFIT = #{totalProfit, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="SettlementResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_settlement_param"/>
+		FROM T_SETTLEMENT S
+		<where>
+			S.ACTIVE = '1'
+			<if test="id != null and id != ''" >
+	        	AND S.ID = #{id, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userType != null and userType != ''" >
+	        	AND S.USER_TYPE = #{userType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusNum != null and bonusNum != ''" >
+	        	AND S.BONUS_NUM = #{bonusNum, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusTotalAmount != null and bonusTotalAmount != ''" >
+	        	AND S.BONUS_TOTAL_AMOUNT = #{bonusTotalAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusTotalActualAmount != null and bonusTotalActualAmount != ''" >
+	        	AND S.BONUS_TOTAL_ACTUAL_AMOUNT = #{bonusTotalActualAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusAmount != null and bonusAmount != ''" >
+	        	AND S.BONUS_AMOUNT = #{bonusAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusActualAmount != null and bonusActualAmount != ''" >
+	        	AND S.BONUS_ACTUAL_AMOUNT = #{bonusActualAmount, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusDate != null and bonusDate != ''" >
+	        	AND S.BONUS_DATE = #{bonusDate, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="bonusStatus != null and bonusStatus != ''" >
+	        	AND S.BONUS_STATUS = #{bonusStatus, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="totalProfit != null and totalProfit != ''" >
+	        	AND S.TOTAL_PROFIT = #{totalProfit, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	ORDER BY S.CREATE_TIME DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="SettlementResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_settlement_param"/>		
+		FROM T_SETTLEMENT S
+		<where>
+			S.ACTIVE = '1'  
+			ORDER BY S.CREATE_TIME DESC
+		</where>
+	</select>	
+	
+	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(ID + 0) FROM T_SETTLEMENT
+	</select>
+</mapper>

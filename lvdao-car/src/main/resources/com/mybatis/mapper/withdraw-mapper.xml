@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserWithdrawEntity" >
+	<resultMap id="UserWithdrawResultMap" type="com.lvdao.entity.UserWithdrawEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="PARENT_USER_NAME" property="parentUserName" jdbcType="VARCHAR" />
+	    <result column="PARENT_USER_NAME" property="parentUserName" jdbcType="VARCHAR" />
+	    <result column="WITHDRAW_ACCOUNT_TYPE" property="withdrawAccountType" jdbcType="VARCHAR"/>
+	    <result column="WITHDRAW_ACCOUNT" property="withdrawAccount" jdbcType="VARCHAR"/>
+	    <result column="WITHDRAW_MONEY" property="withdrawMoney" jdbcType="VARCHAR"/>
+	    <result column="WITHDRAW_RPOCEDURE" property="withdrawProcedure" jdbcType="VARCHAR"/>
+	    <result column="WITHDRAW_TOTAL" property="withdrawTotal" jdbcType="VARCHAR"/>
+	    <result column="ACCOUNT_BALANCE" property="accountBalance" jdbcType="VARCHAR"/>
+	    <result column="WITHDRAW_BANKFULLNAME" property="withdrawBankFullName" jdbcType="VARCHAR"/>
+	    <result column="WITHDRAW_ACCOUNTNAME" property="withdrawAccountName" jdbcType="VARCHAR"/>
+	    <result column="COMMENT" property="comment" jdbcType="VARCHAR"/>
+	    <result column="STATUS" property="status" jdbcType="TINYINT"/>
+	    <result column="ORDER_SN" property="orderSn" jdbcType="VARCHAR"/>
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  	
+ 	<sql id="query_withdraw_param" >
+ 	    U.ID,
+ 		U.USER_ID,
+    	U.USER_NAME,
+    	U.PARENT_USER_ID,
+    	U.PARENT_USER_NAME,
+    	U.WITHDRAW_ACCOUNT_TYPE,
+    	U.WITHDRAW_ACCOUNT,
+    	U.WITHDRAW_MONEY,
+    	U.WITHDRAW_RPOCEDURE,
+    	U.WITHDRAW_TOTAL,
+    	U.WITHDRAW_BANKFULLNAME,
+    	U.WITHDRAW_ACCOUNTNAME,
+    	U.ACCOUNT_BALANCE,
+    	U.COMMENT,
+    	U.STATUS,
+    	U.ORDER_SN,
+    	U.ACTIVE,
+    	U.CREATE_USER_ID,
+    	U.CREATE_USER_NAME,
+    	U.CREATE_TIME,
+    	U.UPDATE_USER_ID,
+    	U.UPDATE_USER_NAME,
+    	U.UPDATE_TIME,
+    	U.VERSION
+  	</sql>
+  	
+  	<insert id="insert" parameterType="com.lvdao.entity.UserWithdrawEntity">
+  		insert into t_withdraw(
+  			ID,
+	    	USER_NAME,
+	    	USER_ID,
+	    	PARENT_USER_NAME,
+	    	PARENT_USER_ID,
+	    	WITHDRAW_ACCOUNT_TYPE,
+	    	WITHDRAW_ACCOUNT,
+	    	WITHDRAW_MONEY,
+	    	WITHDRAW_RPOCEDURE,
+	    	WITHDRAW_TOTAL,
+	    	WITHDRAW_BANKFULLNAME,
+	    	WITHDRAW_ACCOUNTNAME,
+	    	ACCOUNT_BALANCE,
+	    	COMMENT,
+	    	STATUS,
+	    	ORDER_SN,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	UPDATE_USER_ID,
+	    	UPDATE_USER_NAME,
+	    	UPDATE_TIME,
+	    	VERSION
+  		) values(
+  			#{id, jdbcType=VARCHAR},		
+			#{userName, jdbcType=VARCHAR},
+			#{userId, jdbcType=VARCHAR},
+			#{parentUserName, jdbcType=VARCHAR},
+			#{parentUserId, jdbcType=VARCHAR},
+			#{withdrawAccountType, jdbcType=VARCHAR},
+			#{withdrawAccount, jdbcType=VARCHAR},
+			#{withdrawMoney, jdbcType=VARCHAR},
+			#{withdrawProcedure, jdbcType=VARCHAR},
+			#{withdrawTotal, jdbcType=VARCHAR},
+			#{withdrawBankFullName, jdbcType=VARCHAR},
+			#{withdrawAccountName, jdbcType=VARCHAR},
+			#{accountBalance, jdbcType=VARCHAR},
+			#{comment, jdbcType=VARCHAR},
+			#{status, jdbcType=TINYINT},
+			#{orderSn, jdbcType=VARCHAR},
+			#{active, jdbcType=TINYINT},
+			#{createUserId, jdbcType=VARCHAR},
+			#{createUserName, jdbcType=VARCHAR},
+			#{createTime, jdbcType=VARCHAR},
+			#{updateUserId, jdbcType=VARCHAR},
+			#{updateUserName, jdbcType=VARCHAR},
+			#{updateTime, jdbcType=VARCHAR},
+			#{version, jdbcType=NUMERIC}
+  		)
+  	</insert>
+  	
+  	<select id="queryPage" resultMap="UserWithdrawResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_withdraw_param"/>
+		FROM t_withdraw U
+		<where>
+			U.ACTIVE = '1'
+			<if test="userName != null and userName != '' ">
+				AND U.USER_NAME = #{userName}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND U.USER_ID = #{userId}
+			</if>
+		</where>
+      	ORDER BY U.CREATE_TIME DESC
+		limit #{startIndex}, #{pageSize}
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+		select 
+			count(0)
+		from 
+			t_withdraw U
+		<where>
+			U.ACTIVE = '1'
+			<if test="userName != null and userName != '' ">
+				AND U.USER_NAME = #{userName}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="UserWithdrawResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_withdraw_param"/>		
+		FROM t_withdraw U
+		<where>
+			U.ACTIVE = '1'  
+		</where>
+	</select>
+	
+	
+  	<select id="queryList" resultMap="UserWithdrawResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_withdraw_param" />
+	    FROM T_WITHDRAW U
+	    <where>
+			U.ACTIVE = '1'
+			<if test="id != null and id != ''" >
+	        	AND U.ID = #{id, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userId != null and userId != ''" >
+	        	AND U.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND U.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="status != null and status != ''" >
+	        	AND U.STATUS = #{status, jdbcType=TINYINT}
+	      	</if>
+		</where>
+  	</select> 
+  	
+  	<update id="update" parameterType="com.lvdao.entity.UserWithdrawEntity" >
+    	UPDATE T_WITHDRAW S SET
+      	<if test="userId != null and userId != ''" >
+        	S.USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName != ''" >
+        	S.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="withdrawAccountType != null and withdrawAccountType != ''" >
+        	S.WITHDRAW_ACCOUNT_TYPE = #{withdrawAccountType, jdbcType=VARCHAR},
+      	</if>
+      	<if test="withdrawAccount != null and withdrawAccount != ''" >
+        	S.WITHDRAW_ACCOUNT = #{withdrawAccount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="withdrawMoney != null and withdrawMoney != ''" >
+        	S.WITHDRAW_MONEY = #{withdrawMoney, jdbcType=VARCHAR},
+      	</if>
+      	<if test="withdrawProcedure != null and withdrawProcedure != ''" >
+        	S.WITHDRAW_RPOCEDURE = #{withdrawProcedure, jdbcType=VARCHAR},
+      	</if>
+      	<if test="withdrawTotal != null and withdrawTotal != ''" >
+        	S.WITHDRAW_TOTAL = #{withdrawTotal, jdbcType=VARCHAR},
+      	</if>
+      	<if test="comment != null and comment != ''" >
+        	S.COMMENT = #{comment, jdbcType=VARCHAR},
+      	</if>
+      	<if test="status != null and status != ''" >
+        	S.STATUS = #{status, jdbcType=TINYINT},
+      	</if>
+      	<if test="orderSn != null and orderSn != ''" >
+        	S.ORDER_SN = #{orderSn, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	S.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	S.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	S.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	S.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	S.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	S.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	S.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		S.VERSION = S.VERSION + 1
+		<where>
+			S.ID = #{id, jdbcType=VARCHAR}
+			AND	
+			S.ACTIVE = '1'	
+		</where>
+  	</update>
+	
+</mapper>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserMailEntity" >
+	<resultMap id="UserMailResultMap"
+		type="com.lvdao.entity.UserMailEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="MAIL_ID" property="mailId" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  <sql id="page_limit">
+ 		<if test="startIndex != null and pageSize != null" >
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</if>
+  </sql>
+  
+  	<sql id="query_user_mail_param" >
+	    ID,
+	    USER_ID,
+	    USER_NAME,
+	    MAIL_ID,
+	    ACTIVE,
+	    CREATE_USER_ID, 
+	    CREATE_USER_NAME,
+	    CREATE_TIME,
+	    UPDATE_USER_ID,
+	    UPDATE_USER_NAME,
+	    UPDATE_TIME,
+	    VERSION
+  	</sql>
+
+    <insert id="insert" 
+  		parameterType="com.lvdao.entity.UserMailEntity" >
+    	INSERT INTO t_user_mail (
+	    	ID,
+		    USER_ID,
+		    USER_NAME,
+		    MAIL_ID,
+		    ACTIVE,
+		    CREATE_USER_ID, 
+		    CREATE_USER_NAME,
+		    CREATE_TIME,
+		    UPDATE_USER_ID,
+		    UPDATE_USER_NAME,
+		    UPDATE_TIME,
+		    VERSION
+      	) VALUES
+   	(
+      	#{id, jdbcType=VARCHAR},
+      	#{userId, jdbcType=VARCHAR},
+      	#{userName, jdbcType=VARCHAR}, 
+      	#{mailId, jdbcType=VARCHAR},
+	    #{active, jdbcType=TINYINT}, 
+	    #{createUserId, jdbcType=VARCHAR},
+	    #{createUserName, jdbcType=VARCHAR},
+	    #{createTime, jdbcType=TIMESTAMP}, 
+	    #{updateUserId, jdbcType=VARCHAR},
+	    #{updateUserName, jdbcType=VARCHAR},
+	    #{updateTime, jdbcType=TIMESTAMP}, 
+	    #{version, jdbcType=NUMERIC}
+	 )
+  	</insert>
+  	
+  	<select id="queryAll" resultMap="UserMailResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_mail_param"/>		
+		FROM T_USER_MAIL UA
+		<where>
+			UA.ACTIVE = '1'  
+		</where>
+	</select>
+	
+	<select id="queryList" resultMap="UserMailResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_mail_param"/>		
+		FROM T_USER_MAIL UA
+		<where>
+			<if test="userId != null and userId != ''" >
+				AND	UA.USER_ID = #{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''" >
+				AND	UA.USER_NAME = #{userName, jdbcType=VARCHAR}
+			</if>
+			<if test="mailId != null and mailId != ''" >
+				AND	UA.MAIL_ID = #{mailId, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	
+	<select id="queryPage" resultMap="UserMailResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_mail_param"/>		
+		FROM T_USER_MAIL UA
+		<where>
+			<if test="userId != null and userId != ''" >
+				AND	UA.USER_ID = #{userId, jdbcType=VARCHAR}
+			</if>
+			<if test="userName != null and userName != ''" >
+				AND	UA.USER_NAME = #{userName, jdbcType=VARCHAR}
+			</if>
+			<if test="mailId != null and mailId != ''" >
+				AND	UA.MAIL_ID = #{mailId, jdbcType=VARCHAR}
+			</if>
+			<include refid="page_limit"/>
+		</where>
+	</select>
+
+</mapper>

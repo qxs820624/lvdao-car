@@ -1,0 +1,480 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="UserOrderEntity" >
+  <resultMap id="BaseResultMap" type="com.lvdao.entity.UserOrderEntity" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
+    <result column="PAID_STATUS" property="paidStatus" jdbcType="TINYINT" />
+    <result column="ORDER_MONEY" property="orderMoney" jdbcType="VARCHAR" />
+    <result column="TRANSACTION_ID" property="transactionId" jdbcType="VARCHAR" />
+    <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
+    <result column="ROUTE_ID" property="routeId" jdbcType="VARCHAR" />
+    <result column="OSS_ROUTE_URL" property="ossRouteUrl" jdbcType="VARCHAR" />
+    <result column="ORDER_DISTANCE" property="orderDistance" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="ORDER_TYPE" property="orderType" jdbcType="VARCHAR" />
+    <result column="PAYMENT_METHOD" property="paymentMethod" jdbcType="VARCHAR" />
+    <result column="ORDER_COMMENT_TYPE_ID" property="orderCommentTypeId" jdbcType="VARCHAR" />
+    <result column="ORDER_COMMENT_CONTENT" property="orderCommentContent" jdbcType="VARCHAR" />
+    <result column="ORDER_COMMENT_TIME" property="orderCommentTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_COMMENT_PIC_GROUP_ID" property="orderCommentPicGroupId" jdbcType="VARCHAR" />
+    <result column="DRIVER_ORDER_ID" property="driverOrderId" jdbcType="VARCHAR" />
+    <result column="PASSENGER_ORDER_ID" property="passengerOrderId" jdbcType="VARCHAR" />
+    <result column="ADD_METHOD" property="addMethod" jdbcType="VARCHAR" />
+    <result column="OTHER_PERSON_MOBILE" property="otherPersonMobile" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+    <result column="VIP_ORDER_TIME" property="vipOrderTime" jdbcType="TIMESTAMP"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List" >
+  	ID,
+    USER_ID, 
+    USER_NAME, 
+    VEHICLE_NO, 
+    PAID_STATUS, 
+    ORDER_MONEY, 
+    TRANSACTION_ID, 
+    ORDER_ID, 
+    ROUTE_ID, 
+    OSS_ROUTE_URL, 
+    ORDER_DISTANCE, 
+    REMARK, 
+    ORDER_TYPE,
+    PAYMENT_METHOD,
+    ORDER_COMMENT_TYPE_ID,
+    ORDER_COMMENT_CONTENT,
+    ORDER_COMMENT_TIME,
+    ORDER_COMMENT_PIC_GROUP_ID,
+    DRIVER_ORDER_ID,
+    PASSENGER_ORDER_ID,
+    ADD_METHOD,
+    OTHER_PERSON_MOBILE,
+    ACTIVE, 
+    CREATE_USER_ID, 
+    CREATE_TIME, 
+    CREATE_USER_NAME, 
+    UPDATE_USER_ID, 
+    UPDATE_USER_NAME, 
+    UPDATE_TIME,
+    VERSION
+  </sql>
+  
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_user_order
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="insert" parameterType="com.lvdao.entity.UserOrderEntity" >
+	insert into t_user_order (ID,
+	USER_ID,
+	USER_NAME,
+	VEHICLE_NO,
+	PAID_STATUS,
+	ORDER_MONEY,
+	TRANSACTION_ID,
+	ORDER_ID,
+	ROUTE_ID,
+	OSS_ROUTE_URL,
+	ORDER_DISTANCE,
+	REMARK,
+	ORDER_TYPE,
+	PAYMENT_METHOD,
+	ORDER_COMMENT_TYPE_ID,
+	ORDER_COMMENT_CONTENT,
+	ORDER_COMMENT_TIME,
+	ORDER_COMMENT_PIC_GROUP_ID,
+	DRIVER_ORDER_ID,
+	PASSENGER_ORDER_ID,
+	ADD_METHOD,
+    OTHER_PERSON_MOBILE,
+	ACTIVE,
+	CREATE_USER_ID,
+	CREATE_TIME,
+	CREATE_USER_NAME,
+	UPDATE_USER_ID,
+	UPDATE_USER_NAME,
+	UPDATE_TIME,
+	VERSION)
+	values (#{id,jdbcType=VARCHAR},
+	#{userId,jdbcType=VARCHAR},
+	#{userName,jdbcType=VARCHAR},
+	#{vehicleNo,jdbcType=VARCHAR},
+	#{paidStatus,jdbcType=TINYINT},
+	#{orderMoney,jdbcType=VARCHAR},
+	#{transactionId,jdbcType=VARCHAR},
+	#{orderId,jdbcType=VARCHAR},
+	#{routeId,jdbcType=VARCHAR},
+	#{ossRouteUrl,jdbcType=VARCHAR},
+	#{orderDistance,jdbcType=VARCHAR},
+	#{remark,jdbcType=VARCHAR},
+	#{orderType,jdbcType=VARCHAR},
+	#{paymentMethod,jdbcType=VARCHAR},
+	#{orderCommentTypeId,jdbcType=VARCHAR},
+	#{orderCommentContent,jdbcType=VARCHAR},
+	#{orderCommentTime,jdbcType=TIMESTAMP},
+	#{orderCommentPicGroupId,jdbcType=VARCHAR},
+	#{driverOrderId,jdbcType=VARCHAR},
+	#{passengerOrderId,jdbcType=VARCHAR},
+	#{addMethod,jdbcType=VARCHAR},
+	#{otherPersonMobile,jdbcType=VARCHAR},
+	#{active,jdbcType=TINYINT},
+	#{createUserId,jdbcType=VARCHAR},
+	#{createTime,jdbcType=TIMESTAMP},
+	#{createUserName,jdbcType=VARCHAR},
+	#{updateUserId,jdbcType=VARCHAR},
+	#{updateUserName,jdbcType=VARCHAR},
+	#{updateTime,jdbcType=TIMESTAMP},
+	#{version,jdbcType=DECIMAL}
+
+	)
+  </insert>
+  
+  <update id="update" parameterType="com.lvdao.entity.UserOrderEntity" >
+    update t_user_order
+    <set >
+      <if test="userId != null" >
+        USER_ID = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null" >
+        USER_NAME = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="vehicleNo != null" >
+        VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paidStatus != null" >
+        PAID_STATUS = #{paidStatus,jdbcType=TINYINT},
+      </if>
+      <if test="orderMoney != null" >
+        ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="transactionId != null" >
+        TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderId != null" >
+        ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="routeId != null" >
+        ROUTE_ID = #{routeId,jdbcType=VARCHAR},
+      </if>
+      <if test="ossRouteUrl != null" >
+        OSS_ROUTE_URL = #{ossRouteUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="orderDistance != null" >
+        ORDER_DISTANCE = #{orderDistance,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="orderType != null" >
+        ORDER_TYPE = #{orderType,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentMethod != null" >
+        PAYMENT_METHOD = #{paymentMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCommentTypeId != null" >
+        ORDER_COMMENT_TYPE_ID = #{orderCommentTypeId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderCommentTime != null" >
+        ORDER_COMMENT_TIME = #{orderCommentTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orderCommentPicGroupId != null" >
+        ORDER_COMMENT_PIC_GROUP_ID = #{orderCommentPicGroupId,jdbcType=VARCHAR},
+      </if>
+      <if test="driverOrderId != null" >
+        DRIVER_ORDER_ID = #{driverOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="passengerOrderId != null" >
+        PASSENGER_ORDER_ID = #{passengerOrderId,jdbcType=VARCHAR},
+      </if>
+      <if test="addMethod != null and addMethod !=''" >
+        ADD_METHOD = #{addMethod,jdbcType=VARCHAR},
+      </if>
+      <if test="otherPersonMobile != null and otherPersonMobile !=''" >
+        OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="active != null" >
+        ACTIVE = #{active,jdbcType=TINYINT},
+      </if>
+      <if test="createUserId != null" >
+        CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserName != null" >
+        CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserId != null" >
+        UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserName != null" >
+        UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null" >
+        VERSION = #{version,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.lvdao.entity.UserOrderEntity" >
+    update t_user_order
+    set USER_ID = #{userId,jdbcType=VARCHAR},
+      USER_NAME = #{userName,jdbcType=VARCHAR},
+      VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR},
+      PAID_STATUS = #{paidStatus,jdbcType=TINYINT},
+      ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR},
+      TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
+      ORDER_ID = #{orderId,jdbcType=VARCHAR},
+      ROUTE_ID = #{routeId,jdbcType=VARCHAR},
+      OSS_ROUTE_URL = #{ossRouteUrl,jdbcType=VARCHAR},
+      ORDER_DISTANCE = #{orderDistance,jdbcType=VARCHAR},
+      REMARK = #{REMARK,jdbcType=VARCHAR},
+      ADD_METHOD = #{addMethod,jdbcType=VARCHAR},
+      OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR},
+      ACTIVE = #{active,jdbcType=TINYINT},
+      CREATE_USER_ID = #{createUserId,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      CREATE_USER_NAME = #{createUserName,jdbcType=VARCHAR},
+      UPDATE_USER_ID = #{updateUserId,jdbcType=VARCHAR},
+      UPDATE_USER_NAME = #{updateUserName,jdbcType=VARCHAR},
+      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      VERSION = #{version,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="delete" parameterType="map" >
+	    UPDATE t_user_order  SET
+	       ACTIVE = '0'
+	  	<where>
+			ACTIVE = '1'
+	   		AND
+			ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  <select id="queryList" resultMap="BaseResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="Base_Column_List" />
+	    FROM t_user_order 
+	    <where>
+	    	ACTIVE = '1'
+		     <if test="userId != null and userId !=''" >
+	        AND USER_ID = #{userId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="userName != null and userName !=''" >
+	        AND USER_NAME = #{userName,jdbcType=VARCHAR}
+	      </if>
+	      <if test="vehicleNo != null and vehicleNo !=''" >
+	        AND VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paidStatus != null and paidStatus !=''" >
+	        AND PAID_STATUS = #{paidStatus,jdbcType=TINYINT}
+	      </if>
+	      <if test="orderMoney != null and orderMoney !=''" >
+	        AND ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR}
+	      </if>
+	      <if test="transactionId != null and transactionId !=''" >
+	        AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderId != null and orderId !=''" >
+	        AND ORDER_ID = #{orderId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="routeId != null and routeId !=''" >
+	        AND ROUTE_ID = #{routeId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="ossRouteUrl != null and ossRouteUrl !=''" >
+	        AND OSS_ROUTE_URL = #{ossRouteUrl,jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderDistance != null and orderDistance !=''" >
+	        AND ORDER_DISTANCE = #{orderDistance,jdbcType=VARCHAR}
+	      </if>
+	      <if test="remark != null and remark !=''" >
+	        AND REMARK = #{remark,jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderType != null and orderType !=''" >
+	        AND ORDER_TYPE = #{orderType,jdbcType=VARCHAR}
+	      </if>
+	      <if test="paymentMethod != null and paymentMethod !=''" >
+	        AND PAYMENT_METHOD = #{paymentMethod,jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderCommentTypeId != null and orderCommentTypeId !=''" >
+	        AND ORDER_COMMENT_TYPE_ID = #{orderCommentTypeId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderCommentContent != null and orderCommentContent !=''" >
+	        AND ORDER_COMMENT_CONTENT = #{orderCommentContent,jdbcType=VARCHAR}
+	      </if>
+	      <if test="orderCommentTime != null and orderCommentTime !=''" >
+	        AND ORDER_COMMENT_TIME = #{orderCommentTime,jdbcType=TIMESTAMP}
+	      </if>
+	      <if test="orderCommentPicGroupId != null and orderCommentPicGroupId !=''" >
+	        AND ORDER_COMMENT_PIC_GROUP_ID = #{orderCommentPicGroupId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="driverOrderId != null and driverOrderId !=''" >
+	        AND DRIVER_ORDER_ID = #{driverOrderId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="passengerOrderId != null and passengerOrderId !=''" >
+	        AND PASSENGER_ORDER_ID = #{passengerOrderId,jdbcType=VARCHAR}
+	      </if>
+	      <if test="addMethod != null and addMethod!=''" >
+	        AND ADD_METHOD = #{addMethod!=,jdbcType=VARCHAR}
+	      </if>
+	      <if test="otherPersonMobile != null and otherPersonMobile !=''" >
+	        AND OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR}
+	      </if>
+		</where>
+ 	</select>
+ 	
+ 	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM t_user_order 
+	    <where>
+			ACTIVE = '1'
+	  <if test="userId != null and userId != ''" >
+        AND USER_ID = #{userId,jdbcType=VARCHAR}
+      </if>
+      <if test="userName != null and userName != ''" >
+        AND USER_NAME = #{userName,jdbcType=VARCHAR}
+      </if>
+      <if test="vehicleNo != null and vehicleNo != ''" >
+        AND VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR}
+      </if>
+      <if test="paidStatus != null and paidStatus != ''" >
+        AND PAID_STATUS = #{paidStatus,jdbcType=TINYINT}
+      </if>
+      <if test="orderMoney != null and orderMoney != ''" >
+        AND ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR}
+      </if>
+      <if test="transactionId != null and transactionId != ''" >
+        AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderId != null and orderId != ''" >
+        AND ORDER_ID = #{orderId,jdbcType=VARCHAR}
+      </if>
+      <if test="orderType != null and orderType != ''" >
+        AND ORDER_TYPE = #{orderType,jdbcType=VARCHAR}
+      </if>
+      <if test="orderTypes != null and orderTypes != ''" >
+         AND ORDER_TYPE IN ${orderTypes}
+      </if>
+      <if test="routeId != null and routeId != ''" >
+        AND ROUTE_ID = #{routeId,jdbcType=VARCHAR}
+      </if>
+      <if test="ossRouteUrl != null and ossRouteUrl != ''" >
+       AND OSS_ROUTE_URL = #{ossRouteUrl,jdbcType=VARCHAR}
+      </if>
+      <if test="orderDistance != null and orderDistance != ''" >
+        AND ORDER_DISTANCE = #{orderDistance,jdbcType=VARCHAR}
+      </if>
+      <if test="REMARK != null and REMARK != ''" >
+        AND REMARK = #{remark,jdbcType=VARCHAR}
+      </if>
+      <if test="addMethod != null  and addMethod!=''" >
+        AND ADD_METHOD = #{addMethod!=,jdbcType=VARCHAR}
+      </if>
+      <if test="otherPersonMobile != null and otherPersonMobile !=''" >
+        AND OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR}
+      </if>
+     <if test="startTime != null and startTime != ''">
+     		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
+	  </if>
+      <if test="endTime != null and endTime != ''">
+     		<![CDATA[ AND CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
+	  </if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="Base_Column_List"/>
+		FROM t_user_order 
+		<where>
+			ACTIVE = '1'
+			  <if test="userId != null and userId != ''" >
+		       	 AND USER_ID = #{userId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="userName != null and userName != ''" >
+		       	 AND USER_NAME = #{userName,jdbcType=VARCHAR}
+		      </if>
+		      <if test="vehicleNo != null and vehicleNo != ''" >
+		       	 AND VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paidStatus != null and paidStatus != ''" >
+		      	 AND PAID_STATUS = #{paidStatus,jdbcType=TINYINT}
+		      </if>
+		      <if test="orderMoney != null and orderMoney != ''" >
+		         AND ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR}
+		      </if>
+		      <if test="transactionId != null and transactionId != ''" >
+		         AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="orderId != null and orderId != ''" >
+		         AND ORDER_ID = #{orderId,jdbcType=VARCHAR}
+		      </if>
+		       <if test="orderType != null and orderType != ''" >
+		        AND ORDER_TYPE = #{orderType,jdbcType=VARCHAR}
+		      </if>
+		      <if test="orderTypes != null and orderTypes != ''" >
+		        AND ORDER_TYPE IN ${orderTypes}
+		      </if>
+		      <if test="routeId != null and routeId != ''" >
+		         AND ROUTE_ID = #{routeId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="ossRouteUrl != null and ossRouteUrl != ''" >
+		         AND OSS_ROUTE_URL = #{ossRouteUrl,jdbcType=VARCHAR}
+		      </if>
+		      <if test="orderDistance != null and orderDistance != ''" >
+		         AND ORDER_DISTANCE = #{orderDistance,jdbcType=VARCHAR}
+		      </if>
+		      <if test="REMARK != null and REMARK != ''" >
+		         AND REMARK = #{remark,jdbcType=VARCHAR}
+		      </if>
+		      <if test="passengerOrderId != null" >
+		         AND PASSENGER_ORDER_ID = #{passengerOrderId,jdbcType=VARCHAR}
+		      </if>
+		      <if test="addMethod != null and addMethod!=''" >
+		        AND ADD_METHOD = #{addMethod!=,jdbcType=VARCHAR}
+		      </if>
+		      <if test="otherPersonMobile != null and otherPersonMobile !=''" >
+		        AND OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR}
+		      </if>
+		     <if test="startTime != null">
+		     		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
+			  </if>
+		      <if test="endTime != null and endTime != ''">
+		     		<![CDATA[ AND CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
+			  </if>
+	      	ORDER BY CREATE_TIME DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+ 	
+ 	<select id="queryAll" resultMap="BaseResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="Base_Column_List"/>		
+		FROM t_user_order 
+		<where>
+			ACTIVE = '1'  
+			ORDER BY ID DESC
+		</where>
+	</select>
+  	
+  	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT COALESCE(MAX(ORDER_ID + 1),1) as maxId FROM t_user_order
+	</select>	
+	<select id="queryUserOredeId" resultMap="BaseResultMap" parameterType="java.util.Map">
+	    SELECT * FROM t_user_order s WHERE s.ORDER_ID=#{outTradeNo,jdbcType=VARCHAR}
+	</select>
+  
+</mapper>

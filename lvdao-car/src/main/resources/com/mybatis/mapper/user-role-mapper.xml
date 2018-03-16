@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="UserRoleEntity" >
+	<resultMap id="UserRoleResultMap" 
+		type="com.lvdao.entity.UserRoleEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="ROLE_ID" property="roleId" jdbcType="VARCHAR" />
+	    <result column="ROLE_NAME" property="roleName" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+ 	<sql id="query_user_role_param" >
+ 		UR.ID,
+    	UR.USER_ID,
+    	UR.USER_NAME,
+    	UR.ROLE_ID,
+    	UR.ROLE_NAME,
+    	UR.ACTIVE,
+    	UR.CREATE_USER_ID,
+    	UR.CREATE_USER_NAME,
+    	UR.CREATE_TIME,
+    	UR.UPDATE_USER_ID,
+    	UR.UPDATE_USER_NAME,
+    	UR.UPDATE_TIME,
+    	UR.VERSION
+  	</sql>
+  
+  	<insert id="insert"
+		parameterType="com.lvdao.entity.UserRoleEntity">
+	 	INSERT INTO T_USER_ROLE (
+	    	ID,
+	    	USER_ID,
+	    	USER_NAME,
+	    	ROLE_ID,
+	    	ROLE_NAME,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	VERSION
+		) VALUES	
+	(	
+		#{id, jdbcType=VARCHAR},		
+		#{userId, jdbcType=VARCHAR},
+		#{userName, jdbcType=VARCHAR},
+		#{roleId, jdbcType=VARCHAR},
+		#{roleName, jdbcType=VARCHAR},
+		#{active, jdbcType=TINYINT},	
+		#{createUserId, jdbcType=VARCHAR},
+		#{createUserName, jdbcType=VARCHAR},
+		#{createTime, jdbcType=TIMESTAMP},
+		#{version, jdbcType=NUMERIC}
+	)
+	</insert>
+  	
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.UserRoleEntity" >
+    	UPDATE T_USER_ROLE UR SET
+      	<if test="userId != null and userId != ''" >
+        	UR.USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName != ''" >
+        	UR.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="roleId != null and roleId != ''" >
+        	UR.ROLE_ID = #{roleId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="roleName != null and roleName != ''" >
+        	UR.ROLE_NAME = #{roleName, jdbcType=VARCHAR},
+      	</if>
+<!--       	<if test="active != null and active != ''" > -->
+<!--         	UR.ACTIVE = #{active, jdbcType=TINYINT}, -->
+<!--       	</if> -->
+      	<if test="createUserId != null and createUserId != ''" >
+        	UR.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	UR.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	UR.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	UR.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	UR.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	UR.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		UR.VERSION = UR.VERSION + 1
+		<where>
+	    	UR.ACTIVE = '1'
+	    	AND
+	    	<choose>
+	    		<when test="userName != null and userName != '' ">
+					UR.USER_NAME = #{userName, jdbcType=VARCHAR}
+	    		</when>
+	    		<otherwise>
+					UR.USER_ID = #{userId, jdbcType=VARCHAR}
+	    		</otherwise>
+	    	</choose>
+		</where>
+  	</update>
+  	
+  
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_USER_ROLE UR SET
+	    UR.ACTIVE = '0'
+	  	<where>
+	    	UR.ACTIVE = '1'
+	    	AND
+			UR.USER_ID = #{userId, jdbcType=VARCHAR}
+			<if test="userName != null and userName != ''" >	
+				AND UR.USER_NAME = #{userName, jdbcType=VARCHAR}
+			</if>	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="UserRoleResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_role_param" />
+	    FROM T_USER_ROLE UR
+	    <where>
+	    	UR.ACTIVE = '1'
+	    	<if test="userId != null and userId != ''" >
+	    		AND	UR.USER_ID = #{userId, jdbcType=VARCHAR}
+	    	</if>	
+			<if test="userName != null and userName != ''" >
+	        	AND UR.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleId != null and roleId != ''" >
+	        	AND UR.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND UR.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleIds != null and roleIds != '' ">
+	      		AND UR.ROLE_ID IN ${roleIds}
+	      	</if>
+		</where>
+ 	</select>
+  	
+    <select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER_ROLE UR
+	    <where>
+	    	UR.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UR.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	AND UR.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleId != null and roleId != ''" >
+	        	AND UR.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND UR.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="UserRoleResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_role_param"/>
+		FROM T_USER_ROLE UR
+		<where>
+			UR.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UR.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	AND UR.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleId != null and roleId != ''" >
+	        	AND UR.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleName != null and roleName != ''" >
+	        	AND UR.ROLE_NAME = #{roleName, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	ORDER BY UR.USER_ID DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="UserRoleResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_role_param"/>		
+		FROM T_USER_ROLE UR
+		<where>
+			UR.ACTIVE = '1'  
+			ORDER BY UR.USER_ID DESC
+		</where>
+	</select>
+  
+</mapper>

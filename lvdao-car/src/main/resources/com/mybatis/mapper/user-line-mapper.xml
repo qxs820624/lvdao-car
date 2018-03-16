@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="userLineEntity" >
+	<resultMap id="UserLineResultMap"
+		type="com.lvdao.entity.UserLineEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="ORIGINAL_LINE_NAME" property="originalLineName" jdbcType="VARCHAR" />
+	    <result column="TARGET_LINE_NAME" property="targetLineName" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_user_line_param" >
+	    UL.ID,
+	    UL.USER_ID,
+	    UL.USER_NAME,
+	    UL.ORIGINAL_LINE_NAME,
+	    UL.TARGET_LINE_NAME,
+	    UL.ACTIVE,
+	    UL.CREATE_USER_ID, 
+	    UL.CREATE_USER_NAME,
+	    UL.CREATE_TIME,
+	    UL.UPDATE_USER_ID,
+	    UL.UPDATE_USER_NAME,
+	    UL.UPDATE_TIME,
+	    UL.VERSION
+  	</sql>
+  
+    <insert id="insert" 
+  		parameterType="com.lvdao.entity.UserLineEntity" >
+    	INSERT INTO T_USER_LINE (
+    	ID,
+    	USER_ID,
+    	USER_NAME, 
+      	ORIGINAL_LINE_NAME,
+      	TARGET_LINE_NAME,
+      	ACTIVE, 
+      	CREATE_USER_ID,
+      	CREATE_USER_NAME,
+      	CREATE_TIME, 
+      	UPDATE_USER_ID,
+      	UPDATE_USER_NAME,
+      	UPDATE_TIME, 
+      	VERSION
+      	) VALUES
+   	(
+      	#{id, jdbcType=VARCHAR},
+      	#{userId, jdbcType=VARCHAR},
+      	#{userName, jdbcType=VARCHAR}, 
+	    #{originalLineName, jdbcType=VARCHAR},
+	    #{targetLineName, jdbcType=VARCHAR}, 
+	    #{active, jdbcType=TINYINT}, 
+	    #{createUserId, jdbcType=VARCHAR},
+	    #{createUserName, jdbcType=VARCHAR},
+	    #{createTime, jdbcType=TIMESTAMP}, 
+	    #{updateUserId, jdbcType=VARCHAR},
+	    #{updateUserName, jdbcType=VARCHAR},
+	    #{updateTime, jdbcType=TIMESTAMP}, 
+	    #{version,jdbcType=DECIMAL}
+	)
+  	</insert>
+
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.UserLineEntity" >
+    	UPDATE T_USER_LINE UL SET
+      	<if test="userId != null and userId != ''" >
+        	UL.USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName != ''" >
+        	UL.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="originalLineName != null and originalLineName != ''" >
+        	UL.ORIGINAL_LINE_NAME = #{originalLineName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="targetLineName != null and targetLineName != ''" >
+        	UL.TARGET_LINE_NAME = #{targetLineName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	UL.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	UL.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	UL.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	UL.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	UL.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	UL.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	UL.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		UL.VERSION = UL.VERSION + 1
+		<where>
+			UL.ID = #{id, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  	
+
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_USER_LINE UL SET
+	    UL.ACTIVE = '0'
+	  	<where>
+			UL.USER_ID = #{userId, jdbcType=VARCHAR}
+			AND
+			UL.ACTIVE = '1'	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="UserLineResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_line_param" />
+	    FROM T_USER_LINE UL
+	     <where>
+			UL.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UL.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UL.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLineName != null and originalLineName != ''" >
+	        	AND UL.ORIGINAL_LINE_NAME = #{originalLineName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLineName != null and targetLineName != ''" >
+	        	AND UL.TARGET_LINE_NAME = #{targetLineName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="active != null and active != ''" >
+	        	AND UL.ACTIVE = #{active, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND UL.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND UL.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null" >
+	        	AND UL.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND UL.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND UL.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null" >
+	        	AND UL.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER_LINE UL
+	    <where>
+			UL.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UL.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UL.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLineName != null and originalLineName != ''" >
+	        	AND UL.ORIGINAL_LINE_NAME = #{originalLineName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLineName != null and targetLineName != ''" >
+	        	AND UL.TARGET_LINE_NAME = #{targetLineName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="active != null and active != ''" >
+	        	AND UL.ACTIVE = #{active, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND UL.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND UL.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null" >
+	        	AND UL.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND UL.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND UL.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null" >
+	        	AND UL.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+  	
+	<select id="queryAll" resultMap="UserLineResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_line_param"/>		
+		FROM T_USER_LINE UL
+		<where>
+			UL.ACTIVE = '1'  
+		</where>
+	</select>	
+	
+	<!-- by wangtonghua -->
+	<select id="queryPage" resultMap="UserLineResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_line_param"/>
+		FROM T_USER_LINE UL
+		<where>
+			UL.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND UL.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND UL.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLineName != null and originalLineName != ''" >
+	        	AND UL.ORIGINAL_LINE_NAME = #{originalLineName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLineName != null and targetLineName != ''" >
+	        	AND UL.TARGET_LINE_NAME = #{targetLineName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND UL.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND UL.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null " >
+	        	AND UL.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND UL.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND UL.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null " >
+	        	AND UL.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	ORDER BY UL.USER_ID DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+    <select id="queryFrequencyLine" resultMap="UserLineResultMap"  parameterType="java.util.Map">
+	    SELECT
+			*
+		FROM
+			t_user_line
+		where USER_ID= #{userId , jdbcType=VARCHAR}
+		and ACTIVE = 1
+		GROUP BY
+			ORIGINAL_LINE_NAME,
+			TARGET_LINE_NAME
+		HAVING
+			count(*) >= #{frequency,jdbcType=INTEGER}
+	</select>
+	
+</mapper>

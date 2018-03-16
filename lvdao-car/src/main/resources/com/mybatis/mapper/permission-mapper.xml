@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="PermissionEntity" >
+	<resultMap id="PermissionResultMap"
+		type="com.lvdao.entity.PermissionEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_ID" property="permissionId" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_NAME" property="permissionName" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_TYPE" property="permissionType" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_URL" property="permissionUrl" jdbcType="VARCHAR" />
+	    <result column="PERMISSION_DESC" property="permissionDesc" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  	</resultMap>
+  
+  	<sql id="query_permission_param" >
+	    P.ID,
+	    P.PERMISSION_ID,
+	    P.PERMISSION_NAME,
+	    P.PERMISSION_TYPE,
+	    P.PERMISSION_URL,
+	    P.PERMISSION_DESC, 
+	    P.ACTIVE,
+	    P.CREATE_USER_ID,
+	    P.CREATE_USER_NAME,
+	    P.CREATE_TIME,
+	    P.UPDATE_USER_ID,
+	    P.UPDATE_USER_NAME, 
+	    P.UPDATE_TIME,
+	    P.VERSION
+  	</sql>
+  
+  	<insert id="insert" parameterType="com.lvdao.entity.PermissionEntity" >
+    	INSERT INTO T_PERMISSION (
+    	ID,
+    	PERMISSION_ID,
+    	PERMISSION_NAME,
+      	PERMISSION_TYPE,
+      	PERMISSION_URL,
+      	PERMISSION_DESC, 
+      	ACTIVE,
+      	CREATE_USER_ID,
+      	CREATE_USER_NAME, 
+      	CREATE_TIME,
+      	UPDATE_USER_ID,
+      	UPDATE_USER_NAME, 
+      	UPDATE_TIME,
+      	VERSION
+      	) VALUES 
+    (	
+    	#{id, jdbcType=VARCHAR},
+    	#{permissionId, jdbcType=VARCHAR},
+    	#{permissionName, jdbcType=VARCHAR}, 
+      	#{permissionType, jdbcType=VARCHAR}, 
+      	#{permissionUrl, jdbcType=VARCHAR},
+      	#{permissionDesc, jdbcType=VARCHAR}, 
+      	#{active, jdbcType=TINYINT},
+      	#{createUserId, jdbcType=VARCHAR},
+      	#{createUserName, jdbcType=VARCHAR}, 
+      	#{createTime, jdbcType=TIMESTAMP},
+      	#{updateUserId, jdbcType=VARCHAR},
+      	#{updateUserName, jdbcType=VARCHAR}, 
+      	#{updateTime, jdbcType=TIMESTAMP},
+      	#{version, jdbcType=NUMERIC})
+  	</insert>
+
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.PermissionEntity" >
+    	UPDATE T_PERMISSION P SET
+      	<if test="permissionId != null and permissionId != ''" >
+        	P.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="permissionName != null and permissionName != ''" >
+        	P.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="permissionType != null and permissionType != ''" >
+        	P.PERMISSION_TYPE = #{permissionType, jdbcType=VARCHAR},
+      	</if>
+      	<if test="permissionUrl != null and permissionUrl != ''" >
+        	P.PERMISSION_URL = #{permissionUrl, jdbcType=VARCHAR},
+      	</if>
+      	<if test="permissionDesc != null and permissionDesc != ''" >
+        	P.PERMISSION_DESC = #{permissionDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	P.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	P.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	P.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null " >
+        	P.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	P.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	P.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	P.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		P.VERSION = P.VERSION + 1
+		<where>
+	    	P.ACTIVE = '1'
+	    	AND	
+			P.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  	
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_PERMISSION P SET
+	    P.ACTIVE = '0'
+	  	<where>
+	    	P.ACTIVE = '1'
+	    	AND	
+			P.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="PermissionResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_permission_param" />
+	    FROM T_PERMISSION P
+	    <where>
+	    	P.ACTIVE = '1'
+	    	AND	
+			P.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR}
+	      	<if test="permissionName != null and permissionName != ''" >
+	        	AND P.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionType != null and permissionType != ''" >
+	        	AND P.PERMISSION_TYPE = #{permissionType, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionUrl != null and permissionUrl != ''" >
+	        	AND P.PERMISSION_URL = #{permissionUrl, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionDesc != null and permissionDesc != ''" >
+	        	AND P.PERMISSION_DESC = #{permissionDesc, jdbcType=VARCHAR},
+	      	</if>
+		</where>
+  	</select>
+
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_PERMISSION P
+	    <where>
+			P.ACTIVE = '1'
+	      	<if test="permissionId != null and permissionId != ''" >
+	        	AND P.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionName != null and permissionName != ''" >
+	        	AND P.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionType != null and permissionType != ''" >
+	        	AND P.PERMISSION_TYPE = #{permissionType, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionUrl != null and permissionUrl != ''" >
+	        	AND P.PERMISSION_URL = #{permissionUrl, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionDesc != null and permissionDesc != ''" >
+	        	AND P.PERMISSION_DESC = #{permissionDesc, jdbcType=VARCHAR},
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="PermissionResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_permission_param"/>
+		FROM T_PERMISSION P
+		<where>
+			P.ACTIVE = '1'
+	      	<if test="permissionId != null and permissionId != ''" >
+	        	AND P.PERMISSION_ID = #{permissionId, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionName != null and permissionName != ''" >
+	        	AND P.PERMISSION_NAME = #{permissionName, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionType != null and permissionType != ''" >
+	        	AND P.PERMISSION_TYPE = #{permissionType, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionUrl != null and permissionUrl != ''" >
+	        	AND P.PERMISSION_URL = #{permissionUrl, jdbcType=VARCHAR},
+	      	</if>
+	      	<if test="permissionDesc != null and permissionDesc != ''" >
+	        	AND P.PERMISSION_DESC = #{permissionDesc, jdbcType=VARCHAR},
+	      	</if>
+	      	
+	      	ORDER BY P.PERMISSION_ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="PermissionResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_permission_param"/>		
+		FROM T_PERMISSION P
+		<where>
+			P.ACTIVE = '1'  
+			ORDER BY P.PERMISSION_ID DESC
+		</where>
+	</select>
+	
+	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(PERMISSION_ID + 0) FROM T_PERMISSION
+	</select>
+</mapper>

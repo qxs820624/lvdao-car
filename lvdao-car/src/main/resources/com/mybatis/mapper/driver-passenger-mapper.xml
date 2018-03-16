@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DriverPassengerEntity" >
+  <resultMap id="DriverPassengerResultMap" type="com.lvdao.entity.DriverPassengerEntity" >
+    <result column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="DRIVER_ORDER_ID" property="driverOrderId" jdbcType="VARCHAR" />
+    <result column="PASSENGER_ORDER_ID" property="passengerOrderId" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_PLACE_NAME" property="originalPlaceName" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_LONGTITUDE" property="originalLongtitude" jdbcType="VARCHAR" />
+    <result column="ORIGINAL_LATITUDE" property="originalLatitude" jdbcType="VARCHAR" />
+    <result column="TARGET_PLACE_NAME" property="targetPlaceName" jdbcType="VARCHAR" />
+    <result column="TARGET_LONGTITUDE" property="targetLongtitude" jdbcType="VARCHAR" />
+    <result column="TARGET_LATITUDE" property="targetLatitude" jdbcType="VARCHAR" />
+    <result column="ORDER_DISTANCE" property="orderDistance" jdbcType="VARCHAR" />
+    <result column="ORDER_APPOINT_TIME" property="orderAppointTime" jdbcType="TIMESTAMP" />
+    <result column="ORDER_DESC" property="orderDesc" jdbcType="VARCHAR" />
+    <result column="ORDER_STATUS" property="orderStatus" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="DECIMAL" />
+  </resultMap>
+  
+	<sql id="query_driver_passenger_param" >
+	    DP.ID,
+	    DP.DRIVER_ORDER_ID,
+	    DP.PASSENGER_ORDER_ID,
+	    DP.ORIGINAL_PLACE_NAME,
+	    DP.ORIGINAL_LONGTITUDE,
+	    DP.ORIGINAL_LATITUDE,
+	    DP.TARGET_PLACE_NAME,
+	    DP.TARGET_LONGTITUDE,
+	    DP.TARGET_LATITUDE,
+	    DP.ORDER_DISTANCE,
+	    DP.ORDER_APPOINT_TIME,
+	    DP.ORDER_DESC,
+	    DP.ORDER_STATUS,
+	    DP.ACTIVE,
+	    DP.CREATE_USER_ID, 
+	    DP.CREATE_USER_NAME,
+	    DP.CREATE_TIME,
+	    DP.UPDATE_USER_ID,
+	    DP.UPDATE_USER_NAME,
+	    DP.UPDATE_TIME,
+	    DP.VERSION
+  	</sql>
+  
+    <insert id="insert" 
+  		parameterType="com.lvdao.entity.DriverPassengerEntity" >
+    	INSERT INTO T_DRIVER_PASSENGER (
+	    ID,
+	    DRIVER_ORDER_ID,
+	    PASSENGER_ORDER_ID,
+	    ORIGINAL_PLACE_NAME,
+	    ORIGINAL_LONGTITUDE,
+	    ORIGINAL_LATITUDE,
+	    TARGET_PLACE_NAME,
+	    TARGET_LONGTITUDE,
+	    TARGET_LATITUDE,
+	    ORDER_DISTANCE,
+	    ORDER_APPOINT_TIME,
+	    ORDER_DESC,
+	    ORDER_STATUS,
+	    ACTIVE,
+	    CREATE_USER_ID, 
+	    CREATE_USER_NAME,
+	    CREATE_TIME,
+	    UPDATE_USER_ID,
+	    UPDATE_USER_NAME,
+	    UPDATE_TIME,
+	    VERSION
+      	) VALUES
+   	(
+      	#{id, jdbcType=VARCHAR},
+      	#{driverOrderId, jdbcType=VARCHAR},
+      	#{passengerOrderId, jdbcType=VARCHAR}, 
+	    #{originalPlaceName, jdbcType=VARCHAR},
+	    #{originalLongtitude, jdbcType=VARCHAR},
+	    #{originalLatitude, jdbcType=VARCHAR},
+	    #{targetPlaceName, jdbcType=VARCHAR},
+	    #{targetLongtitude, jdbcType=VARCHAR},
+	    #{targetLatitude, jdbcType=VARCHAR},
+	    #{orderDistance, jdbcType=VARCHAR},
+	    #{orderAppointTime, jdbcType=VARCHAR},
+	    #{orderDesc, jdbcType=VARCHAR},
+	    #{orderStatus, jdbcType=VARCHAR},
+	    #{active, jdbcType=TINYINT}, 
+	    #{createUserId, jdbcType=VARCHAR},
+	    #{createUserName, jdbcType=VARCHAR},
+	    #{createTime, jdbcType=TIMESTAMP}, 
+	    #{updateUserId, jdbcType=VARCHAR},
+	    #{updateUserName, jdbcType=VARCHAR},
+	    #{updateTime, jdbcType=TIMESTAMP}, 
+	    #{version,jdbcType=DECIMAL}
+	)
+  	</insert>
+
+  	<update id="update" 
+  		parameterType="com.lvdao.entity.DriverPassengerEntity" >
+    	UPDATE T_DRIVER_PASSENGER DP SET
+      	<if test="driverOrderId != null and driverOrderId != ''" >
+        	DP.DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="passengerOrderId != null and passengerOrderId != ''" >
+        	DP.PASSENGER_ORDER_ID = #{passengerOrderId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="originalPlaceName != null and originalPlaceName != ''" >
+        	DP.ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="originalLongtitude != null and originalLongtitude != ''" >
+        	DP.ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test="originalLatitude != null and originalLatitude != ''" >
+        	DP.ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test="targetPlaceName != null and targetPlaceName != ''" >
+        	DP.TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="originalLongtitude != null and originalLongtitude != ''" >
+        	DP.TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test="originalLatitude != null and originalLatitude != ''" >
+        	DP.TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test="orderDistance != null and orderDistance != ''" >
+        	DP.ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR},
+      	</if>
+      	<if test="orderAppointTime != null and orderAppointTime != ''" >
+        	DP.ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      	<if test="orderDesc != null and orderDesc != ''" >
+        	DP.ORDER_DESC = #{orderDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="orderStatus != null and orderStatus != ''" >
+        	DP.ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	DP.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	DP.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	DP.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	DP.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	DP.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	DP.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	DP.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		DP.VERSION = DP.VERSION + 1
+		<where>
+			DP.ID = #{id, jdbcType=VARCHAR}
+		</where>
+  	</update>
+  	
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_DRIVER_PASSENGER DP SET
+	    DP.ACTIVE = '0'
+	  	<where>
+			DP.DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+			AND
+			DP.ACTIVE = '1'	
+		</where>
+  	</update>
+  
+  	<select id="queryList" resultMap="DriverPassengerResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_driver_passenger_param" />
+	    FROM T_DRIVER_PASSENGER DP
+	     <where>
+			DP.ACTIVE = '1'
+			<if test="driverOrderId != null and driverOrderId != ''" >
+	        	AND DP.DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="passengerOrderId != null and passengerOrderId != ''" >
+	        	AND DP.PASSENGER_ORDER_ID = #{passengerOrderId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalPlaceName != null and originalPlaceName != ''" >
+	        	AND DP.ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLongtitude != null and originalLongtitude != ''" >
+	        	AND DP.ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLatitude != null and originalLatitude != ''" >
+	        	AND DP.ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetPlaceName != null and targetPlaceName != ''" >
+	        	AND DP.TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLongtitude != null and targetLongtitude != ''" >
+	        	AND DP.TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLatitude != null and targetLatitude != ''" >
+	        	AND DP.TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderDistance != null and orderDistance != ''" >
+	        	AND DP.ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderAppointTime != null and orderAppointTime != ''" >
+	        	AND DP.ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="orderDesc != null and orderDesc != ''" >
+	        	AND DP.ORDER_DESC = #{orderDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderStatus != null and orderStatus != ''" >
+	        	AND DP.ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND DP.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND DP.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null " >
+	        	AND DP.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND DP.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND DP.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null " >
+	        	AND DP.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_DRIVER_PASSENGER DP
+	    <where>
+			DP.ACTIVE = '1'
+			<if test="driverOrderId != null and driverOrderId != ''" >
+	        	AND DP.DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="passengerOrderId != null and passengerOrderId != ''" >
+	        	AND DP.PASSENGER_ORDER_ID = #{passengerOrderId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalPlaceName != null and originalPlaceName != ''" >
+	        	AND DP.ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLongtitude != null and originalLongtitude != ''" >
+	        	AND DP.ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLatitude != null and originalLatitude != ''" >
+	        	AND DP.ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetPlaceName != null and targetPlaceName != ''" >
+	        	AND DP.TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLongtitude != null and targetLongtitude != ''" >
+	        	AND DP.TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLatitude != null and targetLatitude != ''" >
+	        	AND DP.TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderDistance != null and orderDistance != ''" >
+	        	AND DP.ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderAppointTime != null and orderAppointTime != ''" >
+	        	AND DP.ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="orderDesc != null and orderDesc != ''" >
+	        	AND DP.ORDER_DESC = #{orderDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderStatus != null and orderStatus != ''" >
+	        	AND DP.ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND DP.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND DP.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null " >
+	        	AND DP.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND DP.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND DP.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null " >
+	        	AND DP.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+	
+	<select id="queryAll" resultMap="DriverPassengerResultMap"  parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_driver_passenger_param"/>		
+		FROM T_DRIVER_PASSENGER DP
+		<where>
+			DP.ACTIVE = '1'  
+		</where>
+	</select>	
+	
+	<!-- by wangtonghua -->
+	<select id="queryPage" resultMap="DriverPassengerResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_driver_passenger_param"/>
+		FROM T_DRIVER_PASSENGER DP
+		<where>
+			DP.ACTIVE = '1'
+			<if test="driverOrderId != null and driverOrderId != ''" >
+	        	AND DP.DRIVER_ORDER_ID = #{driverOrderId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="passengerOrderId != null and passengerOrderId != ''" >
+	        	AND DP.PASSENGER_ORDER_ID = #{passengerOrderId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalPlaceName != null and originalPlaceName != ''" >
+	        	AND DP.ORIGINAL_PLACE_NAME = #{originalPlaceName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLongtitude != null and originalLongtitude != ''" >
+	        	AND DP.ORIGINAL_LONGTITUDE = #{originalLongtitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="originalLatitude != null and originalLatitude != ''" >
+	        	AND DP.ORIGINAL_LATITUDE = #{originalLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetPlaceName != null and targetPlaceName != ''" >
+	        	AND DP.TARGET_PLACE_NAME = #{targetPlaceName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLongtitude != null and targetLongtitude != ''" >
+	        	AND DP.TARGET_LONGTITUDE = #{targetLongtitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="targetLatitude != null and targetLatitude != ''" >
+	        	AND DP.TARGET_LATITUDE = #{targetLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderDistance != null and orderDistance != ''" >
+	        	AND DP.ORDER_DISTANCE = #{orderDistance, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderAppointTime != null and orderAppointTime != ''" >
+	        	AND DP.ORDER_APPOINT_TIME = #{orderAppointTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="orderDesc != null and orderDesc != ''" >
+	        	AND DP.ORDER_DESC = #{orderDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="orderStatus != null and orderStatus != ''" >
+	        	AND DP.ORDER_STATUS = #{orderStatus, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND DP.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND DP.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null " >
+	        	AND DP.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND DP.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND DP.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null " >
+	        	AND DP.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	ORDER BY DP.DRIVER_ORDER_ID DESC
+			LIMIT #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+  	
+</mapper>

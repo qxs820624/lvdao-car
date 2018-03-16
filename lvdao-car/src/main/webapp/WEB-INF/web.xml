@@ -1,0 +1,155 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+	<display-name>Archetype Created Web Application</display-name>
+  
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>
+		   classpath:applicationContext.xml
+		</param-value>
+	</context-param>
+			
+	<!--Set Log4j Configuration File Directory -->
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/log4j.properties</param-value>
+	</context-param>
+	
+	<context-param>
+		<param-name>webAppRootKey</param-name>
+		<param-value>lvdao-car.root</param-value>
+	</context-param>
+	
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	
+	<filter>
+		<filter-name>sitemesh</filter-name>
+		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
+	</filter>
+	
+	<filter>
+		<filter-name>UserUrlPermission</filter-name>
+		<filter-class>com.lvdao.web.interceptor.UserURLPermissionServlet</filter-class>
+	</filter>
+	
+	 <filter>    
+	    <filter-name>SecurityServlet</filter-name>    
+	    <filter-class>com.lvdao.web.interceptor.SecurityServlet</filter-class>
+	    <init-param>
+	        <param-name>exclusions</param-name>
+	        <param-value>*.js,*.gif,*.jpg,*.png,*.css</param-value>
+	   	</init-param>
+	    <init-param>
+	        <param-name>profileEnable</param-name>
+	        <param-value>true</param-value>
+	   	</init-param>
+	   </filter>
+	<filter-mapping>
+	   <filter-name>UserUrlPermission</filter-name>
+	   <url-pattern>/system/*</url-pattern>
+	   
+	</filter-mapping>
+	   
+	   <filter-mapping>
+	   <filter-name>SecurityServlet</filter-name>
+	   <url-pattern>*.do</url-pattern>
+	</filter-mapping> 
+	    
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	
+	<filter-mapping>
+		<filter-name>sitemesh</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> 
+	
+	<!-- Spring Web Container Listener -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<!--Spring log4j Configuration loader -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener</listener-class>
+	</listener>
+	
+	<!-- spring MVC configuration -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/springmvc-servlet.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>sitemesh-freemarker</servlet-name>
+		<servlet-class>com.opensymphony.module.sitemesh.freemarker.FreemarkerDecoratorServlet</servlet-class>
+		<init-param>
+			<param-name>TemplatePath</param-name>
+			<param-value>/</param-value>
+		</init-param>
+		<init-param>
+			<param-name>default_encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>Kaptcha</servlet-name>
+		<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
+		<init-param>
+			<param-name>kaptcha.image.width</param-name>
+			<param-value>200</param-value>
+		</init-param>
+		<init-param>
+			<param-name>kaptcha.image.height</param-name>
+			<param-value>50</param-value>
+		</init-param>
+		<init-param>
+			<param-name>kaptcha.textproducer.char.length</param-name>
+			<param-value>4</param-value>
+		</init-param>
+		<init-param>
+			<param-name>kaptcha.noise.impl</param-name>
+			<param-value>com.google.code.kaptcha.impl.NoNoise</param-value>
+		</init-param>
+	</servlet>
+	
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>sitemesh-freemarker</servlet-name>
+		<url-pattern>*.ftl</url-pattern>
+	</servlet-mapping>
+	
+	<session-config>
+		<session-timeout>20</session-timeout>
+	</session-config>
+	
+	<welcome-file-list>
+		<welcome-file>user/userLogin.do</welcome-file>
+	</welcome-file-list>
+</web-app>

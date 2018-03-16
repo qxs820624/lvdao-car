@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="DealLogEntity">
+  <resultMap id="DealLogResultMap" type="com.lvdao.entity.DealLogEntity" >
+  	<result column="ID" property="id" jdbcType="VARCHAR" />
+  	<result column="DEAL_LOG_ID" property="dealLogId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+    <result column="LOG_AMOUNT" property="logAmount" jdbcType="VARCHAR" /> 
+    <result column="TARGET_USER_ID" property="targetUserId" jdbcType="VARCHAR" />
+    <result column="TARGET_USER_NAME" property="targetUserName" jdbcType="VARCHAR" />
+    <result column="LOG_DESC" property="logDesc" jdbcType="VARCHAR" /> 
+    <result column="LOG_IP" property="logIp" jdbcType="VARCHAR" />
+    <result column="LOG_MAC_ADDRESS" property="logMacAddress" jdbcType="VARCHAR" />
+    <result column="DATA_SYNC_SQL" property="dataSyncSql" jdbcType="VARCHAR" /> 
+    <result column="DATA_SYNC_INFO" property="dataSyncInfo" jdbcType="VARCHAR" />
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  </resultMap>
+  
+  <insert id="insert" parameterType="com.lvdao.entity.DealLogEntity">
+	 	INSERT INTO t_deal_log(
+	 		ID,
+	 		DEAL_LOG_ID,
+    		USER_ID,
+	    	USER_NAME,
+	    	LOG_TYPE,
+	    	LOG_AMOUNT,
+	    	TARGET_USER_ID,
+	    	TARGET_USER_NAME,
+	    	LOG_DESC,
+	    	LOG_IP,
+	    	LOG_MAC_ADDRESS,
+	    	DATA_SYNC_SQL,
+	    	DATA_SYNC_INFO,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	UPDATE_USER_ID,
+	    	UPDATE_USER_NAME,
+	    	UPDATE_TIME,
+	    	VERSION
+		) VALUES(	
+			#{id, jdbcType=VARCHAR},
+			#{dealLogId, jdbcType=VARCHAR},
+			#{userId, jdbcType=VARCHAR},
+			#{userName, jdbcType=VARCHAR},
+			#{logType, jdbcType=VARCHAR},
+			#{logAmount, jdbcType=VARCHAR},
+			#{targetUserId, jdbcType=VARCHAR},
+			#{targetUserName, jdbcType=VARCHAR},
+			#{logDesc, jdbcType=VARCHAR},
+			#{logIp, jdbcType=VARCHAR},
+			#{logMacAddress, jdbcType=VARCHAR},
+			#{dataSyncSql, jdbcType=VARCHAR},
+			#{dataSyncInfo, jdbcType=VARCHAR},
+			#{active, jdbcType=TINYINT},	
+			#{createUserId, jdbcType=VARCHAR},
+			#{createUserName, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},
+			#{updateUserId, jdbcType=VARCHAR},
+			#{updateUserName, jdbcType=VARCHAR},
+			#{updateTime, jdbcType=TIMESTAMP},
+			#{version, jdbcType=NUMERIC}
+		)
+	</insert>
+	
+	<update id="update" parameterType="com.lvdao.entity.DealLogEntity" >
+		UPDATE T_DEAL_LOG D SET
+		<if test="dealLogId != null and dealLogId != ''" >
+        	D.DEAL_LOG_ID = #{dealLogId, jdbcType=VARCHAR},
+      	</if>
+		<if test="userId != null and userId != ''" >
+        	D.USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+		<if test="userName != null and userName != ''" >
+        	D.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logType != null and logType != ''" >
+        	D.LOG_TYPE = #{logType, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logAmount != null and logAmount != ''" >
+        	D.LOG_AMOUNT = #{logAmount, jdbcType=VARCHAR},
+      	</if>
+      	<if test="targetUserId != null and targetUserId != ''" >
+        	D.TARGET_USER_ID = #{targetUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="targetUserName != null and targetUserName != ''" >
+        	D.TARGET_USER_NAME = #{targetUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logDesc != null and logDesc != ''" >
+        	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR},
+      	</if>
+	    <if test="logIp != null and logIp != ''" >
+        	D.LOG_IP = #{logIp, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logMacAddress != null and logMacAddress != ''" >
+        	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR},
+      	</if>
+      	<if test="dataSyncSql != null and dataSyncSql != ''" >
+        	D.DATA_SYNC_SQL = #{dataSyncSql, jdbcType=VARCHAR},
+      	</if>
+      	<if test="dataSyncInfo != null and dataSyncInfo != ''" >
+        	D.DATA_SYNC_INFO = #{dataSyncInfo, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	D.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null " >
+        	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      		D.VERSION = D.VERSION + 1
+		<where>
+			D.ACTIVE = '1'
+	   			AND
+			D.ID = #{id, jdbcType=VARCHAR}	
+		</where>
+	</update>
+  
+   	<update id="delete" parameterType="com.lvdao.entity.DealLogEntity" >
+	    UPDATE T_DEAL_LOG D SET
+	     	D.ACTIVE = '0'
+	  	<where>
+			 D.ACTIVE = '1'
+	   			AND
+			 D.ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  
+  
+  	<select id="queryAll" resultMap="DealLogResultMap">
+		SELECT 
+		<include refid="query_dealLog_param"/>		
+		FROM T_DEAL_LOG D
+		<where>
+			D.ACTIVE = '1'  
+			ORDER BY D.CREATE_TIME DESC
+		</where>
+	</select>
+	
+	<select id="queryList" resultMap="DealLogResultMap">
+		SELECT 
+		<include refid="query_dealLog_param"/>		
+		FROM T_DEAL_LOG D
+		<where>
+			<if test="dealLogId != null and dealLogId != ''" >
+	        	D.DEAL_LOG_ID = #{dealLogId, jdbcType=VARCHAR} AND
+	      	</if>
+			<if test="userId != null and userId != ''" >
+	        	D.USER_ID = #{userId, jdbcType=VARCHAR} AND
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	D.USER_NAME = #{userName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logType != null and logType != ''" >
+	        	D.LOG_TYPE = #{logType, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logAmount != null and logAmount != ''" >
+	        	D.LOG_AMOUNT = #{logAmount, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="targetUserId != null and targetUserId != ''" >
+	        	D.TARGET_USER_ID = #{targetUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="targetUserName != null and targetUserName != ''" >
+	        	D.TARGET_USER_NAME = #{targetUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logDesc != null and logDesc != ''" >
+	        	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR} AND
+	      	</if>
+		    <if test="logIp != null and logIp != ''" >
+	        	D.LOG_IP = #{logIp, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logMacAddress != null and logMacAddress != ''" >
+	        	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="dataSyncSql != null and dataSyncSql != ''" >
+	        	D.DATA_SYNC_SQL = #{dataSyncSql, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="dataSyncInfo != null and dataSyncInfo != ''" >
+	        	D.DATA_SYNC_INFO = #{dataSyncInfo, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createTime != null " >
+	        	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP} AND 
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="updateTime != null" >
+	      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP} AND 
+	      	</if>
+	      	<if test="gteCreateTime != null and gteCreateTime != '' " >
+	        	D.CREATE_TIME &gt; #{gteCreateTime} AND 
+	      	</if>
+	      	<if test="ltCreateTime != null and ltCreateTime != '' " >
+	        	D.CREATE_TIME &lt; #{ltCreateTime} AND 
+	      	</if>
+			D.ACTIVE = '1'  
+		</where>
+	</select>
+	
+	<select id="queryPage" resultMap="DealLogResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_dealLog_param"/>
+		FROM T_DEAL_LOG D
+		<where>
+			<if test="dealLogId != null and dealLogId != ''" >
+	        	D.DEAL_LOG_ID = #{dealLogId, jdbcType=VARCHAR} AND
+	      	</if>
+			<if test="userId != null and userId != ''" >
+	        	D.USER_ID = #{userId, jdbcType=VARCHAR} AND
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	D.USER_NAME = #{userName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logType != null and logType != ''" >
+	        	D.LOG_TYPE = #{logType, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logAmount != null and logAmount != ''" >
+	        	D.LOG_AMOUNT = #{logAmount, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="targetUserId != null and targetUserId != ''" >
+	        	D.TARGET_USER_ID = #{targetUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="targetUserName != null and targetUserName != ''" >
+	        	D.TARGET_USER_NAME = #{targetUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logDesc != null and logDesc != ''" >
+	        	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR} AND
+	      	</if>
+		    <if test="logIp != null and logIp != ''" >
+	        	D.LOG_IP = #{logIp, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logMacAddress != null and logMacAddress != ''" >
+	        	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="dataSyncSql != null and dataSyncSql != ''" >
+	        	D.DATA_SYNC_SQL = #{dataSyncSql, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="dataSyncInfo != null and dataSyncInfo != ''" >
+	        	D.DATA_SYNC_INFO = #{dataSyncInfo, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createTime != null " >
+	        	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP} AND 
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="updateTime != null" >
+	      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP} AND 
+	      	</if>
+	      	<if test="logTypes != null and logTypes != ''" >
+	        	D.LOG_TYPE IN (1,18,19,20,21,22) AND
+	      	</if>
+	      	<if test="startTime != null and startTime != ''">
+      			<![CDATA[ D.CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}  AND]]>
+			</if>
+	      	<if test="endTime != null and endTime != ''">
+      			<![CDATA[ D.CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
+			</if>
+	      	D.ACTIVE = '1'
+	      	ORDER BY D.CREATE_TIME DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*)
+		FROM T_DEAL_LOG D
+		<where>
+			<if test="dealLogId != null and dealLogId != ''" >
+	        	D.DEAL_LOG_ID = #{dealLogId, jdbcType=VARCHAR} AND
+	      	</if>
+			<if test="userId != null and userId != ''" >
+	        	D.USER_ID = #{userId, jdbcType=VARCHAR} AND
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	D.USER_NAME = #{userName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logType != null and logType != ''" >
+	        	D.LOG_TYPE = #{logType, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logAmount != null and logAmount != ''" >
+	        	D.LOG_AMOUNT = #{logAmount, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="targetUserId != null and targetUserId != ''" >
+	        	D.TARGET_USER_ID = #{targetUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="targetUserName != null and targetUserName != ''" >
+	        	D.TARGET_USER_NAME = #{targetUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logDesc != null and logDesc != ''" >
+	        	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR} AND
+	      	</if>
+		    <if test="logIp != null and logIp != ''" >
+	        	D.LOG_IP = #{logIp, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="logMacAddress != null and logMacAddress != ''" >
+	        	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="dataSyncSql != null and dataSyncSql != ''" >
+	        	D.DATA_SYNC_SQL = #{dataSyncSql, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="dataSyncInfo != null and dataSyncInfo != ''" >
+	        	D.DATA_SYNC_INFO = #{dataSyncInfo, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="createTime != null " >
+	        	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP} AND 
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR} AND
+	      	</if>
+	      	<if test="updateTime != null" >
+	      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP} AND 
+	      	</if>
+	      	<if test="startTime != null and startTime != ''">
+      			<![CDATA[ D.CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP} AND ]]>
+			</if>
+	      	<if test="endTime != null and endTime != ''">
+      			<![CDATA[ D.CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
+			</if>
+			D.ACTIVE = '1'  
+		</where>
+  	</select>
+	
+	<sql id="query_dealLog_param" >
+	   		D.ID,
+	   		D.DEAL_LOG_ID,
+    		D.USER_ID,
+	    	D.USER_NAME,
+	    	D.LOG_TYPE,
+	    	D.LOG_AMOUNT,
+	    	D.TARGET_USER_ID,
+	    	D.TARGET_USER_NAME,
+	    	D.LOG_DESC,
+	    	D.LOG_IP,
+	    	D.LOG_MAC_ADDRESS,
+	    	D.DATA_SYNC_SQL,
+	    	D.DATA_SYNC_INFO,
+	    	D.ACTIVE,
+	    	D.CREATE_USER_ID,
+	    	D.CREATE_USER_NAME,
+	    	D.CREATE_TIME,
+	    	D.UPDATE_USER_ID,
+	    	D.UPDATE_USER_NAME,
+	    	D.UPDATE_TIME,
+	    	D.VERSION
+  	</sql>
+
+</mapper>

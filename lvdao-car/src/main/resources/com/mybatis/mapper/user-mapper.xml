@@ -1,0 +1,856 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="UserEntity" >
+	<resultMap id="UserResultMap" type="com.lvdao.entity.UserEntity" >
+	    <result column="ID" property="id" jdbcType="VARCHAR" />
+	    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+	    <result column="WX_ID" property="wxId" jdbcType="VARCHAR" />
+	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+	    <result column="USER_REAL_NAME" property="userRealName" jdbcType="VARCHAR" />
+	    <result column="EASEMOB_NAME" property="easemobName" jdbcType="VARCHAR" />
+	    <result column="USER_ID_NUM" property="userIdNum" jdbcType="VARCHAR" /> 
+	    <result column="USER_DESC" property="userDesc" jdbcType="VARCHAR" />
+	    <result column="USER_INVITATION_CODE" property="userInvitationCode" jdbcType="VARCHAR" />
+	    <result column="USER_MOBILE" property="userMobile" jdbcType="VARCHAR" />
+	    <result column="USER_MOBILE_VALIDATION" property="userMobileValidation" jdbcType="TINYINT" />
+	    <result column="USER_SKILL_VALIDATION" property="userSkillValidation" jdbcType="TINYINT" />
+	    <result column="USER_IDENTITY_VALIDATION" property="userIdentityValidation" jdbcType="TINYINT" />
+	    <result column="USER_COUNTRY" property="userCountry" jdbcType="VARCHAR" />
+	    <result column="USER_PROVINCE" property="userProvince" jdbcType="VARCHAR" />
+	   	<result column="USER_CITY" property="userCity" jdbcType="VARCHAR" />
+	    <result column="USER_DISTRICT" property="userDistrict" jdbcType="VARCHAR" />
+	   	<result column="USER_STREET" property="userStreet" jdbcType="VARCHAR" />
+	    <result column="USER_ZONE" property="userZone" jdbcType="VARCHAR" />
+	    <result column="USER_ADDRESS" property="userAddress" jdbcType="VARCHAR" />
+	    <result column="USER_LONGITUDE" property="userLongitude" jdbcType="VARCHAR" />
+	   	<result column="USER_LATITUDE" property="userLatitude" jdbcType="VARCHAR" />
+	    <result column="USER_EMAIL" property="userEmail" jdbcType="VARCHAR" />
+	    <result column="USER_EMAIL_BINDING_STATUS" property="userEmailBindingStatus" jdbcType="TINYINT" />
+	    <result column="USER_PASSWORD" property="userPassword" jdbcType="VARCHAR" />
+	    <result column="USER_PAYMENT_PASSWORD" property="userPaymentPassword" jdbcType="VARCHAR" />
+	    <result column="USER_DEGREE_ID" property="userDegreeId" jdbcType="VARCHAR" />
+	   	<result column="USER_DEGREE_NAME" property="userDegreeName" jdbcType="VARCHAR" />
+	    <result column="USER_BANK_NAME" property="userBankName" jdbcType="VARCHAR" />
+	    <result column="USER_BANK_CARD_NO" property="userBankCardNo" jdbcType="VARCHAR" />
+	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+	    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+	    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+	    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+	    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+	    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+	    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+	    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+	    <result column="USER_QQ" property="qq" jdbcType="VARCHAR" />
+	    <result column="USER_AGE" property="userAge" jdbcType="INTEGER" />
+	    <result column="USER_BIRTHDAY" property="userBirthday" jdbcType="TIMESTAMP" />
+	    <result column="USER_GENDER" property="userGender" jdbcType="TINYINT" />
+	    <result column="PIC_URL" property="picUrl" jdbcType="VARCHAR" />
+	    <result column="FINGERPRINT_SWITCH" property="fingerprintSwitch" jdbcType="TINYINT" />
+	    <result column="GESTURE_SWITCH" property="gestureSwitch" jdbcType="TINYINT" />
+	    <result column="GESTURE_PASSWORD" property="gesturePassword" jdbcType="VARCHAR" />
+	   	<result column="USER_TYPE" property="userType" jdbcType="TINYINT" />
+	   	<result column="USER_BANK_VALIDATION" property="userBankValidation" jdbcType="SMALLINT" />
+       <result column="USER_ALIPAY_ACCOUNT" property="userAlipayAccount" jdbcType="VARCHAR" />
+       <result column="USER_WECHAT_ACCOUNT" property="userWechatAccount" jdbcType="VARCHAR" />
+	</resultMap>
+  	
+ 	<sql id="query_user_param" >
+ 		U.ID,
+    	U.USER_ID,
+    	U.WX_ID,
+    	U.USER_NAME,
+    	U.USER_REAL_NAME,
+    	u.EASEMOB_NAME,
+    	U.USER_ID_NUM,
+    	U.USER_DESC,
+    	U.USER_INVITATION_CODE,
+    	U.USER_MOBILE,
+    	U.USER_MOBILE_VALIDATION,
+    	U.USER_SKILL_VALIDATION,
+    	U.USER_IDENTITY_VALIDATION,
+    	U.USER_COUNTRY,
+    	U.USER_PROVINCE,
+    	U.USER_CITY,
+    	U.USER_DISTRICT,
+    	U.USER_STREET,
+    	U.USER_ZONE,
+    	U.USER_ADDRESS,
+    	U.USER_LONGITUDE,
+    	U.USER_LATITUDE,
+    	U.USER_EMAIL,
+    	U.USER_EMAIL_VALIDATION,
+    	U.USER_PASSWORD,
+    	U.USER_PAYMENT_PASSWORD,
+    	U.USER_DEGREE_ID,
+    	U.USER_DEGREE_NAME,
+    	U.USER_PARENT_ID as 'userParentId',
+    	U.USER_PARENT_NAME as 'userParentName',
+    	U.USER_BANK_FULL_NAME as 'userBankFullName',
+    	U.USER_BANK_NAME as 'userBankName',
+    	U.USER_BANK_CARD_NO as 'userBankCardNo',
+    	U.USER_BANK_ACCOUNT_NAME as 'userBankAccountName',
+    	U.ACTIVE,
+    	U.CREATE_USER_ID,
+    	U.CREATE_USER_NAME,
+    	U.CREATE_TIME,
+    	U.UPDATE_USER_ID,
+    	U.UPDATE_USER_NAME,
+    	U.UPDATE_TIME,
+    	U.VERSION,
+    	U.USER_GENDER,
+    	U.USER_BIRTHDAY,
+    	U.FINGERPRINT_SWITCH,
+    	U.GESTURE_SWITCH,
+    	U.GESTURE_PASSWORD,
+    	U.USER_TYPE,
+    	U.USER_BANK_VALIDATION, 
+    	U.USER_ALIPAY_ACCOUNT, 
+        U.USER_WECHAT_ACCOUNT
+  	</sql>
+  	
+  	<insert id="insert" parameterType="com.lvdao.entity.UserEntity">
+	 	INSERT INTO T_USER(
+    	ID,
+    	USER_ID,
+    	WX_ID,
+    	USER_NAME,
+    	USER_REAL_NAME,
+    	EASEMOB_NAME,
+    	USER_ID_NUM,
+    	USER_DESC,
+    	USER_INVITATION_CODE,
+    	USER_MOBILE,
+    	USER_MOBILE_VALIDATION,
+    	USER_SKILL_VALIDATION,
+    	USER_IDENTITY_VALIDATION,
+    	USER_COUNTRY,
+    	USER_PROVINCE,
+    	USER_CITY,
+    	USER_DISTRICT,
+    	USER_STREET,
+    	USER_ZONE,
+    	USER_ADDRESS,
+    	USER_LONGITUDE,
+    	USER_LATITUDE,
+    	USER_EMAIL,
+    	USER_EMAIL_VALIDATION,
+    	USER_PASSWORD,
+    	USER_PAYMENT_PASSWORD,
+    	USER_DEGREE_ID,
+    	USER_DEGREE_NAME,
+    	USER_PARENT_ID,
+    	USER_PARENT_NAME,
+    	USER_BANK_FULL_NAME,
+    	USER_BANK_NAME,
+    	USER_BANK_CARD_NO,
+    	ACTIVE,
+    	CREATE_USER_ID,
+    	CREATE_USER_NAME,
+    	CREATE_TIME,
+    	UPDATE_USER_ID,
+    	VERSION,
+    	USER_TYPE,
+    	USER_BANK_VALIDATION, 
+        USER_ALIPAY_ACCOUNT, 
+        USER_WECHAT_ACCOUNT
+		) VALUES	
+	(	
+		#{id, jdbcType=VARCHAR},		
+		#{userId, jdbcType=VARCHAR},
+		#{wxId, jdbcType=VARCHAR},
+		#{userName, jdbcType=VARCHAR},
+		#{userRealName, jdbcType=VARCHAR},
+		#{easemobName, jdbcType=VARCHAR},
+		#{userIdNum, jdbcType=VARCHAR},
+		#{userDesc, jdbcType=VARCHAR},
+		#{userInvitationCode, jdbcType=VARCHAR},
+		#{userMobile, jdbcType=VARCHAR},
+		#{userMobileValidation, jdbcType=TINYINT},
+		#{userSkillValidation, jdbcType=TINYINT},
+		#{userIdentityValidation, jdbcType=TINYINT},
+		#{userCountry, jdbcType=VARCHAR},
+		#{userProvince, jdbcType=VARCHAR},
+		#{userCity, jdbcType=VARCHAR},
+		#{userDistrict, jdbcType=VARCHAR},
+		#{userStreet, jdbcType=VARCHAR},
+		#{userZone, jdbcType=INTEGER},
+		#{userAddress, jdbcType=VARCHAR},
+		#{userLongitude, jdbcType=VARCHAR},
+		#{userLatitude, jdbcType=VARCHAR},
+		#{userEmail, jdbcType=VARCHAR},
+		#{userEmailValidation, jdbcType=TINYINT},
+		#{userPassword, jdbcType=VARCHAR},
+		#{userPaymentPassword, jdbcType=VARCHAR},
+		#{userDegreeId, jdbcType=VARCHAR},
+		#{userDegreeName, jdbcType=VARCHAR},
+		#{userParentId, jdbcType=VARCHAR},
+		#{userParentName, jdbcType=VARCHAR},
+		#{userBankName, jdbcType=VARCHAR},
+		#{userBankFullName, jdbcType=VARCHAR},
+		#{userBankCardNo, jdbcType=VARCHAR},
+		#{active, jdbcType=TINYINT},	
+		#{createUserId, jdbcType=VARCHAR},
+		#{createUserName, jdbcType=VARCHAR},
+		#{createTime, jdbcType=TIMESTAMP},
+		#{updateUserId, jdbcType=VARCHAR},
+		#{version, jdbcType=NUMERIC},
+		#{userType, jdbcType=TINYINT},
+		#{userBankValidation,jdbcType=SMALLINT}, 
+        #{userAlipayAccount,jdbcType=VARCHAR},
+        #{userWechatAccount,jdbcType=VARCHAR}
+		
+		)
+	</insert>
+	
+  	<update id="update" parameterType="com.lvdao.entity.UserEntity" >
+    	UPDATE T_USER U SET
+      	<if test="wxId != null and wxId != ''" >
+        	U.WX_ID = #{wxId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userRealName != null and userRealName != ''" >
+        	U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userIdNum != null and userIdNum != ''" >
+        	U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userDesc != null and userDesc != ''" >
+        	U.USER_DESC = #{userDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userInvitationCode != null and userInvitationCode != ''" >
+        	U.USER_INVITATION_CODE = #{userInvitationCode, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userMobileValidation != null and userMobileValidation != ''" >
+        	U.USER_MOBILE_VALIDATION = #{userMobileValidation, jdbcType=TINYINT},
+      	</if>
+      	<if test="userType != null and userType != ''" >
+        	U.USER_TYPE = #{userType, jdbcType=TINYINT},
+      	</if>
+      	<if test="userSkillValidation != null and userSkillValidation != ''" >
+        	U.USER_SKILL_VALIDATION = #{userSkillValidation, jdbcType=TINYINT},
+      	</if>
+      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
+        	U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT},
+      	</if>
+      	<if test="userCountry != null and userCountry != ''" >
+        	U.USER_COUNTRY = #{userCountry, jdbcType=TINYINT},
+      	</if>
+      	<if test="userProvince != null and userProvince != ''" >
+        	U.USER_PROVINCE = #{userProvince, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userCity != null and userCity != ''" >
+        	U.USER_CITY = #{userCity, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userDistrict != null and userDistrict != ''" >
+        	U.USER_DISTRICT = #{userDistrict, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userStreet != null and userStreet != ''" >
+        	U.USER_STREET = #{userStreet, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userZone != null and userZone != ''" >
+        	U.USER_ZONE = #{userZone, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userAddress != null and userAddress != ''" >
+        	U.USER_ADDRESS = #{userAddress, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userLongitude != null and userLongitude != ''" >
+        	U.USER_LONGITUDE = #{userLongitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userLatitude != null and userLatitude != ''" >
+        	U.USER_LATITUDE = #{userLatitude, jdbcType=INTEGER},
+      	</if>
+      	<if test="userEmail != null and userEmail != ''" >
+        	U.USER_EMAIL = #{userEmail, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userEmailValidation != null and userEmailValidation != ''" >
+        	U.USER_EMAIL_VALIDATION = #{userEmailValidation, jdbcType=TINYINT},
+      	</if>
+      	<if test="userPassword != null and userPassword != ''" >
+        	U.USER_PASSWORD = #{userPassword, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userPaymentPassword != null and userPaymentPassword != ''" >
+        	U.USER_PAYMENT_PASSWORD = #{userPaymentPassword, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userDegreeId != null and userDegreeId != ''" >
+        	U.USER_DEGREE_ID = #{userDegreeId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userDegreeName != null and userDegreeName != ''" >
+        	U.USER_DEGREE_NAME = #{userDegreeName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userParentId != null and userParentId != ''" >
+        	U.USER_PARENT_ID = #{userParentId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userParentName != null and userParentName != ''" >
+        	U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userBankFullName != null and userBankFullName != ''" >
+        	U.USER_BANK_FULL_NAME = #{userBankFullName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userBankName != null and userBankName != ''" >
+        	U.USER_BANK_NAME = #{userBankName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userBankCardNo != null and userBankCardNo != ''" >
+        	U.USER_BANK_CARD_NO = #{userBankCardNo, jdbcType=VARCHAR},
+      	</if>
+<!--       	<if test="active != null and active != ''" > -->
+<!--         	U.ACTIVE = #{active, jdbcType=TINYINT}, -->
+<!--       	</if> -->
+      	<if test="createUserId != null and createUserId != ''" >
+        	U.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	U.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null" >
+        	U.CREATE_TIME = #{createTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	U.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	U.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null " >
+        	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="userBirthday != null" >
+        	U.USER_BIRTHDAY = #{userBirthday, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="fingerprintSwitch != null and fingerprintSwitch != '' or fingerprintSwitch ==0 " >
+        	U.FINGERPRINT_SWITCH = #{fingerprintSwitch, jdbcType=TINYINT},
+      	</if>
+      	<if test="gestureSwitch != null and gestureSwitch != '' or gestureSwitch ==0 " >
+        	U.GESTURE_SWITCH = #{gestureSwitch, jdbcType=TINYINT},
+      	</if>
+      	<if test="gesturePassword != null and gesturePassword != ''" >
+        	U.GESTURE_PASSWORD = #{gesturePassword, jdbcType=VARCHAR},
+      	</if>
+		U.VERSION = U.VERSION + 1
+		<where>
+	    	U.USER_ID = #{userId, jdbcType=VARCHAR} AND U.ACTIVE = '1'
+		</where>
+  	</update>
+  	
+  	<update id="delete" parameterType="map" >
+	    UPDATE T_USER U SET
+	    U.ACTIVE = '0'
+	  	<where>
+	    	U.ACTIVE = '1'
+	    	AND
+			U.USER_NAME = #{userName, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+  	
+  	<delete id="deleteUser" parameterType="com.lvdao.entity.UserEntity">
+		DELETE FROM T_USER
+		<where>
+			ACTIVE = '0'
+			AND
+			USER_NAME = #{userName, jdbcType=VARCHAR}
+		</where>
+	</delete>
+
+  	<select id="queryList" resultMap="UserResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_param" />
+	    FROM T_USER U
+	    <where>
+	    	U.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND U.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="wxId != null and wxId != ''" >
+	        	AND U.WX_ID = #{wxId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	AND U.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userRealName != null and userRealName != ''" >
+        		AND U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userIdNum != null and userIdNum != ''" >
+        		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userMobile != null and userMobile != ''" >
+	        	AND U.USER_MOBILE = #{userMobile, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userEmail != null and userEmail != ''" >
+	        	AND U.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userPositionAmount != null and userPositionAmount != ''" >
+        		AND U.USER_POSITION_AMOUNT = #{userPositionAmount, jdbcType=INTEGER}
+      		</if>
+      		<if test="userType != null and userType != ''" >
+        		AND U.USER_TYPE = #{userType, jdbcType=INTEGER}
+      		</if>
+	      	<if test="userDegreeId != null and layerNo != ''" >
+	        	AND U.USER_DEGREE_ID = #{userDegreeId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userDegreeName != null and userDegreeName != ''" >
+	        	AND U.USER_DEGREE_NAME = #{userDegreeName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentId != null and userParentId != ''" >
+	        	AND U.USER_PARENT_ID = #{userParentId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="source != null and source != ''" >
+	        	AND U.SOURCE = #{source, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userParentName != null and userParentName != ''" >
+	        	AND U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankFullName != null and userBankFullName != ''" >
+	        	AND U.USER_BANK_FULL_NAME = #{userBankFullName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankName != null and userBankName != ''" >
+	        	AND U.USER_BANK_NAME = #{userBankName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankCardNo != null and userBankCardNo != ''" >
+	        	AND U.USER_BANK_CARD_NO = #{userBankCardNo, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userSkillValidation != null and userSkillValidation != ''" >
+	        	AND U.USER_SKILL_VALIDATION = #{userSkillValidation, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
+	        	AND U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT}
+	      	</if>
+		</where>
+ 	</select>
+  	
+    <select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER U
+	    <where>
+	    	U.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND U.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="wxId != null and wxId != ''" >
+	        	AND U.WX_ID = #{wxId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	AND U.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userRealName != null and userRealName != ''" >
+        		AND U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userIdNum != null and userIdNum != ''" >
+        		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userMobile != null and userMobile != ''" >
+	        	AND U.USER_MOBILE = #{userMobile, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userEmail != null and userEmail != ''" >
+	        	AND U.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="source != null and source != ''" >
+	        	AND U.SOURCE = #{source, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userType != null and userType != ''" >
+	        	AND U.USER_TYPE = #{userType, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userGroupId != null and userGroupId != ''" >
+	        	AND U.USER_GROUP_ID = #{userGroupId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userPositionAmount != null and userPositionAmount != ''" >
+	        	AND U.USER_POSITION_AMOUNT = #{userPositionAmount, jdbcType=INTEGER}
+	      	</if>
+	      	<if test="userDegreeId != null and layerNo != ''" >
+	        	AND U.USER_DEGREE_ID = #{userDegreeId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userDegreeName != null and userDegreeName != ''" >
+	        	AND U.USER_DEGREE_NAME = #{userDegreeName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentId != null and userParentId != ''" >
+	        	AND U.USER_PARENT_ID = #{userParentId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentName != null and userParentName != ''" >
+	        	AND U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankFullName != null and userBankFullName != ''" >
+	        	AND U.USER_BANK_FULL_NAME = #{userBankFullName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankName != null and userBankName != ''" >
+	        	AND U.USER_BANK_NAME = #{userBankName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankCardNo != null and userBankCardNo != ''" >
+	        	AND U.USER_BANK_CARD_NO = #{userBankCardNo, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userSkillValidation != null and userSkillValidation != ''" >
+	        	AND U.USER_SKILL_VALIDATION = #{userSkillValidation, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
+	        	AND U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT}
+	      	</if>
+		</where>
+  	</select>
+  	
+  	<select id="queryPage" resultMap="UserResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_user_param"/>
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+	        	AND U.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="wxId != null and wxId != ''" >
+	        	AND U.WX_ID = #{wxId, jdbcType=VARCHAR}
+	      	</if>
+			<if test="userName != null and userName != ''" >
+	        	AND U.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userRealName != null and userRealName != ''" >
+        		AND U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userIdNum != null and userIdNum != ''" >
+        		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userMobile != null and userMobile != ''" >
+	        	AND U.USER_MOBILE = #{userMobile, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userEmail != null and userEmail != ''" >
+	        	AND U.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userGroupId != null and userGroupId != ''" >
+	        	AND U.USER_GROUP_ID = #{userGroupId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userPositionAmount != null and userPositionAmount != ''" >
+	        	AND U.USER_POSITION_AMOUNT = #{userPositionAmount, jdbcType=INTEGER}
+	      	</if>
+	      	<if test="userDegreeId != null and layerNo != ''" >
+	        	AND U.USER_DEGREE_ID = #{userDegreeId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userDegreeName != null and userDegreeName != ''" >
+	        	AND U.USER_DEGREE_NAME = #{userDegreeName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentId != null and userParentId != ''" >
+	        	AND U.USER_PARENT_ID = #{userParentId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentName != null and userParentName != ''" >
+	        	AND U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankFullName != null and userBankFullName != ''" >
+	        	AND U.USER_BANK_FULL_NAME = #{userBankFullName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="source != null and source != ''" >
+	        	AND U.SOURCE = #{source, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userType != null and userType != ''" >
+	        	AND U.USER_TYPE = #{userType, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userBankName != null and userBankName != ''" >
+	        	AND U.USER_BANK_NAME = #{userBankName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userBankCardNo != null and userBankCardNo != ''" >
+	        	AND U.USER_BANK_CARD_NO = #{userBankCardNo, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userSkillValidation != null and userSkillValidation != ''" >
+	        	AND U.USER_SKILL_VALIDATION = #{userSkillValidation, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
+	        	AND U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT}
+	      	</if>
+	      	ORDER BY U.USER_ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="queryAll" resultMap="UserResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_param"/>		
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '1'  
+			ORDER BY U.USER_ID DESC
+		</where>
+	</select>
+	
+	<select id="queryAllUserIDUserName" resultMap="UserResultMap">
+		SELECT U.USER_ID, U.USER_NAME
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '1'
+		</where>
+	</select>
+	
+	<select id="validateUser" resultMap="UserResultMap" parameterType="java.util.Map">
+		SELECT U.USER_ID, U.USER_NAME , U.USER_PASSWORD
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '1'
+			<if test="userEmail != null and userEmail != ''" >
+	        	AND	U.USER_EMAIL = #{userEmail, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userPassword != null and userPassword != ''" >
+	        	AND	U.USER_PASSWORD = #{userPassword, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userIdNum != null and userIdNum != ''" >
+        		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
+      		</if>
+	      	<if test="userMobile != null and userMobile != '' and wxId == null" >
+	        	AND U.USER_MOBILE = #{userMobile, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userSecondPassword != null and userSecondPassword != ''" >
+	        	AND	U.USER_SECOND_PASSWORD = #{userSecondPassword, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != '' and wxId == null" >
+        		AND	U.USER_NAME = #{userName, jdbcType=VARCHAR}
+        	</if>
+      		<if test="userName != null and userName != '' and wxId != null and wxId != '' and userMobile != null and userMobile != ''" >
+        		AND	( U.USER_NAME = #{userName, jdbcType=VARCHAR}
+        			OR U.WX_ID = #{wxId , jdbcType=VARCHAR})
+      		</if>
+		</where>
+	</select>
+	
+	<select id="queryUnactiveUser" resultMap="UserResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_param"/>		
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '0'
+			AND
+			(
+				U.USER_PARENT_NAME = #{userName, jdbcType=VARCHAR}
+				OR
+				U.USER_NAME = #{userName, jdbcType=VARCHAR}
+			)
+		</where>
+	</select>
+	
+ 	
+ 	<select id="queryListByName" resultMap="UserResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_param"/>		
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '1'  
+			<if test="userName != null and userName != ''" >
+        		AND	U.USER_NAME = #{userName, jdbcType=VARCHAR}
+      		</if>
+      		<if test="userParentName != null and userParentName != ''" >
+	        	OR U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+	      	</if>
+	      	ORDER BY U.CREATE_TIME
+		</where>
+	</select>
+	
+	<select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(USER_ID + 0) 
+		FROM T_USER
+		<where>
+			ACTIVE = '1'
+		</where>
+	</select>
+	<!-- 查询vip人数 --> 
+	<select id="vipCount"   resultType = "java.lang.Integer" parameterType="java.util.Map">
+	SELECT COUNT(*) FROM t_user  
+	<where>
+	ACTIVE = '1' 
+	<if test="userType != null and userType != ''" >
+	AND USER_TYPE = #{userType, jdbcType=TINYINT}
+	</if>
+	</where>
+	</select>
+	<!-- 根据手机号编辑用户资料 byzhaoming -->
+	<update id="updateByUserName" parameterType="com.lvdao.entity.UserEntity" >
+    	UPDATE T_USER U SET
+    	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
+        	U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT},
+      	</if>
+      	<if test="userRealName != null and userRealName != ''" >
+        	U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userGender != null and userGender != ''" >
+        	U.USER_GENDER = #{userGender, jdbcType=TINYINT},
+      	</if>
+      	<if test="userBirthday != null" >
+        	U.USER_BIRTHDAY = #{userBirthday, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="userDesc != null and userDesc != ''" >
+        	U.USER_DESC = #{userDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	U.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	U.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+        	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		U.VERSION = U.VERSION + 1
+		<where>
+	    	U.USER_NAME = #{userName, jdbcType=VARCHAR} AND U.ACTIVE = '1'
+		</where>
+  	</update>
+	
+	<select id="queryNearPeople" resultMap="UserResultMap" parameterType="java.util.Map">
+		SELECT 
+		<include refid="query_user_param"/>		
+		FROM T_USER U
+		<where>
+			U.ACTIVE = '1'  
+			<if test="minLat != null and maxLat != null" >
+        		AND	U.USER_LATITUDE BETWEEN  #{minLat, jdbcType=DOUBLE} AND #{maxLat, jdbcType=DOUBLE}
+      		</if>
+      		<if test="minLon != null and maxLon != null" >
+	        	AND	U.USER_LATITUDE BETWEEN  #{minLon, jdbcType=DOUBLE} AND #{maxLon, jdbcType=DOUBLE}
+	      	</if>
+	      	ORDER BY U.USER_LONGITUDE ASC , U.USER_LATITUDE ASC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	 <select id="queryUserByUserIdNumNotNullCount" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*) FROM T_USER U
+	    <where>
+	    	U.ACTIVE = '1'
+			AND U.USER_IDENTITY_VALIDATION = '0'
+			AND U.USER_ID_NUM IS NOT NULL
+		</where>
+  	</select>
+  	
+	<select id="queryUserByUserIdNumNotNullList" resultMap="UserResultMap" parameterType="java.util.Map" >
+	    SELECT 
+	    <include refid="query_user_param" />
+	    FROM T_USER U
+	    <where>
+	    	U.ACTIVE = '1'
+			AND U.USER_IDENTITY_VALIDATION = '0'
+			AND U.USER_ID_NUM IS NOT NULL
+		</where>
+ 	</select>
+	
+	<!-- 根据手机号编辑用户资料 byzhaoming -->
+	<update id="updateUserByUserId" parameterType="com.lvdao.entity.UserEntity" >
+    	UPDATE T_USER U SET
+    	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
+        	U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT},
+      	</if>
+      	<if test="userRealName != null and userRealName != ''" >
+        	U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userGender != null and userGender != ''" >
+        	U.USER_GENDER = #{userGender, jdbcType=TINYINT},
+      	</if>
+      	<if test="userBirthday != null" >
+        	U.USER_BIRTHDAY = #{userBirthday, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="userDesc != null and userDesc != ''" >
+        	U.USER_DESC = #{userDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	U.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	U.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null " >
+        	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+		U.VERSION = U.VERSION + 1
+		<where>
+	    	U.USER_ID = #{userId, jdbcType=VARCHAR} AND U.ACTIVE = '1'
+		</where>
+  	</update>
+	
+	<!-- 根据手机号编辑用户资料 byZhangjianrong -->
+	<update id="updateUserByUserName" parameterType="com.lvdao.entity.UserEntity" >
+    	UPDATE T_USER U SET
+      	<if test="userDesc != null and userDesc != ''" >
+        	U.USER_DESC = #{userDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	U.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	U.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null " >
+        	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
+      	</if>
+      	<if test="userBankFullName != null and userBankFullName != '' ">
+      		U.USER_BANK_FULL_NAME = #{userBankFullName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userBankName != null and userBankName != '' ">
+      		U.USER_BANK_NAME = #{userBankName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userBankCardNo != null and userBankCardNo != '' ">
+      		U.USER_BANK_CARD_NO = #{userBankCardNo,jdbcType=VARCHAR},
+      	</if>
+      	<if test="userBankAccountName != null and userBankAccountName != '' ">
+      		U.USER_BANK_ACCOUNT_NAME = #{userBankAccountName,jdbcType=VARCHAR},
+    	</if>
+		U.VERSION = U.VERSION + 1
+		<where>
+	    	U.USER_NAME = #{userName, jdbcType=VARCHAR} AND U.ACTIVE = '1'
+		</where>
+  	</update>
+  	
+  	<select id="queryRoleCount" resultType="map" parameterType="map">
+  		select 
+			sum(case when r.ROLE_ID = '1' then 1 else 0 end) as 'normalUserCount',
+			sum(case when r.ROLE_ID = '8' then 1 else 0 end) as 'managerUserCount',
+			sum(case when r.ROLE_ID = '9' then 1 else 0 end) as 'vipUserCount'
+		from 
+			t_user u 
+		LEFT JOIN 
+			t_user_role r 
+				on u.USER_ID = r.USER_ID 
+		where u.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+  	</select>
+  	
+  	<select id="queryInfoByParent" resultMap="UserResultMap" parameterType="map">
+  		SELECT
+			<include refid="query_user_param" />
+			,up.PIC_URL
+		FROM
+			t_user u
+		LEFT JOIN t_user_role ur ON ur.USER_ID = u.USER_ID and UR.ACTIVE = '1'
+		LEFT JOIN t_user_pic up ON up.USER_ID = u.USER_ID and UP.ACTIVE = '1'
+		AND up.PIC_USE = 1
+		<where>
+			U.ACTIVE = '1'
+			<if test="userParentId != null and userParentId != ''" >
+	        	AND U.USER_PARENT_ID = #{userParentId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentName != null and userParentName != ''" >
+	        	AND U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleId != null and roleId != '' ">
+				and ur.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+		ORDER BY U.USER_ID DESC
+		limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+  	</select>
+  	
+  	<select id="queryInfoByParentCount" resultType="java.lang.Integer" parameterType="map">
+  		SELECT
+			count(*)
+		FROM
+			t_user u
+		LEFT JOIN t_user_role ur ON ur.USER_ID = u.USER_ID and UR.ACTIVE = '1'
+		LEFT JOIN t_user_pic up ON up.USER_ID = u.USER_ID and UP.ACTIVE = '1'
+		AND up.PIC_USE = 1
+		<where>
+			U.ACTIVE = '1'
+			<if test="userParentId != null and userParentId != ''" >
+	        	AND U.USER_PARENT_ID = #{userParentId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userParentName != null and userParentName != ''" >
+	        	AND U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="roleId != null and roleId != '' ">
+				and ur.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+		</where>
+  	</select>
+  
+  <!-- 根据UserId获取用户信息 -->
+  <select id="getUserEntityByUserId" resultMap="UserResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="query_user_param" />
+    from t_user U
+    where U.USER_ID = #{userId,jdbcType=VARCHAR}
+  </select>
+</mapper>

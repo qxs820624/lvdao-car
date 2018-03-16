@@ -1,0 +1,382 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="LoginLogEntity">
+  <resultMap id="LoginLogResultMap" type="com.lvdao.entity.LoginLogEntity" >
+  	<result column="ID" property="id" jdbcType="VARCHAR" />
+  	<result column="LOGIN_LOG_ID" property="loginLogId" jdbcType="VARCHAR" />
+    <result column="USER_ID" property="userId" jdbcType="VARCHAR" />
+    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
+    <result column="LOG_TYPE" property="logType" jdbcType="VARCHAR" />
+    <result column="LOG_IP" property="logIp" jdbcType="VARCHAR" /> 
+    <result column="LOG_MAC_ADDRESS" property="logMacAddress" jdbcType="VARCHAR" />
+    <result column="LOG_LONGITUDE" property="logLongitude" jdbcType="VARCHAR" />
+    <result column="LOG_LATITUDE" property="logLatitude" jdbcType="VARCHAR" /> 
+    <result column="LOG_COUNTRY" property="logCountry" jdbcType="VARCHAR" />
+    <result column="LOG_PROVINCE" property="logPrince" jdbcType="VARCHAR" />
+    <result column="LOG_CITY" property="logCity" jdbcType="VARCHAR" />
+    <result column="LOG_DISTRICT" property="logDistrict" jdbcType="VARCHAR" />
+    <result column="LOG_STREET" property="logStreet" jdbcType="VARCHAR" />
+    <result column="LOG_ZONE" property="logZone" jdbcType="VARCHAR" />  
+    <result column="LOG_DESC" property="logDesc" jdbcType="VARCHAR" />  
+    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
+    <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
+    <result column="CREATE_USER_NAME" property="createUserName" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_USER_ID" property="updateUserId" jdbcType="VARCHAR" />
+    <result column="UPDATE_USER_NAME" property="updateUserName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="VERSION" property="version" jdbcType="NUMERIC" />
+  </resultMap>
+
+  <sql id="query_login_param" >
+   		D.ID,
+   		D.LOGIN_LOG_ID,
+   		D.USER_ID,
+    	D.USER_NAME,
+    	D.LOG_TYPE,
+    	D.LOG_IP,
+    	D.LOG_MAC_ADDRESS,
+    	D.LOG_LONGITUDE,
+    	D.LOG_LATITUDE,
+    	D.LOG_COUNTRY,
+    	D.LOG_PROVINCE,
+    	D.LOG_CITY,
+    	D.LOG_DISTRICT,
+    	D.LOG_STREET,
+    	D.LOG_ZONE,
+    	D.LOG_DESC,
+    	D.ACTIVE,
+    	D.CREATE_USER_ID,
+    	D.CREATE_USER_NAME,
+    	D.CREATE_TIME,
+    	D.UPDATE_USER_ID,
+    	D.UPDATE_USER_NAME,
+    	D.UPDATE_TIME,
+    	D.VERSION
+  </sql>
+  
+  <insert id="insert" parameterType="com.lvdao.entity.LoginLogEntity">
+	 	INSERT INTO t_login_log(
+	    	ID,
+	    	LOGIN_LOG_ID,
+    		USER_ID,
+	    	USER_NAME,
+	    	LOG_TYPE,
+	    	LOG_IP,
+	    	LOG_MAC_ADDRESS,
+	    	LOG_LONGITUDE,
+	    	LOG_LATITUDE,
+	    	LOG_COUNTRY,
+	    	LOG_PROVINCE,
+	    	LOG_CITY,
+	    	LOG_DISTRICT,
+	    	LOG_STREET,
+	    	LOG_ZONE,
+	    	LOG_DESC,
+	    	ACTIVE,
+	    	CREATE_USER_ID,
+	    	CREATE_USER_NAME,
+	    	CREATE_TIME,
+	    	UPDATE_USER_ID,
+	    	UPDATE_USER_NAME,
+	    	UPDATE_TIME,
+	    	VERSION
+		) VALUES(	
+			#{id, jdbcType=VARCHAR},
+			#{loginLogId, jdbcType=VARCHAR},
+			#{userId, jdbcType=VARCHAR},
+			#{userName, jdbcType=VARCHAR},
+			#{logType, jdbcType=VARCHAR},
+			#{logIp, jdbcType=VARCHAR},
+			#{logMacAddress, jdbcType=VARCHAR},
+			#{logLongitude, jdbcType=VARCHAR},
+			#{logLatitude, jdbcType=VARCHAR},
+			#{logCountry, jdbcType=VARCHAR},
+			#{logPrince, jdbcType=VARCHAR},
+			#{logCity, jdbcType=VARCHAR},
+			#{logDistrict, jdbcType=VARCHAR},
+			#{logStreet, jdbcType=VARCHAR},
+			#{logZone, jdbcType=VARCHAR},
+			#{logDesc, jdbcType=VARCHAR},
+			#{active, jdbcType=TINYINT},	
+			#{createUserId, jdbcType=VARCHAR},
+			#{createUserName, jdbcType=VARCHAR},
+			#{createTime, jdbcType=TIMESTAMP},
+			#{updateUserId, jdbcType=VARCHAR},
+			#{updateUserName, jdbcType=VARCHAR},
+			#{updateTime, jdbcType=TIMESTAMP},
+			#{version, jdbcType=NUMERIC}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.lvdao.entity.LoginLogEntity" >
+		UPDATE t_login_log D SET
+		<if test="loginLogId != null and loginLogId  != ''" >
+        	D.LOGIN_LOG_ID = #{loginLogId, jdbcType=VARCHAR},
+      	</if>
+		<if test="userId != null and userId != ''" >
+        	D.USER_ID = #{userId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userName != null and userName != ''" >
+        	D.USER_NAME = #{userName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logType != null and logType != ''" >
+        	D.LOG_TYPE = #{logType, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logIp != null and logIp != ''" >
+        	D.LOG_IP = #{logIp, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logMacAddress != null and logMacAddress != ''" >
+        	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR},
+      	</if>
+      	<if test=" logLongitude != null and logLongitude  != ''" >
+        	D.LOG_MAC_ADDRESS = #{logLongitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test=" logLatitude != null and logLatitude != ''" >
+        	D.LOG_LATITUDE = #{logLatitude, jdbcType=VARCHAR},
+      	</if>
+      	<if test=" logCountry != null and logCountry != ''" >
+        	D.LOG_COUNTRY = #{logCountry , jdbcType=VARCHAR},
+      	</if>
+      	<if test=" logPrince != null and  logPrince != ''" >
+        	D.LOG_PROVINCE = #{logPrince, jdbcType=VARCHAR},
+      	</if>
+      	<if test=" logCity != null and logCity != ''" >
+        	D.LOG_CITY = #{logCity, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logDistrict != null and logDistrict != ''" >
+        	D.LOG_DISTRICT = #{logDistrict, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logStreet != null and logStreet != ''" >
+        	D.LOG_STREET = #{logStreet , jdbcType=VARCHAR},
+      	</if>
+      	<if test="logZone != null and logZone != ''" >
+        	D.LOG_ZONE = #{logZone, jdbcType=VARCHAR},
+      	</if>
+      	<if test="logDesc != null and logDesc != ''" >
+        	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR},
+      	</if>
+      	<if test="active != null and active != ''" >
+        	D.ACTIVE = #{active, jdbcType=TINYINT},
+      	</if>
+      	<if test="createUserId != null and createUserId != ''" >
+        	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createUserName != null and createUserName != ''" >
+        	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="createTime != null " >
+        	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      	<if test="updateUserId != null and updateUserId != ''" >
+        	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateUserName != null and updateUserName != ''" >
+        	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="updateTime != null" >
+      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}, 
+      	</if>
+      		D.VERSION = D.VERSION + 1
+		<where>
+			D.ACTIVE = '1'
+	   			AND
+			D.ID = #{id, jdbcType=VARCHAR}	
+		</where>
+	</update>
+	
+	<!-- 逻辑删除  -->
+	<update id="delete" parameterType="com.lvdao.entity.LoginLogEntity" >
+	    UPDATE t_login_log D SET
+	     	D.ACTIVE = '0'
+	  	<where>
+			 D.ACTIVE = '1'
+	   			AND
+			 D.ID = #{id, jdbcType=VARCHAR}	
+		</where>
+  	</update>
+ 
+  	<select id="queryAll" resultMap="LoginLogResultMap">
+		SELECT 
+		<include refid="query_login_param"/>		
+		FROM t_login_log D
+		<where>
+			D.ACTIVE = '1'  
+			ORDER BY D.CREATE_TIME DESC
+		</where>
+	</select>
+	
+	<select id="queryPage" resultMap="LoginLogResultMap" parameterType="java.util.Map">
+		SELECT
+		<include refid="query_login_param"/>
+		FROM t_login_log D
+		<where>
+			D.ACTIVE = '1'
+			<if test="userId != null and userId != ''" >
+        		AND D.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userName != null and userName != ''" >
+	        	AND D.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logType != null and logType != ''" >
+	        	AND	D.LOG_TYPE = #{logType, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logIp != null and logIp != ''" >
+	        	AND	D.LOG_IP = #{logIp, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logMacAddress != null and logMacAddress != ''" >
+	        	AND	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logLongitude != null and logLongitude != ''" >
+	        	AND	D.LOG_MAC_ADDRESS = #{logLongitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logLatitude != null and logLatitude != ''" >
+	        AND	D.LOG_LATITUDE = #{logLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logCountry != null and logCountry != ''" >
+	        	AND	D.LOG_COUNTRY = #{logCountry , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logPrince != null and logPrince != ''" >
+	        	AND	D.LOG_PROVINCE = #{logPrince, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logCity != null and logCity != ''" >
+	        	AND	D.LOG_CITY = #{logCity, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logDistrict != null and logDistrict != ''" >
+	        	AND	D.LOG_DISTRICT = #{logDistrict, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logStreet != null and logStreet != ''" >
+	       		AND	D.LOG_STREET = #{logStreet , jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logZone != null and logZone != ''" >
+	        	AND	D.LOG_ZONE = #{logZone, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="logDesc != null and logDesc != ''" >
+	        	AND	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="active != null and active != ''" >
+	        	AND	D.ACTIVE = #{active, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="createTime != null " >
+	        	AND	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="updateTime != null" >
+	      		AND	D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	ORDER BY D.USER_ID DESC
+			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
+		</where>
+	</select>
+	
+	<select id="count" resultType="java.lang.Integer" parameterType="java.util.Map">
+   		SELECT COUNT(*)
+	    FROM t_login_log D
+		<where>
+			D.ACTIVE = '1'
+			
+			<if test="userId != null and userId  != ''" >
+        		AND D.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	
+			<if test="userId != null and userId  != ''" >
+        		AND D.USER_ID = #{userId, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="userName != null and userName != ''" >
+	        	AND D.USER_NAME = #{userName, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logType != null and logType != ''" >
+	        	AND	D.LOG_TYPE = #{logType, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logIp != null and logIp != ''" >
+	        	AND	D.LOG_IP = #{logIp, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logMacAddress != null and logMacAddress  != ''" >
+	        	AND	D.LOG_MAC_ADDRESS = #{logMacAddress, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logLongitude != null and logLongitude  != ''" >
+	        	AND	D.LOG_MAC_ADDRESS = #{logLongitude, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logLatitude != null and logLatitude != ''" >
+	        	AND	D.LOG_LATITUDE = #{logLatitude, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logCountry != null and logCountry  != ''" >
+	        	AND	D.LOG_COUNTRY = #{logCountry , jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logPrince != null and  logPrince != ''" >
+	        	AND	D.LOG_PROVINCE = #{logPrince, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logCity != null and logCity != ''" >
+	       	 	AND	D.LOG_CITY = #{logCity, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logDistrict != null and logDistrict != ''" >
+	        	AND	D.LOG_DISTRICT = #{logDistrict, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logStreet != null and logStreet  != ''" >
+	        	AND	D.LOG_STREET = #{logStreet , jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="logZone != null and logZone != ''" >
+	        	AND	D.LOG_ZONE = #{logZone, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test=" logDesc != null and logDesc != ''" >
+	        	AND	D.LOG_DESC = #{logDesc, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="active != null and active != ''" >
+	        	AND	D.ACTIVE = #{active, jdbcType=TINYINT}
+	      	</if>
+	      	
+	      	<if test="createUserId != null and createUserId != ''" >
+	        	AND	D.CREATE_USER_ID = #{createUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="createUserName != null and createUserName != ''" >
+	        	AND	D.CREATE_USER_NAME = #{createUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="createTime != null " >
+	        	AND	D.CREATE_TIME =#{createTime, jdbcType=TIMESTAMP}
+	      	</if>
+	      	
+	      	<if test="updateUserId != null and updateUserId != ''" >
+	        	AND	D.UPDATE_USER_ID = #{updateUserId, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="updateUserName != null and updateUserName != ''" >
+	        	AND	D.UPDATE_USER_NAME = #{updateUserName, jdbcType=VARCHAR}
+	      	</if>
+	      	
+	      	<if test="updateTime != null" >
+	      		AND	D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP}
+	      	</if>
+		</where>
+  	</select>
+	  
+	 <select id = "getMaxId" resultType = "java.lang.Integer" >
+		SELECT MAX(LOGIN_LOG_ID + 0) FROM T_LOGIN_LOG
+	</select>
+</mapper>
