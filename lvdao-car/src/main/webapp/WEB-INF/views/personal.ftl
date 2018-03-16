@@ -6,16 +6,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
         <link rel="stylesheet" type="text/css" href="../../resources/dist/css/swiper.css">
     </head>
     <body>
     	<div class="container">
             <header>
-                <a class="reference" href="">推荐人</a>
+                <a class="reference" href="reference.html">推荐人</a>
                 <span>个人中心</span>
-                <a class="car_info" href="">汽车信息</a>
+                <a class="car_info" href="carInfo.html">汽车信息</a>
             </header>
             <div class="personal_cons">
                 <div class="swiper-container personal_info">
@@ -25,8 +25,8 @@
                                 <h4>投资返还账户</h4>
                                 <span>¥10000</span>
                                 <div class="button return_account_btn outer">
-                                    <button>返还明细</button>
-                                    <button>账户提现</button>
+                                    <button onclick="javascript:window.location.href='returnDetail.html'">返还明细</button>
+                                    <button onclick="javascript:window.location.href='cashWithdraw.html'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -35,8 +35,8 @@
                                 <h4>收入账户</h4>
                                 <span>¥10000</span>
                                 <div class="button income_account_btn outer">
-                                    <button>收入明细</button>
-                                    <button>账户提现</button>
+                                    <button onclick="javascript:window.location.href='incomeDetail.html'">收入明细</button>
+                                    <button onclick="javascript:window.location.href='cashWithdraw.html'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +45,8 @@
                                 <h4>推荐奖账户</h4>
                                 <span>¥10000</span>
                                 <div class="button commended_btn outer">
-                                    <button>奖励明细</button>
-                                    <button>账户提现</button>
+                                    <button onclick="javascript:window.location.href='rewardDetail.html'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='cashWithdraw.html'">账户提现</button>
                                 </div>
                             </div>
                         </div>
