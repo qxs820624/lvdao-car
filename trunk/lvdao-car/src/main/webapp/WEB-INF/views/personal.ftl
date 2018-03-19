@@ -137,7 +137,7 @@
                 </div>
             </div>
             <footer>
-                <a href="index.html">
+                <a href="/index/index.do">
                     <span>
                         <b class="index"></b>
                     </span>

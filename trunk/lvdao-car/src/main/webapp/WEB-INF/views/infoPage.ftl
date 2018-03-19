@@ -12,7 +12,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="index.html"></a>
+                <a class="return_arr" href="/index/index.do"></a>
                 <span>消息</span>
             </header>
             <div class="info_cons">

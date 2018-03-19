@@ -91,7 +91,7 @@
                 </div>
             </div>
             <footer>
-                <a class="selected" href="index.html">
+                <a class="selected" href="/index/index.do">
                     <span>
                         <b class="index"></b>
                     </span>
