@@ -38,7 +38,7 @@
                     <div class="investment_info outer">
                         <p><i>¥10</i>万</p>
                         <span>每天可返利500元</span>
-                        <button onclick="javascript:window.location.href='orderForm.html'">选TA</button>
+                        <button onclick="javascript:window.location.href='/order/orderForm.do'">选TA</button>
                     </div>
                 </div>
                 <div class="investment_type">

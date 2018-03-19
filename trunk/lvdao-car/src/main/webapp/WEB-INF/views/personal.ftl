@@ -13,9 +13,9 @@
     <body>
     	<div class="container">
             <header>
-                <a class="reference" href="reference.html">推荐人</a>
+                <a class="reference" href="/user/reference.do">推荐人</a>
                 <span>个人中心</span>
-                <a class="car_info" href="carInfo.html">汽车信息</a>
+                <a class="car_info" href="/vehicle/carInfo.do">汽车信息</a>
             </header>
             <div class="personal_cons">
                 <div class="swiper-container personal_info">
@@ -25,8 +25,8 @@
                                 <h4>投资返还账户</h4>
                                 <span>¥10000</span>
                                 <div class="button return_account_btn outer">
-                                    <button onclick="javascript:window.location.href='returnDetail.html'">返还明细</button>
-                                    <button onclick="javascript:window.location.href='cashWithdraw.html'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/returnDetail.do'">返还明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -35,8 +35,8 @@
                                 <h4>收入账户</h4>
                                 <span>¥10000</span>
                                 <div class="button income_account_btn outer">
-                                    <button onclick="javascript:window.location.href='incomeDetail.html'">收入明细</button>
-                                    <button onclick="javascript:window.location.href='cashWithdraw.html'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/incomeDetail.do'">收入明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -45,8 +45,8 @@
                                 <h4>推荐奖账户</h4>
                                 <span>¥10000</span>
                                 <div class="button commended_btn outer">
-                                    <button onclick="javascript:window.location.href='rewardDetail.html'">奖励明细</button>
-                                    <button onclick="javascript:window.location.href='cashWithdraw.html'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/rewardDetail.do'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -149,7 +149,7 @@
                     </span>
                     <i>我的汽车</i>
                 </a>
-                <a class="selected" href="personal.html">
+                <a class="selected" href="/user/personal.do">
                     <span>
                         <b class="personal"></b>
                     </span>

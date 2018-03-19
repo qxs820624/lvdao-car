@@ -12,7 +12,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="cashWithdraw.html"></a>
+                <a class="return_arr" href="/user/cashWithdraw.do"></a>
                 <span>添加银行卡</span>
             </header>
             <div class="add_bank_cons">

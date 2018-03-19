@@ -15,7 +15,7 @@
     	<div class="container">
             <header>
                 <span>首页</span>
-                <a class="header_info layui-nav-item" href="infoPage.html">
+                <a class="header_info layui-nav-item" href="/info/infoPage.do">
                     <img src="../../resources/images/icon_info.png" alt="">
                     <span class="layui-badge-dot"></span>
                 </a>
@@ -31,7 +31,7 @@
                     <div class="swiper-pagination"></div>
                 </div>
                 <div class="investor_driver outer">
-                    <div class="left_investor" onclick="javascript:window.location.href='investment.html'">
+                    <div class="left_investor" onclick="javascript:window.location.href='/user/investment.do'">
                         <img src="../../resources/images/icon_investor.png" alt="">
                         <span>我是投资人</span>
                         <p>每天可以从平台领取返利</p>
@@ -97,13 +97,13 @@
                     </span>
                     <i>首页</i>
                 </a>
-                <a href="myCar.html">
+                <a href="/user/myCar.do">
                     <span>
                         <b class="my_car"></b>
                     </span>
                     <i>我的汽车</i>
                 </a>
-                <a href="personal.html">
+                <a href="/user/personal.do">
                     <span>
                         <b class="personal"></b>
                     </span>

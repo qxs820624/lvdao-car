@@ -12,7 +12,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="infoPage.html"></a>
+                <a class="return_arr" href="/info/infoPage.do"></a>
                 <span>系统通知</span>
             </header>
             <div class="info_system_cons">

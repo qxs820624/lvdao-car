@@ -13,7 +13,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>返还明细</span>
             </header>
             <div class="return_detail_cons">

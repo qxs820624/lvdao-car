@@ -35,4 +35,16 @@ public class VehicleController {
 		ModelAndView mav = new ModelAndView("/carInfo");
 		return mav;
 	}
+	
+	/**
+	 * 我的汽车
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/myCar", method = RequestMethod.GET)
+	public ModelAndView myCar(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/myCar");
+		return mav;
+	}
 }

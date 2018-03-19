@@ -13,7 +13,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>奖励明细</span>
             </header>
             <div class="reward_detail_cons">
