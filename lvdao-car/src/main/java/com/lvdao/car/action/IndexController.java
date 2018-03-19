@@ -1,4 +1,4 @@
-package com.lvdao.web.action;
+package com.lvdao.car.action;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -10,14 +10,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@RequestMapping("/info")
-public class InfoController {
+@RequestMapping("/index")
+public class IndexController {
 	
-	private static final Logger LOGGER = LoggerFactory.getLogger(InfoController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 	
-	@RequestMapping(value = "/infoMoney", method = RequestMethod.GET)
+	/**
+	 * 首页
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView orderList(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/infoMoney");
+		ModelAndView mav = new ModelAndView("/index");
 		return mav;
 	}
 }

@@ -8,7 +8,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-		   classpath:applicationContext.xml
+		   classpath:applicationContext.xml,
+		   classpath:/**/spring*.xml
 		</param-value>
 	</context-param>
 			
@@ -36,19 +37,9 @@
 		</init-param>
 	</filter>
 	
-	<filter>
-		<filter-name>sitemesh</filter-name>
-		<filter-class>com.opensymphony.sitemesh.webapp.SiteMeshFilter</filter-class>
-	</filter>
-	
-	<filter>
-		<filter-name>UserUrlPermission</filter-name>
-		<filter-class>com.lvdao.web.interceptor.UserURLPermissionServlet</filter-class>
-	</filter>
-	
-	 <filter>    
+	<filter>    
 	    <filter-name>SecurityServlet</filter-name>    
-	    <filter-class>com.lvdao.web.interceptor.SecurityServlet</filter-class>
+	    <filter-class>com.lvdao.car.interceptor.SecurityServlet</filter-class>
 	    <init-param>
 	        <param-name>exclusions</param-name>
 	        <param-value>*.js,*.gif,*.jpg,*.png,*.css</param-value>
@@ -58,13 +49,8 @@
 	        <param-value>true</param-value>
 	   	</init-param>
 	   </filter>
+	
 	<filter-mapping>
-	   <filter-name>UserUrlPermission</filter-name>
-	   <url-pattern>/system/*</url-pattern>
-	   
-	</filter-mapping>
-	   
-	   <filter-mapping>
 	   <filter-name>SecurityServlet</filter-name>
 	   <url-pattern>*.do</url-pattern>
 	</filter-mapping> 
@@ -73,11 +59,6 @@
 		<filter-name>characterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	
-	<filter-mapping>
-		<filter-name>sitemesh</filter-name>
-		<url-pattern>/*</url-pattern>
-	</filter-mapping> 
 	
 	<!-- Spring Web Container Listener -->
 	<listener>
@@ -114,27 +95,6 @@
 		<load-on-startup>2</load-on-startup>
 	</servlet>
 	
-	<servlet>
-		<servlet-name>Kaptcha</servlet-name>
-		<servlet-class>com.google.code.kaptcha.servlet.KaptchaServlet</servlet-class>
-		<init-param>
-			<param-name>kaptcha.image.width</param-name>
-			<param-value>200</param-value>
-		</init-param>
-		<init-param>
-			<param-name>kaptcha.image.height</param-name>
-			<param-value>50</param-value>
-		</init-param>
-		<init-param>
-			<param-name>kaptcha.textproducer.char.length</param-name>
-			<param-value>4</param-value>
-		</init-param>
-		<init-param>
-			<param-name>kaptcha.noise.impl</param-name>
-			<param-value>com.google.code.kaptcha.impl.NoNoise</param-value>
-		</init-param>
-	</servlet>
-	
 	<servlet-mapping>
 		<servlet-name>springmvc</servlet-name>
 		<url-pattern>*.do</url-pattern>
@@ -150,6 +110,6 @@
 	</session-config>
 	
 	<welcome-file-list>
-		<welcome-file>user/userLogin.do</welcome-file>
+		<welcome-file>index/index.do</welcome-file>
 	</welcome-file-list>
 </web-app>
