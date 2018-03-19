@@ -15,6 +15,12 @@ public class IndexController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(IndexController.class);
 	
+	/**
+	 * 首页
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView orderList(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/index");
