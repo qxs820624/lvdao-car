@@ -22,7 +22,7 @@ public class IndexController {
 	 * @return
 	 */
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public ModelAndView orderList(HttpServletRequest request) {
+	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/index");
 		return mav;
 	}

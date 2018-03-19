@@ -36,13 +36,13 @@
                     </span>
                     <i>首页</i>
                 </a>
-                <a class="selected" href="myCar.html">
+                <a class="selected" href="/user/myCar.do">
                     <span>
                         <b class="my_car"></b>
                     </span>
                     <i>我的汽车</i>
                 </a>
-                <a href="personal.html">
+                <a href="/user/personal.do">
                     <span>
                         <b class="personal"></b>
                     </span>

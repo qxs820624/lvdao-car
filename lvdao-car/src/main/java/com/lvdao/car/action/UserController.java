@@ -51,4 +51,65 @@ public class UserController {
 		return mav;
 	}	
 	
+	/**
+	 * 选择投资项目
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/investment", method = RequestMethod.GET)
+	public ModelAndView investment(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/investment");
+		return mav;
+	}
+	
+	/**
+	 * 个人中心
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/personal", method = RequestMethod.GET)
+	public ModelAndView personal(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/personal");
+		return mav;
+	}
+	
+	/**
+	 * 推荐人
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/reference", method = RequestMethod.GET)
+	public ModelAndView reference(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/reference");
+		return mav;
+	}
+	
+	/**
+	 * 返还明细
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/returnDetail", method = RequestMethod.GET)
+	public ModelAndView returnDetail(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/returnDetail");
+		return mav;
+	}
+	
+	/**
+	 * 奖励明细
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/rewardDetail", method = RequestMethod.GET)
+	public ModelAndView rewardDetail(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/rewardDetail");
+		return mav;
+	}
+	
+	
 }

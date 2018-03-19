@@ -12,7 +12,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="investment.html"></a>
+                <a class="return_arr" href="/user/investment.do"></a>
                 <span>确认订单</span>
             </header>
             <div class="order_form_cons">
@@ -41,7 +41,7 @@
                 <div class="ask_box">
                     <p>是否确认投资？</p>
                     <div class="ask_btn outer">
-                        <button class="confirm_btn" onclick="javascript:window.location.href='uploadVoucher.html'">确认</button>
+                        <button class="confirm_btn" onclick="javascript:window.location.href='/order/uploadVoucher.do'">确认</button>
                         <button class="cancel_btn">取消</button>
                     </div>
                 </div>

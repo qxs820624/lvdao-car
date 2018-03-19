@@ -12,14 +12,14 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>现金提现</span>
             </header>
             <div class="cash_cons">
                 <div class="cash_form">
                     <div class="add_bank outer">
                         <p>到账银行卡</p>
-                        <span onclick="javascript:window.location.href='addBank.html'"></span>
+                        <span onclick="javascript:window.location.href='/user/addBank.do'"></span>
                     </div>
                     <div class="add_bank outer">
                         <p>到账支付宝</p>

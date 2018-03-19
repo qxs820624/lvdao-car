@@ -17,7 +17,7 @@
             </header>
             <div class="info_cons">
                 <ul>
-                    <li class="outer" onclick="javascript:window.location.href='infoSystem.html'">
+                    <li class="outer" onclick="javascript:window.location.href='/info/infoSystem.do'">
                         <img src="../../resources/images/info_system.png" alt="">
                         <div class="info_center">
                             <span>系统通知</span>
@@ -28,7 +28,7 @@
                             <i>1分钟前</i>
                         </div>
                     </li>
-                    <li class="outer" onclick="javascript:window.location.href='infoMoney.html'">
+                    <li class="outer" onclick="javascript:window.location.href='/info/infoMoney.do'">
                         <img src="../../resources/images/info_money.png" alt="">
                         <div class="info_center">
                             <span>收款通知</span>

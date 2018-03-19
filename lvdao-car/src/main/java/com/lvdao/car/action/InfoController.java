@@ -15,9 +15,39 @@ public class InfoController {
 	
 	private static final Logger LOGGER = LoggerFactory.getLogger(InfoController.class);
 	
+	/**
+	 * 收款通知
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/infoMoney", method = RequestMethod.GET)
-	public ModelAndView orderList(HttpServletRequest request) {
+	public ModelAndView infoMoney(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/infoMoney");
+		return mav;
+	}
+	
+	/**
+	 * 消息
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/infoPage", method = RequestMethod.GET)
+	public ModelAndView infoPage(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/infoPage");
+		return mav;
+	}
+	
+	/**
+	 * 系统通知
+	 * 
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/infoSystem", method = RequestMethod.GET)
+	public ModelAndView infoSystem(HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/infoSystem");
 		return mav;
 	}
 }

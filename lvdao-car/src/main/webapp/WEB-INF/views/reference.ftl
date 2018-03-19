@@ -12,7 +12,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>推荐人</span>
             </header>
             <div class="reference_cons">
