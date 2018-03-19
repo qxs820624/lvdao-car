@@ -1,4 +1,4 @@
-package com.lvdao.web.vo;
+package com.lvdao.car.vo;
 
 import java.math.BigDecimal;
 import java.util.List;
