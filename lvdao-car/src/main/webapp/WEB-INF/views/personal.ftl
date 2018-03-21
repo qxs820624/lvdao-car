@@ -145,7 +145,7 @@
                 </a>
                 <a href="myCar.html">
                     <span>
-                        <b class="my_car"></b>
+                        <b class="/vehicle/myCar.do"></b>
                     </span>
                     <i>我的汽车</i>
                 </a>

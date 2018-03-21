@@ -137,4 +137,5 @@ public class MessageConst {
 	public static final String ERROR_MESSAGE_CATEGORY_PARAM_NULL = "交易密码不正确！";
 	public static final String ERROR_MESSAGE_CATEGORY_QUERY_RESULT_NULL = "查询结果为空！";
 	/*******************************************************/
+	public static final Object WARN_USER_ACCOUNT_NULL = "";
 }

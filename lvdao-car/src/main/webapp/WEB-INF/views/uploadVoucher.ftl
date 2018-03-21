@@ -30,12 +30,17 @@
                 upload = layui.upload;
                 upload.render({
                     elem: '#upload_file',
-                    url: '/upload/',
+                    url: '/order/upload.do',
                     auto: false,
                     //multiple: true,
                     bindAction: '#upload_btn',
                     done: function(res){
                       console.log(res)
+                      if(res.status) {
+                      layer.msg(res.message);
+                      }else{
+                      layer.msg(res.message);
+                      }
                     }
                 });
             });

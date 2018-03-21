@@ -36,7 +36,7 @@
                         <span>我是投资人</span>
                         <p>每天可以从平台领取返利</p>
                     </div>
-                    <div class="right_driver">
+                    <div class="right_driver" id = "ale" onclick="javascript:layer.msg('请进入驴道拼货app使用此功能')">
                         <img src="../../resources/images/icon_driver.png" alt="">
                         <span>我是司机</span>
                         <p>平台提供车让你赚钱</p>
@@ -46,45 +46,57 @@
                     <div class="swiper-container swiper-container02">
                         <div class="swiper-wrapper">
                             <div class="swiper-slide">
-                                <img src="../../resources/images/car.png">
+                                <img src="../../resources/images/benben1.jpg">
                                 <div class="outer">
                                     <div class="car_brand">
-                                        <span>奥迪A8</span>
-                                        <i>R1系列</i>
+                                        <span>新能源</span>
+                                        <i>五万车主</i>
                                     </div>
-                                    <button>选TA</button>
+                               <!--      <button>选TA</button>  -->
                                 </div>
                             </div>
                             <div class="swiper-slide">
-                                <img src="../../resources/images/car.png">
+                                <img src="../../resources/images/benbenten1.jpg">
                                 <div class="outer">
                                     <div class="car_brand">
-                                        <span>奥迪A8</span>
-                                        <i>R1系列</i>
+                                        <span>新能源</span>
+                                        <i>十万车主</i>
                                     </div>
-                                    <button>选TA</button>
+                                   <!-- <button>选TA</button> -->
                                 </div>
                             </div>
                             <div class="swiper-slide">
-                                <img src="../../resources/images/car.png">
+                                <img src="../../resources/images/chuanqi1.jpg">
                                 <div class="outer">
                                     <div class="car_brand">
-                                        <span>奥迪A8</span>
-                                        <i>R1系列</i>
+                                        <span>新能源</span>
+                                        <i>二十万车主</i>
                                     </div>
-                                    <button>选TA</button>
+                                  <!--  <button>选TA</button>  -->
                                 </div>
                             </div>
                             <div class="swiper-slide">
-                                <img src="../../resources/images/car.png">
+                                <img src="../../resources/images/fang1.jpg">
                                 <div class="outer">
                                     <div class="car_brand">
-                                        <span>奥迪A8</span>
-                                        <i>R1系列</i>
+                                        <span>房车</span>
+                                        <i>五十万车主</i>  
                                     </div>
-                                    <button>选TA</button>
+                             <!--       <button>选TA</button>  -->
                                 </div>
                             </div>
+                            
+                             <div class="swiper-slide">
+                                <img src="../../resources/images/benchi.jpg">
+                                <div class="outer">
+                                    <div class="car_brand">
+                                        <span>房车</span>
+                                        <i>一百万车主</i>  
+                                    </div>
+                             <!--       <button>选TA</button>  -->
+                                </div>
+                            </div>
+                            
                         </div>
                         <div class="swiper-pagination"></div>
                     </div>
@@ -97,7 +109,7 @@
                     </span>
                     <i>首页</i>
                 </a>
-                <a href="/user/myCar.do">
+                <a href="/vehicle/myCar.do">
                     <span>
                         <b class="my_car"></b>
                     </span>
@@ -121,11 +133,12 @@
                     $(this).addClass("selected");
                 });
             });
-
-            //新消息
+            
+             //新消息
             layui.use('element', function(){
                 var element = layui.element;
             });
+
 
             //轮播
             var swiper = new Swiper('.swiper-container01', {
