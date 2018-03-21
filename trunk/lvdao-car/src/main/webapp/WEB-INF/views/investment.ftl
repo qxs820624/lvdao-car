@@ -38,7 +38,7 @@
                     <div class="investment_info outer">
                         <p><i>待定</i>万</p>
                         <span>每天都可返利</span>
-                        <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 1'">选TA</button>
+                        <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=5'">选TA</button>
                     </div>
                 </div>
                 <div class="investment_type">
@@ -62,7 +62,7 @@
                     <div class="investment_info outer">
                         <p><i>待定</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 2'">选TA</button>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=10'">选TA</button>
                     </div>
                 </div>
                 
@@ -87,7 +87,7 @@
                     <div class="investment_info outer">
                         <p><i>待定</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 3'">选TA</button>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?'+'inversType=20'">选TA</button>
                     </div>
                 </div>
                 
@@ -113,7 +113,7 @@
                     <div class="investment_info outer">
                         <p><i>待定</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 4'">选TA</button>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=50'">选TA</button>
                     </div>
                 </div>
                 
@@ -139,7 +139,7 @@
                     <div class="investment_info outer">
                         <p><i>待定</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 5'">选TA</button>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=100'">选TA</button>
                     </div>
                 </div>
                 

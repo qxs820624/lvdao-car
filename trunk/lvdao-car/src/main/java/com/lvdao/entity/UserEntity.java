@@ -58,6 +58,7 @@ public class UserEntity extends BaseEntity implements Serializable {
     private String roleId;//增加两个显示字段，不在数据库字段
     private String roleName;
     //private String picUrl;
+    private String userStatus; //是否激活
     
     private Short userBankValidation;
 
@@ -114,6 +115,14 @@ public class UserEntity extends BaseEntity implements Serializable {
 		this.userId = userId;
 	}
 	
+	public synchronized String getUserStatus() {
+		return userStatus;
+	}
+
+	public synchronized void setUserStatus(String userStatus) {
+		this.userStatus = userStatus;
+	}
+
 	public String getWxId() {
 		return wxId;
 	}

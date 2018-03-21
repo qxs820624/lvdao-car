@@ -2,6 +2,7 @@ package com.lvdao.car.action;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,6 +35,7 @@ import com.lvdao.entity.UserWithdrawEntity;
 import com.lvdao.service.IAccountService;
 import com.lvdao.service.IDealLogService;
 import com.lvdao.service.IUserAccountService;
+import com.lvdao.service.IUserService;
 import com.lvdao.service.IUserWithdrawService;
 
 @Controller
@@ -55,6 +57,11 @@ public class UserController {
     @Autowired	
 	private IUserWithdrawService userWithdrawService;
     
+    @Autowired
+	private IUserService userService;
+    
+    
+    
    /**
     * 添加银行卡
     * 
@@ -75,7 +82,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/cashWithdraw", method = RequestMethod.GET)
 	public ModelAndView orderList(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/cashWithdraw");
+		ModelAndView mav = new ModelAndView("/addBank");
 		return mav;
 	}
 	
@@ -112,6 +119,87 @@ public class UserController {
 	@RequestMapping(value = "/personal", method = RequestMethod.GET)
 	public ModelAndView personal(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/personal");
+		Map<String, Object> map = new HashMap<String, Object>();
+		UserEntity user =  (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
+		if(user != null){
+			//现金账户 
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.RMB.getId());
+			List<UserAccountEntity> rmbAccountList = userAccountService.queryList(map);
+			if(rmbAccountList != null && rmbAccountList .size() > CommonConst.DIGIT_ZERO){
+				String accountRmbAmount = rmbAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();				
+				mav.addObject("rmbAccount", roundByScale(accountRmbAmount,2));
+			}
+			
+			//股票积分账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.STOCK.getId());
+			List<UserAccountEntity> stockAccountList = userAccountService.queryList(map);
+			
+			if(stockAccountList != null && stockAccountList .size() > CommonConst.DIGIT_ZERO) {
+				String accountStockAmount = stockAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("stockAccount", accountStockAmount);
+			}
+			
+			//分享补贴账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.RECOMMEND_BONUS.getId());
+			List<UserAccountEntity> recommendBonusAccountList = userAccountService.queryList(map);
+			
+			if(recommendBonusAccountList != null && recommendBonusAccountList .size() > CommonConst.DIGIT_ZERO) {
+				String accountRecomendBonusAmount = recommendBonusAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("recommendBonusAccount", roundByScale(accountRecomendBonusAmount, 2));
+			}
+			
+			//燃油补贴账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.BOUNS_RETURN.getId());
+			List<UserAccountEntity> bonusReturnAccountList = userAccountService.queryList(map);
+			
+			if(bonusReturnAccountList != null && bonusReturnAccountList .size() > CommonConst.DIGIT_ZERO) {
+				String accountbonuAmount = bonusReturnAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("accountbonuAmount", roundByScale(accountbonuAmount, 2));
+			}
+			
+			//乘车券账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.RIDE_COUPON.getId());
+			List<UserAccountEntity> rideCouponAccountList = userAccountService.queryList(map);
+			
+			if(rideCouponAccountList != null && rideCouponAccountList.size() > CommonConst.DIGIT_ZERO) {
+				String accountRideCouponAmount = rideCouponAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("rideCouponAccount", roundByScale(accountRideCouponAmount, 2));
+			}
+			
+			//燃油包账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.SHARE_REWARD.getId());
+			List<UserAccountEntity> shareRewardAccountList = userAccountService.queryList(map);
+			
+			if(shareRewardAccountList != null && shareRewardAccountList .size() > CommonConst.DIGIT_ZERO) {
+				String accountShareRewardAmount = shareRewardAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("shareRewardAccount", roundByScale(accountShareRewardAmount, 2));
+			}
+			
+			//激活状态
+			map.clear();
+			map.put("userId", user.getUserId());
+			List<UserEntity> userList = userService.queryList(map);
+			
+			if(userList != null && userList .size() > CommonConst.DIGIT_ZERO) {
+				mav.addObject("userStatus", userList.get(CommonConst.DIGIT_ZERO).getUserStatus());
+				mav.addObject("userName", userList.get(CommonConst.DIGIT_ZERO).getUserName());
+				mav.addObject("userDegreen", userList.get(CommonConst.DIGIT_ZERO).getUserDegreeName());//等级
+			}
+			
+		}
+		
 		return mav;
 	}
 	
@@ -123,34 +211,57 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/reference", method = RequestMethod.GET)
 	public ModelAndView reference(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("/reference");
+		UserEntity user =  (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
+		if(user != null){
+		//我的推荐人
+			
+		Map<String,Object> paramMap = new HashMap<String, Object>();
+		paramMap.clear();
+		paramMap.put("userId", user.getUserId());
+		paramMap.put("userParentName", user.getUserName());
+		List<UserEntity> userRecommendList = userService.queryList(paramMap);
+		
+		if(null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
+			UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
+			String userParentName = userEntity.getUserParentName();
+			mav.addObject("myRecommendUser", userParentName);
+		}
+		
+		//直接推荐人数
+		paramMap.clear();
+		paramMap.put("userParentName", user.getUserRealName());
+		int countUser = userService.countUser(paramMap);
+		mav.addObject("countUser", countUser);
+		}
 		return mav;
 	}
 	
-	/**
+/*	*//**
 	 * 返还明细
 	 * 
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@RequestMapping(value = "/returnDetail", method = RequestMethod.GET)
 	public ModelAndView returnDetail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/returnDetail");
 		return mav;
-	}
+	}*/
 	
-	/**
+/*	*//**
 	 * 奖励明细
 	 * 
 	 * @param request
 	 * @return
-	 */
+	 *//*
 	@RequestMapping(value = "/rewardDetail", method = RequestMethod.GET)
 	public ModelAndView rewardDetail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/rewardDetail");
 		return mav;
 	}
-	
+	*/
 	
 	
 
@@ -163,8 +274,7 @@ public class UserController {
 	 */
 	@RequestMapping(value="/accountListDetail", method=RequestMethod.GET)
 	public ModelAndView accountListBySource(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView();
-		mav.setViewName("personAccountDetail/account_list");
+		ModelAndView mav = new ModelAndView("/returnDetail");
 
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
 		if(user == null) {
@@ -182,13 +292,20 @@ public class UserController {
 		if(null == logList || logList.size() == CommonConst.DIGIT_ZERO) {
 			return mav;		
 		}
-		
 		mav.addObject("accountList",logList);
 		return mav;
 	    
 	}
 	
-	
+	/**
+	 * 返回这个用户类型的当月补贴总金额
+	 * @param userId
+	 * @param accountType
+	 * @return
+	 */
+	private String getAmountMoney(String userId,String accountType){
+		return "";
+	}
 
 
 /**
@@ -332,6 +449,56 @@ public class UserController {
 		}	
 	}
 
+	/**
+	 * @author guotao
+	 * @since 2018-03-17
+	 * 判断是否为小数
+	 * @param num
+	 * @return
+	 */
+	private boolean judgeIsDecimal(String num) {
+		boolean isdecimal = false;
+		if (num.contains(".")) {
+			isdecimal = true;
+		}
+		return isdecimal;
+	}
+	
+	/**
+	 *@author guotao
+	 *@since 2018-03-17
+     *@des 将String格式化为指定小数位的String，不足小数位用0补全 
+                                 是0 0.0 0.00 ""返回""
+     * 不是小数直接返回Double.toString()
+     * @param v     需要格式化的数字 
+     * @param scale 小数点后保留几位 
+     * @return 
+     */  
+    public  String roundByScale(String v, int scale) {  
+    	if(StringUtils.isBlank(v) || v.equals("0") || v.equals("0.0") || v.equals("0.00")) {
+    		return "";
+    	}
+    	if(!judgeIsDecimal(v)){
+        	return v;
+        }
+    	String[] s = v.split("\\.");
+        if(s[1].equals("0") || s[1].equals("00")){
+    		return StringUtils.substringBefore(v, ".");
+    	}
+    	Double d = Double.parseDouble(v); 
+        if (scale < 0) {  
+            throw new IllegalArgumentException(  
+                    "The scale must be a positive integer or zero");  
+        }  
+        if(scale == 0){  
+            return new DecimalFormat("0").format(d);  
+        }  
+        String formatStr = "0.";  
+        for(int i=0;i<scale;i++){  
+            formatStr = formatStr + "0";  
+        }  
+        return new DecimalFormat(formatStr).format(d);  
+    } 
 	
 	
 	

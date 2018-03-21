@@ -7,18 +7,18 @@
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>返还明细</span>
             </header>
             <div class="return_detail_cons">
                 <div class="total outer">
-                    <p>当月返还总额：<span>¥10000</span></p>
+                    <p>当月返还总额：<span>¥</span></p>
                     <div class="date">
                         <input type="text" class="layui-input" id="test3" placeholder="">
                     </div>

@@ -17,69 +17,58 @@
             </header>
             <div class="order_form_cons">
                 <div class="order_form_main outer">
-                    <div class="order_form_img">
-                        <img src="../../resources/images/xin5.png" alt="">
-                    </div>
-                    
-                    <div class="order_form_img">
-                        <img src="../../resources/images/xin5.png" alt="">
-                    </div>
-                    <div class="order_form_info">
-                        <h5>新能源汽车低级轿车</h5>
-                        <p>每天可返利0.5%</p>
-                        <span>¥5万</span>
-                    </div>
-                    <#if investType?? && investType == "1" >
-                    <div class="order_form_img">
-                        <img src="../../resources/images/xin5.png" alt="">
-                    </div>
-                    <div class="order_form_info">
-                        <h5>新能源汽车低级轿车</h5>
-                        <p>每天可返利0.5%</p>
-                        <span>¥5万</span>
-                    </div>
-                    </#if>
-                    
-                    <#if investType?? && investType == "2" >
+                 
+                    <#if orderType?? && orderType == "5" >
                     <div class="order_form_img">
                         <img src="../../resources/images/benben1.jpg" alt="">
                     </div>
                     <div class="order_form_info">
+                        <h5>新能源汽车低级轿车</h5>
+                        <p>每天可返利</p>
+                        <span>¥5万</span>
+                    </div>
+                    </#if>
+                    
+                    <#if orderType?? && orderType == "10" >
+                    <div class="order_form_img">
+                        <img src="../../resources/images/benbenten1.jpg" alt="">
+                    </div>
+                    <div class="order_form_info">
                         <h5>新能源汽车中级轿车</h5>
-                        <p>每天可返利0.5%</p>
+                        <p>每天可返利</p>
                         <span>¥10万</span>
                     </div>
                     </#if>
                     
-                    <#if investType?? && investType == "3" >
+                    <#if orderType?? && orderType == "20" >
                     <div class="order_form_img">
-                        <img src="../../resources/images/xin5.png" alt="">
+                        <img src="../../resources/images/chuanqi1.jpg" alt="">
                     </div>
                     <div class="order_form_info">
                         <h5>新能源汽车高级级轿车</h5>
-                        <p>每天可返利0.5%</p>
+                        <p>每天可返利</p>
                         <span>¥20万</span>
                     </div>
                     </#if>
                     
-                    <#if investType?? && investType == "4" >
+                    <#if orderType?? && orderType == "50" >
                     <div class="order_form_img">
-                        <img src="../../resources/images/xin5.png" alt="">
+                        <img src="../../resources/images/fang1.jpg" alt="">
                     </div>
                     <div class="order_form_info">
                         <h5>品牌汽车高级房车</h5>
-                        <p>每天可返利0.5%</p>
+                        <p>每天可返利</p>
                         <span>¥50万</span>
                     </div>
                     </#if>
                     
-                    <#if investType?? && investType == "5" >
+                    <#if orderType?? && orderType == "100" >
                     <div class="order_form_img">
-                        <img src="../../resources/images/xin5.png" alt="">
+                        <img src="../../resources/images/benchi.jpg" alt="">
                     </div>
                     <div class="order_form_info">
                         <h5>品牌汽车高级房车</h5>
-                        <p>每天可返利0.5%</p>
+                        <p>每天可返利</p>
                         <span>¥100万</span>
                     </div>
                     </#if>
@@ -96,6 +85,7 @@
                     <button>确认投资</button>
                 </div>
             </div>
+           
             <div class="pop_up">
                 <div class="ask_box">
                     <p>是否确认投资？</p>
