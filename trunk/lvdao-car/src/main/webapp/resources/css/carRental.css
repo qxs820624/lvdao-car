@@ -212,12 +212,16 @@ footer a.selected i{ color:#076842; }
 .reference_cons>ol>li .reference_info p{ float:left; font-size:18px; color:#3A3A3A; line-height:49px; }
 .reference_cons>ol>li .reference_info span{ float:right; font-size:18px; color:#3A3A3A; line-height:49px; font-family: Arial; }
 /* 我推荐的人 */
-.reference_cons>ol>li .table>table{ width:100%; text-align:center; }
-.reference_cons>ol>li .table>table th{ height:39px; font-size:15px; color:#8F8F8F; font-weight: normal; }
-.reference_cons>ol>li .table>table th:nth-child(1){ width:20%; }
-.reference_cons>ol>li .table>table th:nth-child(2){ width:50%; }
-.reference_cons>ol>li .table>table th:nth-child(3){ width:30%; }
-.reference_cons>ol>li .table>table td{ height:48px; border-top:1px solid #E4E4E4; font-size: 15px; color:#3A3A3A; font-family: Arial; }
+.reference_cons>ol>li .list>table{ width:100%; text-align:center; }
+.reference_cons>ol>li .list>ul>li{ height:39px; font-size:15px; color:#8F8F8F; font-weight: normal; float:left;text-align:center;line-height:39px;}
+.reference_cons>ol>li .list>ul>li:nth-child(1){ width:20%; }
+.reference_cons>ol>li .list>ul>li:nth-child(2){ width:50%; }
+.reference_cons>ol>li .list>ul>li:nth-child(3){ width:30%; }
+.reference_cons>ol>li .list>ol>li{height:48px;line-height:48px; border-top:1px solid #E4E4E4; font-size: 15px; color:#3A3A3A; font-family: Arial; }
+.reference_cons>ol>li .list>ol>li>span{float:left;text-align:center;}
+.reference_cons>ol>li .list>ol>li>span:nth-child(1){ width:20%; }
+.reference_cons>ol>li .list>ol>li>span:nth-child(2){ width:50%; }
+.reference_cons>ol>li .list>ol>li>span:nth-child(3){ width:30%; }
 
 /* 汽车信息 */
 .no_border{ border:none !important; }

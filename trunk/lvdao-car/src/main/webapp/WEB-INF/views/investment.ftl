@@ -18,15 +18,15 @@
             </header>
             <div class="investment_cons">
                 <div class="investment_type">
-                    <h3>新能源汽车</h3>
+                    <h3>新能源汽车(五万)</h3>
                     <div class="investment_img">
                         <div class="swiper-container investment01">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benben1.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benben2.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benben3.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benben4.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benben5.jpg" alt=""></div>
                             </div>
                         </div>
                         <!-- Add Pagination -->
@@ -36,21 +36,21 @@
                         <div class="swiper-button-prev swiper-button-prev01"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>¥10</i>万</p>
-                        <span>每天可返利500元</span>
-                        <button onclick="javascript:window.location.href='/order/orderForm.do'">选TA</button>
+                        <p><i>待定</i>万</p>
+                        <span>每天都可返利</span>
+                        <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 1'">选TA</button>
                     </div>
                 </div>
                 <div class="investment_type">
-                    <h3>新能源汽车</h3>
+                    <h3>新能源汽车(十万)</h3>
                     <div class="investment_img">
                         <div class="swiper-container investment02">
                             <div class="swiper-wrapper">
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
-                                <div class="swiper-slide"><img src="../../resources/images/info_img.png" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benbenten1.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benbenten2.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benbenten3.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benbenten4.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benbenten5.jpg" alt=""></div>
                             </div>
                         </div>
                         <!-- Add Pagination -->
@@ -60,11 +60,89 @@
                         <div class="swiper-button-prev swiper-button-prev02"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>¥10</i>万</p>
-                        <span>每天可返利500元</span>
-                        <button>选TA</button>
+                        <p><i>待定</i>万</p>
+                        <span>每天都可返利</span>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 2'">选TA</button>
                     </div>
                 </div>
+                
+                <div class="investment_type">
+                    <h3>新能源汽车(二十万)</h3>
+                    <div class="investment_img">
+                        <div class="swiper-container investment03">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"><img src="../../resources/images/chuanqi1.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/chuanqi2.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/chuanqi3.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/chuanqi4.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/chuanqi5.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination swiper-pagination03"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-next03"></div>
+                        <div class="swiper-button-prev swiper-button-prev03"></div>
+                    </div>
+                    <div class="investment_info outer">
+                        <p><i>待定</i>万</p>
+                        <span>每天都可返利</span>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 3'">选TA</button>
+                    </div>
+                </div>
+                
+                
+                <div class="investment_type">
+                    <h3>新能源汽车(五十万)</h3>
+                    <div class="investment_img">
+                        <div class="swiper-container investment04">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"><img src="../../resources/images/fang1.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/fang2.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/fang3.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/fang4.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/fang5.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination swiper-pagination04"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-next04"></div>
+                        <div class="swiper-button-prev swiper-button-prev04"></div>
+                    </div>
+                    <div class="investment_info outer">
+                        <p><i>待定</i>万</p>
+                        <span>每天都可返利</span>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 4'">选TA</button>
+                    </div>
+                </div>
+                
+                
+                <div class="investment_type">
+                    <h3>新能源汽车(一百万)</h3>
+                    <div class="investment_img">
+                        <div class="swiper-container investment05">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"><img src="../../resources/images/benchi.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benchi.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benchi.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benchi.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/benchi.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination swiper-pagination05"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-next05"></div>
+                        <div class="swiper-button-prev swiper-button-prev05"></div>
+                    </div>
+                    <div class="investment_info outer">
+                        <p><i>待定</i>万</p>
+                        <span>每天都可返利</span>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType = 5'">选TA</button>
+                    </div>
+                </div>
+                
             </div>
         </div>
         <script type="text/javascript" src="../../resources/dist/js/swiper.min.js"></script>
@@ -79,6 +157,24 @@
                 nextButton: '.swiper-button-next02',
                 prevButton: '.swiper-button-prev02',
                 pagination: '.swiper-pagination02',
+                paginationType: 'fraction'
+            });
+            var swiper = new Swiper('.investment03', {
+                nextButton: '.swiper-button-next03',
+                prevButton: '.swiper-button-prev03',
+                pagination: '.swiper-pagination03',
+                paginationType: 'fraction'
+            });
+            var swiper = new Swiper('.investment04', {
+                nextButton: '.swiper-button-next04',
+                prevButton: '.swiper-button-prev04',
+                pagination: '.swiper-pagination04',
+                paginationType: 'fraction'
+            });
+            var swiper = new Swiper('.investment05', {
+                nextButton: '.swiper-button-next05',
+                prevButton: '.swiper-button-prev05',
+                pagination: '.swiper-pagination05',
                 paginationType: 'fraction'
             });
         </script>
