@@ -22,52 +22,77 @@
                     <div class="swiper-wrapper">
                         <div class="swiper-slide">
                             <div class="personal_box return_account">
-                                <h4>投资返还账户</h4>
-                                <span>¥10000</span>
+                                <h4>燃油补贴账户</h4>
+                                <span>¥<#if accountbonuAmount??>${accountbonuAmount}<#else>0</#if></span>
                                 <div class="button return_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/returnDetail.do'">返还明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'4'">返还明细</button>
                                     <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="personal_box income_account">
-                                <h4>收入账户</h4>
-                                <span>¥10000</span>
+                                <h4>燃油包</h4>
+                                <span>¥<#if shareRewardAccount??>${shareRewardAccount}</span><#else>0</#if></span>
                                 <div class="button income_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/incomeDetail.do'">收入明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'6'">收入明细</button>
                                     <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
                                 </div>
                             </div>
                         </div>
                         <div class="swiper-slide">
                             <div class="personal_box commended">
-                                <h4>推荐奖账户</h4>
-                                <span>¥10000</span>
+                                <h4>现金账户</h4>
+                                <span>¥<#if rmbAccount??>${rmbAccount}<#else>0</#if></span>
                                 <div class="button commended_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/rewardDetail.do'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'1'">奖励明细</button>
                                     <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
                                 </div>
                             </div>
                         </div>
-                        <div class="swiper-slide">
-                            <div class="personal_box usa">
-                                <h4>美股账户</h4>
-                                <div class="shares"><i>30</i>股</div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide">
-                            <div class="personal_box hongkong">
-                                <h4>港股账户</h4>
-                                <div class="shares"><i>30</i>股</div>
-                            </div>
-                        </div>
+                        
+                        
                         <div class="swiper-slide">
                             <div class="personal_box mainland">
-                                <h4>大陆股账户</h4>
-                                <div class="shares"><i>30</i>股</div>
+                                <h4>分享补贴账户</h4>
+                                <span>¥<#if recommendBonusAccount??>${recommendBonusAccount}<#else>0</#if></span>
+                                <div class="button income_account_btn outer">
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'3'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
+                                </div>
                             </div>
                         </div>
+                  
+                        
+                        <div class="swiper-slide">
+                            <div class="personal_box hongkong">
+                                <h4>乘车券账户</h4>
+                                <span>¥<#if rideCouponAccount??>${rideCouponAccount}<#else>0</#if></span>
+                                <div class="button return_account_btn outer">
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'5'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
+                                </div>
+                            </div>
+                        </div>
+                        <!--
+                        <div class="swiper-slide">
+                            <div class="personal_box usa">
+                                <h4>美股账户<#if stockAccount??>${stockAccount}</span><#else>0</#if></h4>
+                                <div class="shares"><i>见市值</i>股</div>
+                                <div class="button commended_btn outer">
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'2'">奖励明细</button>
+                                </div>
+                            </div>
+                        </div>
+                        -->
+                        <div class="swiper-slide">
+                            <div class="personal_box usa">
+                                <h4>美股账户<#if stockAccount??>${stockAccount}</span><#else>0</#if></h4>
+                                <div class="shares"><i>市值</i>股</div>
+                            </div>
+                        </div>
+                       
+                        
                     </div>
                 </div>
                 <div class="swiper-container personal_data">
@@ -143,9 +168,9 @@
                     </span>
                     <i>首页</i>
                 </a>
-                <a href="myCar.html">
+                <a href="/vehicle/myCar.do">
                     <span>
-                        <b class="/vehicle/myCar.do"></b>
+                        <b class="my_car"></b>
                     </span>
                     <i>我的汽车</i>
                 </a>

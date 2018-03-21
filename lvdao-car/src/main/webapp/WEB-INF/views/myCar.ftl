@@ -23,10 +23,10 @@
                         <div class="info_left">
                             <img src="../../resources/images/icon_carG.png" alt="">
                         </div>
-                        <div class="info_right">宝安区西乡宝源路123号</div>
+                        <div class="info_right">待定</div>
                     </div>
-                    <p>车牌号： <span>粤B 123456</span></p>
-                    <p>司机信息：<span>李师傅</span><i>已认证</i></p>
+                    <p>车牌号： <span>待定</span></p>
+                    <p>司机信息：<span>待定</span><i>待定</i></p>
                 </div>
             </div>
             <footer>

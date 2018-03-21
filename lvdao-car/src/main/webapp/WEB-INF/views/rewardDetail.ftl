@@ -7,13 +7,13 @@
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>奖励明细</span>
             </header>
             <div class="reward_detail_cons">

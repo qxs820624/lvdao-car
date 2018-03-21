@@ -16,14 +16,65 @@
                 <a class="return_arr" href="/order/orderForm.do"></a>
                 <span>上传付款凭证</span>
             </header>
+            <input type = 'hidden' id = 'picUrl' value=''   />
             <div class="upload_cons">
                 <div class="layui-upload">
                     <button type="button" class="upload_file" id="upload_file"></button>
                     <button type="button" class="upload_btn" id="upload_btn">上传付款凭证</button>
                 </div>
+                
+                <form class="layui-form" action="/order/addOrzApply.do" style="margin-top:50px;">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="text-align:right;padding:9px 0;">加盟类型</label>
+                        <div class="layui-input-block" style="margin-left:40%;">
+                            <select id="addType" onchange="showMoible()" name="addType" lay-filter="aihao">
+                                <option value="" selected=""></option>
+                                <option value="0">自主加盟</option>
+                                <option value="1">代人申购</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="text-align:right;padding:9px 0;">支付方式</label>
+                        <div class="layui-input-block" style="margin-left:40%;">
+                            <select name="payMethod" lay-filter="aihao">
+                                <option value="" selected=""></option>
+                           <!--     <option value="0">支付宝</option>   -->
+                                <option value="1">银行卡</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item" id = "addUserMoblie">
+                        <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">加盟人手机号</label>
+                        <div class="layui-input-block" style="margin-left:40%;">
+                            <input type="tel" id="phone" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                        </div>
+                    </div>
+                    
+                    <input type ="hidden" id = "orderType" value= "5"  />
+                  <div class="upload_cons">
+                     <div class="layui-upload">
+                    <label  class="layui-form-label">我的推荐人</label>
+                    <label  class="layui-form-label">郭涛</label>
+                     </div>
+                  </div>
+
+                    <div class="upload_cons">
+                     <div class="layui-input-block">
+                     <button class="layui-btn" id="recommendUser" lay-submit lay-filter="formDemo">立即提交</button>
+                     <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+                     </div>
+                    </div>
+                    
+                </form>
+                
             </div>
+            
         </div>
+        
+        
         <script type="text/javascript" src="../../resources/layui/layui.js"></script>
+        <script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
         <script type="text/javascript">
             layui.use('upload', function(){
                 var $ = layui.jquery,
@@ -38,12 +89,45 @@
                       console.log(res)
                       if(res.status) {
                       layer.msg(res.message);
+                      $("#picUrl").val(res.url);
                       }else{
                       layer.msg(res.message);
                       }
                     }
                 });
             });
+            
+            
+            
+            
+            
+            /*
+            function showMoible(){
+            var addModel = $("#addModel").val();
+                if(addModel = 1){
+                $("#phone").val();
+                $("#addUserMoblie").hide();
+                }else{
+                $("#addUserMoblie").show();
+                }
+            }
+            */
+            //表单  
+            layui.use('form',function(){
+                var fform = layui.form;
+            })
+            
+            form.on('recommendUser', function(data){
+$.post('/order/addOrzApply.do',data.field,function(res){
+         //res就是返回的结果
+});
+return false;
+});
+            
+            
+            
+     
+            
         </script>
     </body>
 </html>

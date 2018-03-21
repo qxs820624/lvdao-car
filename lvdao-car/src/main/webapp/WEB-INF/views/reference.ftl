@@ -7,13 +7,13 @@
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="layui/css/layui.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="personal.html"></a>
+                <a class="return_arr" href="/user/personal.do"></a>
                 <span>推荐人</span>
             </header>
             <div class="reference_cons">
@@ -25,11 +25,11 @@
                     <li>
                         <div class="reference_info outer">
                             <p>姓名</p>
-                            <span>艾多多</span>
+                            <span><#if userParentName??>${userParentName}</span><#else>？？</#if></span>
                         </div>
                         <div class="reference_info outer">
                             <p>手机号</p>
-                            <span>15966668888</span>
+                            <span><#if myRecommendUser??>${myRecommendUser}</span><#else>？？</#if></span>
                         </div>
                         <div class="erweima" style="width:60%;position:fixed;bottom:20%;left:20%;padding:20px;box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;">
                             <!-- 二维码 -->
@@ -56,7 +56,7 @@
                 </ol>
             </div>
         </div>
-        <script type="text/javascript" src="layui/layui.js"></script>
+        <script type="text/javascript" src="../../resources/layui/layui.js"></script>
         <script type="text/javascript">
             $(".reference_cons>ul>li").click(function(event) {
                 $(this).addClass('reference_current').siblings().removeClass('reference_current');
