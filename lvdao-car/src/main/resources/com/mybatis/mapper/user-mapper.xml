@@ -52,6 +52,7 @@
 	   	<result column="USER_BANK_VALIDATION" property="userBankValidation" jdbcType="SMALLINT" />
        <result column="USER_ALIPAY_ACCOUNT" property="userAlipayAccount" jdbcType="VARCHAR" />
        <result column="USER_WECHAT_ACCOUNT" property="userWechatAccount" jdbcType="VARCHAR" />
+       <result column="USER_STATUS" property="userStatus" jdbcType="VARCHAR" />
 	</resultMap>
   	
  	<sql id="query_user_param" >
@@ -105,7 +106,8 @@
     	U.USER_TYPE,
     	U.USER_BANK_VALIDATION, 
     	U.USER_ALIPAY_ACCOUNT, 
-        U.USER_WECHAT_ACCOUNT
+        U.USER_WECHAT_ACCOUNT,
+        U.USER_STATUS
   	</sql>
   	
   	<insert id="insert" parameterType="com.lvdao.entity.UserEntity">
@@ -152,7 +154,8 @@
     	USER_TYPE,
     	USER_BANK_VALIDATION, 
         USER_ALIPAY_ACCOUNT, 
-        USER_WECHAT_ACCOUNT
+        USER_WECHAT_ACCOUNT,
+        USER_STATUS
 		) VALUES	
 	(	
 		#{id, jdbcType=VARCHAR},		
@@ -198,7 +201,7 @@
 		#{userBankValidation,jdbcType=SMALLINT}, 
         #{userAlipayAccount,jdbcType=VARCHAR},
         #{userWechatAccount,jdbcType=VARCHAR}
-		
+		#{userStatus,jdbcType=VARCHAR}
 		)
 	</insert>
 	
@@ -324,6 +327,9 @@
       	<if test="gesturePassword != null and gesturePassword != ''" >
         	U.GESTURE_PASSWORD = #{gesturePassword, jdbcType=VARCHAR},
       	</if>
+      	<if test="userStatus != null and userStatus != ''" >
+        	U.USER_STATUS = #{userStatus, jdbcType=VARCHAR},
+      	</if>
 		U.VERSION = U.VERSION + 1
 		<where>
 	    	U.USER_ID = #{userId, jdbcType=VARCHAR} AND U.ACTIVE = '1'
@@ -412,6 +418,9 @@
 	      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
 	        	AND U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT}
 	      	</if>
+	      	<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
+	      	</if>
 		</where>
  	</select>
   	
@@ -478,6 +487,9 @@
 	      	</if>
 	      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
 	        	AND U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT}
+	      	</if>
+	      	<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
 	      	</if>
 		</where>
   	</select>
@@ -548,6 +560,9 @@
 	      	<if test="userIdentityValidation != null and userIdentityValidation != ''" >
 	        	AND U.USER_IDENTITY_VALIDATION = #{userIdentityValidation, jdbcType=TINYINT}
 	      	</if>
+	      	<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
+	      	</if>
 	      	ORDER BY U.USER_ID DESC
 			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
 		</where>
@@ -594,6 +609,9 @@
 	      	<if test="userName != null and userName != '' and wxId == null" >
         		AND	U.USER_NAME = #{userName, jdbcType=VARCHAR}
         	</if>
+        	<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
+	      	</if>
       		<if test="userName != null and userName != '' and wxId != null and wxId != '' and userMobile != null and userMobile != ''" >
         		AND	( U.USER_NAME = #{userName, jdbcType=VARCHAR}
         			OR U.WX_ID = #{wxId , jdbcType=VARCHAR})
@@ -626,6 +644,9 @@
 			<if test="userName != null and userName != ''" >
         		AND	U.USER_NAME = #{userName, jdbcType=VARCHAR}
       		</if>
+      		<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
+	      	</if>
       		<if test="userParentName != null and userParentName != ''" >
 	        	OR U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
 	      	</if>
@@ -677,6 +698,9 @@
       	<if test="updateTime != null" >
         	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
       	</if>
+      	<if test="userStatus != null and userStatus != ''" >
+	         U.USER_STATUS = #{userStatus, jdbcType=TINYINT},
+	     </if>
 		U.VERSION = U.VERSION + 1
 		<where>
 	    	U.USER_NAME = #{userName, jdbcType=VARCHAR} AND U.ACTIVE = '1'
@@ -694,6 +718,9 @@
       		</if>
       		<if test="minLon != null and maxLon != null" >
 	        	AND	U.USER_LATITUDE BETWEEN  #{minLon, jdbcType=DOUBLE} AND #{maxLon, jdbcType=DOUBLE}
+	      	</if>
+	      	<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
 	      	</if>
 	      	ORDER BY U.USER_LONGITUDE ASC , U.USER_LATITUDE ASC
 			limit #{startIndex, jdbcType=INTEGER}, #{pageSize, jdbcType=INTEGER}
@@ -747,6 +774,9 @@
       	<if test="updateTime != null " >
         	U.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP},
       	</if>
+      	<if test="userStatus != null and userStatus != ''" >
+	         U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
+	      	</if>
 		U.VERSION = U.VERSION + 1
 		<where>
 	    	U.USER_ID = #{userId, jdbcType=VARCHAR} AND U.ACTIVE = '1'
@@ -780,6 +810,9 @@
       	<if test="userBankAccountName != null and userBankAccountName != '' ">
       		U.USER_BANK_ACCOUNT_NAME = #{userBankAccountName,jdbcType=VARCHAR},
     	</if>
+    	<if test="userStatus != null and userStatus != ''" >
+	         U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
+	     </if>
 		U.VERSION = U.VERSION + 1
 		<where>
 	    	U.USER_NAME = #{userName, jdbcType=VARCHAR} AND U.ACTIVE = '1'
@@ -817,7 +850,10 @@
 	        	AND U.USER_PARENT_NAME = #{userParentName, jdbcType=VARCHAR}
 	      	</if>
 	      	<if test="roleId != null and roleId != '' ">
-				and ur.ROLE_ID = #{roleId, jdbcType=VARCHAR}
+				AND U.RROLE_ID = #{roleId, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userStatus != null and userStatus != ''" >
+	        	AND U.USER_STATUS = #{userStatus, jdbcType=TINYINT}
 	      	</if>
 		</where>
 		ORDER BY U.USER_ID DESC
