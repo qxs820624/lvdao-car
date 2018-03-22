@@ -75,15 +75,15 @@ public class OrderController {
 	 */
 	@RequestMapping(value = "/orderForm", method = RequestMethod.GET)
 	public ModelAndView orderForm(HttpServletRequest request) {
-		//投资级别 参数要带到上传凭证页面
+		// 投资级别 参数要带到上传凭证页面
 		String inversType = request.getParameter("inversType");
-		
-		if(null == inversType || StringUtils.isBlank(inversType)) {
+
+		if (null == inversType || StringUtils.isBlank(inversType)) {
 			return null;
 		}
-	
+
 		ModelAndView mav = new ModelAndView("/orderForm");
-		mav.addObject("orderType",inversType);
+		mav.addObject("orderType", inversType);
 		return mav;
 	}
 	
@@ -134,7 +134,7 @@ public class OrderController {
 		//何种加盟类型 0自主加盟 1代人申购
 		String addType = (String) request.getAttribute("addType");
 		//支付方式
-		String payMethod = (String) request.getAttribute("payMethod");
+		String payMethod = (String) request.getAttribute("Id");
 		//何种加盟类型 0自主加盟 1代人申购
 		String orderAmount = (String) request.getAttribute("orderAmount");
 		//推荐人手机号
@@ -257,52 +257,6 @@ public class OrderController {
 	 * @since 2018-03-19 20:49
 	 * @param request
 	 * @return
-	 *//*
-	@ResponseBody
-	@RequestMapping(value = "/bindRecommendMobile", method = RequestMethod.POST)
-	public Map<String,Object> bindRecommendMobile(HttpServletRequest request) {
-		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
-		String recommendMobile = request.getParameter("recommendMobile");
-		HashMap<String,Object> resultMap = new HashMap<String, Object>();
-		
-		Map<String, Object> map = new HashMap<String, Object>();
-		if(user == null) {
-			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, MessageConst.WARN_USER_NAME_IS_NULL);
-			return map;
-		}
-		
-		String userParentId = user.getUserParentId();
-		
-		//如果没有查到该用户有推荐人 则允许用户自己新增
-		if(null == userParentId || StringUtils.isBlank(userParentId)) {
-			user .setUserParentId(recommendMobile);
-			
-			
-			resultMap.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
-			resultMap.put(CommonConst.RESPONSE_MESSAGE, "申购成功,请耐心等待审批结果");
-			return resultMap;
-		}else {
-			
-		}
-		
-		if(null != groupPicId && !StringUtils.isBlank(groupPicId)) {
-			resultMap.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
-			resultMap.put(CommonConst.RESPONSE_MESSAGE, "申购成功,请耐心等待审批结果");
-			return resultMap;
-		}else{
-			resultMap.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			resultMap.put(CommonConst.RESPONSE_MESSAGE, "申购失败，请联系工作人员");
-			return resultMap;
-		}
-	}*/
-	
-	/**
-	 * 上传打款凭证
-	 * @author guotao
-	 * @since 2018-03-19 20:49
-	 * @param request
-	 * @return
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/upload", method = RequestMethod.POST)
@@ -338,74 +292,76 @@ public class OrderController {
 	
 	/**
 	 * 验证图片是否已上传
+	 * 
 	 * @param request
 	 * @return
 	 */
 	private Boolean checkPicUrlisExist(String picName) {
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("picName", picName);
-			List<PictureEntity> picList = pictureService.queryList(map);
-			
-			if(null == picList || picList.isEmpty()) {
-				return false;
-			} else {
-				return false;
-			}
+
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("picName", picName);
+		List<PictureEntity> picList = pictureService.queryList(map);
+
+		if (null == picList || picList.isEmpty()) {
+			return false;
+		} else {
+			return false;
+		}
 	}
 	
 	
 	/**
 	 * 验证手机号是否存在
+	 * 
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/checkMobile", method=RequestMethod.POST)
+	@RequestMapping(value = "/checkMobile", method = RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> checkMobile(HttpServletRequest request) {
-			LOGGER.info("Entering checkMobile...");
-			String userName = request.getParameter("userName");
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			
+		LOGGER.info("Entering checkMobile...");
+		String userName = request.getParameter("userName");
 
-			map.put("userMobile", userName);
-			List<UserEntity> list = userService.queryList(map);
-			
-			if(null == list || list.isEmpty()) {
-				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, MessageConst.WARN_USER_IS_NOT_EXIST);
-			} else {
-				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
-				map.put(CommonConst.RESPONSE_MESSAGE, MessageConst.WARN_USER_IS_EXIST);
-			}
-			
-			LOGGER.info("Exiting checkUserName...");
-			return map;
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("userMobile", userName);
+		List<UserEntity> list = userService.queryList(map);
+
+		if (null == list || list.isEmpty()) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, MessageConst.WARN_USER_IS_NOT_EXIST);
+		} else {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
+			map.put(CommonConst.RESPONSE_MESSAGE, MessageConst.WARN_USER_IS_EXIST);
+		}
+
+		LOGGER.info("Exiting checkUserName...");
+		return map;
 	}
 	
 	
 	/**
 	 * 验证手机号是否存在 后台校验
+	 * 
 	 * @param request
 	 * @return
 	 */
 	public Boolean checkMobileSecond(String userName) {
-			LOGGER.info("Entering checkMobileSecond...");
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
+		LOGGER.info("Entering checkMobileSecond...");
 
-			map.put("userMobile", userName);
-			List<UserEntity> list = userService.queryList(map);
-			
-			if(null == list || list.isEmpty()) {
-				LOGGER.info("Exiting checkMobileSecond...");
-				return false;
-			} else {
-				LOGGER.info("Exiting checkMobileSecond...");
-				return true;
-			}
+		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("userMobile", userName);
+		List<UserEntity> list = userService.queryList(map);
+
+		if (null == list || list.isEmpty()) {
+			LOGGER.info("Exiting checkMobileSecond...");
+			return false;
+		} else {
+			LOGGER.info("Exiting checkMobileSecond...");
+			return true;
+		}
 	}
 			
 	/**
@@ -475,9 +431,9 @@ public class OrderController {
 	
 	
 	
-	
 	/**
 	 * 插入 返回maxPicId
+	 * 
 	 * @param files
 	 * @param sessionUserEntity
 	 * @return
@@ -520,8 +476,8 @@ public class OrderController {
 					pic.setPicSize(fileSize);
 					pic.setActive(true);
 					pic.setCreateTime(new Date());
-			//		pic.setCreateUserId(sessionUserEntity.getUserId());
-			//		pic.setCreateUserName(sessionUserEntity.getUserName());
+					// pic.setCreateUserId(sessionUserEntity.getUserId());
+					// pic.setCreateUserName(sessionUserEntity.getUserName());
 					int insert = pictureService.insert(pic);
 					if (insert > CommonConst.DIGIT_ZERO) {
 						map.put("url", url);
