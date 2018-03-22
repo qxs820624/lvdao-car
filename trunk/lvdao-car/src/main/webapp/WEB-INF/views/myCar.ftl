@@ -36,7 +36,7 @@
                     </span>
                     <i>首页</i>
                 </a>
-                <a class="selected" href="/user/myCar.do">
+                <a class="selected" href="/vehicle/myCar.do">
                     <span>
                         <b class="my_car"></b>
                     </span>

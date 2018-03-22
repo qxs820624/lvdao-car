@@ -23,11 +23,11 @@
                     <button type="button" class="upload_btn" id="upload_btn">上传付款凭证</button>
                 </div>
                 
-                <form class="layui-form" action="/order/addOrzApply.do" style="margin-top:50px;">
+                <form class="layui-form" action="/order/addOrzApply.do"  style="margin-top:50px;">
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="text-align:right;padding:9px 0;">加盟类型</label>
                         <div class="layui-input-block" style="margin-left:40%;">
-                            <select id="addType" onchange="showMoible()" name="addType" lay-filter="aihao">
+                            <select id="addType" name="addType" lay-filter="aihao">
                                 <option value="" selected=""></option>
                                 <option value="0">自主加盟</option>
                                 <option value="1">代人申购</option>
@@ -44,10 +44,10 @@
                             </select>
                         </div>
                     </div>
-                    <div class="layui-form-item" id = "addUserMoblie">
+                    <div class="layui-form-item">
                         <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">加盟人手机号</label>
                         <div class="layui-input-block" style="margin-left:40%;">
-                            <input type="tel" id="phone" name="phone" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            <input type="tel" id="addUserMoblile" name="addUserMoblile" lay-verify="required|phone" autocomplete="off" class="layui-input">
                         </div>
                     </div>
                     
@@ -61,12 +61,13 @@
 
                     <div class="upload_cons">
                      <div class="layui-input-block">
-                     <button class="layui-btn" id="recommendUser" lay-submit lay-filter="formDemo">立即提交</button>
+                     <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                      </div>
                     </div>
                     
                 </form>
+                
                 
             </div>
             
@@ -96,38 +97,18 @@
                     }
                 });
             });
+      //表单  
+            layui.use('form', function(){
+            var form = layui.form;
             
-            
-            
-            
-            
-            /*
-            function showMoible(){
-            var addModel = $("#addModel").val();
-                if(addModel = 1){
-                $("#phone").val();
-                $("#addUserMoblie").hide();
-                }else{
-                $("#addUserMoblie").show();
-                }
-            }
-            */
-            //表单  
-            layui.use('form',function(){
-                var fform = layui.form;
-            })
-            
-            form.on('recommendUser', function(data){
-$.post('/order/addOrzApply.do',data.field,function(res){
-         //res就是返回的结果
-});
-return false;
-});
-            
-            
-            
-     
-            
+            //监听提交
+            form.on('submit(formDemo)', function(data){
+            layer.alert(JSON.stringify(data.field), {
+             title: '最终的提交信息'
+              })
+            return false;
+  });
+            });        
         </script>
     </body>
 </html>

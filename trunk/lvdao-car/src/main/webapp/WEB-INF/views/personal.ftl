@@ -53,7 +53,7 @@
                         
                         
                         <div class="swiper-slide">
-                            <div class="personal_box mainland">
+                            <div class="personal_box hongkong">
                                 <h4>分享补贴账户</h4>
                                 <span>¥<#if recommendBonusAccount??>${recommendBonusAccount}<#else>0</#if></span>
                                 <div class="button income_account_btn outer">
@@ -65,7 +65,7 @@
                   
                         
                         <div class="swiper-slide">
-                            <div class="personal_box hongkong">
+                            <div class="personal_box mainland">
                                 <h4>乘车券账户</h4>
                                 <span>¥<#if rideCouponAccount??>${rideCouponAccount}<#else>0</#if></span>
                                 <div class="button return_account_btn outer">
