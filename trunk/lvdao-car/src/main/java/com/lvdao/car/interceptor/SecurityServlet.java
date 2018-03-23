@@ -45,34 +45,33 @@ public class SecurityServlet extends HttpServlet implements Filter {
 		String role = (String) session.getAttribute("role");
 		String url = request.getRequestURI();
 		
-//		if (username == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(username) || role == null
-//				|| CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(role)) {
-//			// 判断获取的路径不为空且不是访问登录页面或执行登录操作时跳转
-////			if (url != null && !url.equals(CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS)
-////					&& (url.indexOf("Login") < CommonConst.DIGIT_ZERO && url.indexOf("login") < CommonConst.DIGIT_ZERO)) {
-////				response.sendRedirect(request.getContextPath() + "/user/userLogin.do");
-////				return;
-////			}
-//			if (url != null && !url.equals(CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS)) {
-//				if(url.indexOf("/test.do") > CommonConst.DIGIT_ZERO || url.indexOf("/register.do") > CommonConst.DIGIT_ZERO || url.indexOf("/userLogin.do") > CommonConst.DIGIT_ZERO|| url.indexOf("/login.do") > CommonConst.DIGIT_ZERO 
-//						|| url.indexOf("/userRegister.do") > CommonConst.DIGIT_ZERO || url.indexOf("/checkUserName.do") > CommonConst.DIGIT_ZERO || url.indexOf("/checkMobile.do") > CommonConst.DIGIT_ZERO ||url.indexOf("/sendCode.do") > CommonConst.DIGIT_ZERO ||url.indexOf("/wxPcnotify.do") > CommonConst.DIGIT_ZERO
-//						|| url.indexOf("/alipay_result_notify.do") > CommonConst.DIGIT_ZERO || url.indexOf("/system/userList.do") > CommonConst.DIGIT_ZERO ) {
-//					arg2.doFilter(arg0, arg1);
-//				} else {
-//					Object sessionUser = request.getSession().getAttribute(CommonConst.SESSION_USER);
-//					
-//					if(sessionUser == null) {
-//						response.sendRedirect("/user/userLogin.do");
-//					} else {
-//						arg2.doFilter(arg0, arg1);
-//					}
-//					
-//					return;
-//				}
+		if (username == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(username) || role == null
+				|| CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(role)) {
+			// 判断获取的路径不为空且不是访问登录页面或执行登录操作时跳转
+//			if (url != null && !url.equals(CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS)
+//					&& (url.indexOf("Login") < CommonConst.DIGIT_ZERO && url.indexOf("login") < CommonConst.DIGIT_ZERO)) {
+//				response.sendRedirect(request.getContextPath() + "/user/userLogin.do");
+//				return;
 //			}
-//		}
-//		return;
-		arg2.doFilter(arg0, arg1);
+			if (url != null && !url.equals(CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS)) {
+				if(url.indexOf("/index.do") > CommonConst.DIGIT_ZERO || url.indexOf("/register.do") > CommonConst.DIGIT_ZERO || url.indexOf("/userLogin.do") > CommonConst.DIGIT_ZERO|| url.indexOf("/login.do") > CommonConst.DIGIT_ZERO 
+						|| url.indexOf("/userRegister.do") > CommonConst.DIGIT_ZERO || url.indexOf("/checkUserName.do") > CommonConst.DIGIT_ZERO || url.indexOf("/checkMobile.do") > CommonConst.DIGIT_ZERO ||url.indexOf("/sendCode.do") > CommonConst.DIGIT_ZERO ||url.indexOf("/wxPcnotify.do") > CommonConst.DIGIT_ZERO
+						|| url.indexOf("/alipay_result_notify.do") > CommonConst.DIGIT_ZERO || url.indexOf("/system/userList.do") > CommonConst.DIGIT_ZERO ) {
+					arg2.doFilter(arg0, arg1);
+				} else {
+					Object sessionUser = request.getSession().getAttribute(CommonConst.SESSION_USER);
+					
+					if(sessionUser == null) {
+						response.sendRedirect("/index/index.do");
+					} else {
+						arg2.doFilter(arg0, arg1);
+					}
+					
+					return;
+				}
+			}
+		}
+		return;
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {

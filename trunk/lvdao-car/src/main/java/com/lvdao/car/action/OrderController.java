@@ -120,7 +120,7 @@ public class OrderController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="/addOrzApply", method=RequestMethod.GET)
+	@RequestMapping(value="/addOrzApply", method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String, Object> addOrzApply(HttpServletRequest request) {
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
@@ -134,8 +134,8 @@ public class OrderController {
 		//何种加盟类型 0自主加盟 1代人申购
 		String addType = (String) request.getAttribute("addType");
 		//支付方式
-		String payMethod = (String) request.getAttribute("Id");
-		//何种加盟类型 0自主加盟 1代人申购
+		String payMethod = (String) request.getAttribute("payMethod");
+		//订单价格
 		String orderAmount = (String) request.getAttribute("orderAmount");
 		//推荐人手机号
 		String recommendUserMoblile = (String) request.getAttribute("recommendMoblile");
