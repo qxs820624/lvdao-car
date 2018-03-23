@@ -16,14 +16,15 @@
                 <a class="return_arr" href="/order/orderForm.do"></a>
                 <span>上传付款凭证</span>
             </header>
-            <input type = 'hidden' id = 'picUrl' value=''   />
+            <input type = 'hidden' id = 'picUrl' value=''/>
+            <input type = 'hidden' id = 'orderAmount' value='' />
             <div class="upload_cons">
                 <div class="layui-upload">
                     <button type="button" class="upload_file" id="upload_file"></button>
                     <button type="button" class="upload_btn" id="upload_btn">上传付款凭证</button>
                 </div>
                 
-                <form class="layui-form" action="/order/addOrzApply.do"  style="margin-top:50px;">
+                <form class="layui-form" style="margin-top:50px;">
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="text-align:right;padding:9px 0;">加盟类型</label>
                         <div class="layui-input-block" style="margin-left:40%;">
@@ -37,7 +38,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="text-align:right;padding:9px 0;">支付方式</label>
                         <div class="layui-input-block" style="margin-left:40%;">
-                            <select name="payMethod" lay-filter="aihao">
+                            <select name="payMethod" lay-filter="aihao" id="payMethod">
                                 <option value="" selected=""></option>
                            <!--     <option value="0">支付宝</option>   -->
                                 <option value="1">银行卡</option>
@@ -47,7 +48,7 @@
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">加盟人手机号</label>
                         <div class="layui-input-block" style="margin-left:40%;">
-                            <input type="tel" id="addUserMoblile" name="addUserMoblile" lay-verify="required|phone" autocomplete="off" class="layui-input">
+                            <input type="tel" id="addUserMoblile" name="addUserMoblile" lay-verify="required|phone" autocomplete="off" class="layui-input" value="${user.userName}">
                         </div>
                     </div>
                     
@@ -61,16 +62,12 @@
 
                     <div class="upload_cons">
                      <div class="layui-input-block">
-                     <button class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
+                     <button id="submitForm" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                      </div>
                     </div>
-                    
                 </form>
-                
-                
             </div>
-            
         </div>
         
         
@@ -97,18 +94,55 @@
                     }
                 });
             });
-      //表单  
-            layui.use('form', function(){
-            var form = layui.form;
             
-            //监听提交
-            form.on('submit(formDemo)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-             title: '最终的提交信息'
-              })
-            return false;
-  });
-            });        
+            $("#submitForm").click(function() {
+            	var picUrl = $("#picUrl").val();
+            	var addType = $("#addType option:selected").val();
+            	var payMethod = $("#payMethod option:selected").val();
+            	var addUserMoblile = $("#addUserMoblile").val();
+            	if(picUrl == '' || picUrl == null) {
+            		layer.alert("请上传凭证");
+            		return;
+            	}
+            	
+            	if(addType == '' || addType == null) {
+            		layer.alert("请选择加盟类型");
+            		return;
+            	}
+            	
+            	if(payMethod == '' || payMethod == null) {
+            		layer.alert("请选择支付方式");
+            		return;
+            	}
+            	
+            	if(addUserMoblile == '' || addUserMoblile == null) {
+            		layer.alert("请输入加盟人手机号");
+            		return;
+            	}
+            	
+            	jQuery.ajax({
+					data : params,
+			        async : false,
+			        type : "POST",
+			        timeout: 60000,
+			        url : "/order/addOrzApply.do",
+			        dataType  :"json",
+			        exception : function(data){
+			        },
+			        error : function(data){
+			        },
+			        success: function(data) {
+			        	if(data.status) {
+			        		layer.alert(data.message);
+		            		window.location.href =  '/order/uploadSucceed.do';
+			        	} else {
+			        		layer.alert(data.errorMessage);
+			        		return false;
+			        	}
+			        }
+			    });
+            })
+                   
         </script>
     </body>
 </html>

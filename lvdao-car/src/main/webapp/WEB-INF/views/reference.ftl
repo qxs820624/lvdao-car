@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    	<script type="text/javascript" src="../resources/js/jquery-2.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
         <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
@@ -33,7 +33,7 @@
                         </div>
                         <div class="erweima" style="width:60%;position:fixed;bottom:20%;left:20%;padding:20px;box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;">
                             <!-- 二维码 -->
-                            <img src="images/erweima.jpg" alt="">
+                            <img src="../resources/images/erweima.jpg" alt="">
                             <p style="text-align:center;margin-top:10px;">我的推荐二维码</p>
                         </div>
                     </li>
