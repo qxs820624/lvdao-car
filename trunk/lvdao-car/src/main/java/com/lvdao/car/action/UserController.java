@@ -40,6 +40,7 @@ import com.google.zxing.common.BitMatrix;
 import com.lvdao.common.CommonConst;
 import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
+import com.lvdao.common.util.DateUtils;
 import com.lvdao.common.util.StringUtil;
 import com.lvdao.entity.DealLogEntity;
 import com.lvdao.entity.UserAccountEntity;
@@ -286,8 +287,8 @@ public class UserController {
 			int countUser = userService.countUser(paramMap);
 			mav.addObject("countUser", countUser);
 			
-			String createQRCode = createQRCode(response,request,"HTTP://192.168.0.1");
-			mav.addObject("createQRCode", createQRCode);
+//			String createQRCode = createQRCode(response,request,"HTTP://192.168.0.1");
+//			mav.addObject("createQRCode", createQRCode);
 			
 		}
 		return mav;
@@ -320,7 +321,7 @@ public class UserController {
 	
 	
 
-/**
+	/**
 	 * 根据
 	 * @author guotao
 	 * @param request
@@ -333,24 +334,26 @@ public class UserController {
 
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
 		if(user == null) {
-			return new ModelAndView("redirect:/user/userLogin.do");
+			return new ModelAndView("redirect:/index/index.do");
 		}
 		
 		String logType = request.getParameter("logType");
-		
+		String selectDate = request.getParameter("selectDate");
+		if (StringUtils.isBlank(selectDate)) {
+			selectDate = DateUtils.format(new Date(), "yyyy-MM");
+		}
 		Map<String, Object> map = new HashMap<>();
 		map.clear();
 		map.put("logType", logType);
 		map.put("userId", user.getUserId());
+		map.put("selectDate", selectDate);
 		List<DealLogEntity> logList = dealLogService.queryList(map);
-		DealLogEntity dealLogEntity = new DealLogEntity();
-		dealLogEntity.setLogAmount("0.3");
-		dealLogEntity.setCreateTime(new Date());
-		logList.add(dealLogEntity);
-		if(null == logList || logList.size() == CommonConst.DIGIT_ZERO) {
-			return mav;		
+		BigDecimal totalPrice = new BigDecimal(CommonConst.DIGIT_ZERO);
+		for (DealLogEntity dealLogEntity : logList) {
+			totalPrice = totalPrice.add(new BigDecimal(dealLogEntity.getLogAmount()));
 		}
-		mav.addObject("accountList",logList);
+		mav.addObject("totalPrice", totalPrice.toString());
+		mav.addObject("accountList", logList);
 		return mav;
 	    
 	}
@@ -500,7 +503,7 @@ public class UserController {
 		userWithdrawEntity.setWithdrawAccountName("");// 银行
 		userWithdrawEntity.setWithdrawBankFullName("");// 开户行全名
 		userWithdrawEntity.setComment(desc);
-		userWithdrawEntity.setOrderSn(StringUtil.produceUUID()); // 订单号
+		userWithdrawEntity.setOrderSn(StringUtil.getOrderSn()); // 订单号
 		userWithdrawEntity.setStatus(CommonConst.DIGIT_ONE);
 
 		int result = userWithdrawService.insert(userWithdrawEntity);

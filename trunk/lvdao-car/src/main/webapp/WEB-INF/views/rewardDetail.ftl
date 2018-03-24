@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="js/jquery-2.1.1.min.js"></script>
+    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
         <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
@@ -30,7 +30,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="layui/layui.js"></script>
+        <script type="text/javascript" src="../../resources/layui/layui.js"></script>
         <script type="text/javascript">
             var myDate = new Date();
             var Year = myDate.getFullYear();
