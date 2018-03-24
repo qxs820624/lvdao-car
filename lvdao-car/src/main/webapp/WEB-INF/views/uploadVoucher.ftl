@@ -16,8 +16,9 @@
                 <a class="return_arr" href="/order/orderForm.do"></a>
                 <span>上传付款凭证</span>
             </header>
-            <input type = 'hidden' id = 'picUrl' value=''/>
+            <input type = 'hidden' id = 'picUrl' value='' />
             <input type = 'hidden' id = 'orderAmount' value='' />
+             <input type ="hidden" id = "orderType" value= "${orderType}"  />
             <div class="upload_cons">
                 <div class="layui-upload">
                     <button type="button" class="upload_file" id="upload_file"></button>
@@ -30,7 +31,7 @@
                         <div class="layui-input-block" style="margin-left:40%;">
                             <select id="addType" name="addType" lay-filter="aihao">
                                 <option value="" selected=""></option>
-                                <option value="0">自主加盟</option>
+                                <option value="2">自主加盟</option>
                                 <option value="1">代人申购</option>
                             </select>
                         </div>
@@ -41,7 +42,7 @@
                             <select name="payMethod" lay-filter="aihao" id="payMethod">
                                 <option value="" selected=""></option>
                            <!--     <option value="0">支付宝</option>   -->
-                                <option value="1">银行卡</option>
+                                <option value="3">银行卡</option>
                             </select>
                         </div>
                     </div>
@@ -52,16 +53,16 @@
                         </div>
                     </div>
                     
-                    <input type ="hidden" id = "orderType" value= "5"  />
-                  <div class="upload_cons">
-                     <div class="layui-upload">
-                    <label  class="layui-form-label">我的推荐人</label>
-                    <label  class="layui-form-label">郭涛</label>
-                     </div>
+                   
+                  <div class="layui-form-item">
+                     <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">我的推荐人</label>
+                     <div class="layui-input-block" style="margin-left:40%;">
+                        <input type="text"  class="layui-input" readonly disabled value="<#if userParentName??>${userParentName}</#if>">
+                    </div>
                   </div>
 
                     <div class="upload_cons">
-                     <div class="layui-input-block">
+                     <div class="layui-input-block" style="margin-left: 0px;">
                      <button id="submitForm" class="layui-btn" lay-submit lay-filter="formDemo">立即提交</button>
                      <button type="reset" class="layui-btn layui-btn-primary">重置</button>
                      </div>
@@ -87,7 +88,8 @@
                       console.log(res)
                       if(res.status) {
                       layer.msg(res.message);
-                      $("#picUrl").val(res.url);
+                      $("#picUrl").val(res.picName);
+                      $("#upload_file").attr("style", "background:url("+res.url+")");
                       }else{
                       layer.msg(res.message);
                       }
@@ -95,53 +97,73 @@
                 });
             });
             
-            $("#submitForm").click(function() {
-            	var picUrl = $("#picUrl").val();
-            	var addType = $("#addType option:selected").val();
-            	var payMethod = $("#payMethod option:selected").val();
-            	var addUserMoblile = $("#addUserMoblile").val();
+            layui.use('form', function() {
+	            var form = layui.form;
+	            //监听提交
+	            form.on('submit(formDemo)', function(data){
+		           	var picUrl = $("#picUrl").val();
+	            	var addType = $("#addType option:selected").val();
+	            	var payMethod = $("#payMethod option:selected").val();
+	            	var addUserMoblile = $("#addUserMoblile").val();
+	            	var orderType = $("#orderType").val();
+	            	if(picUrl == '' || picUrl == null) {
+	            		layer.alert("请上传凭证");
+	            		return false;
+	            	}
+	            	
+	            	if(addType == '' || addType == null) {
+	            		layer.alert("请选择加盟类型");
+	            		return false;
+	            	}
+	            	
+	            	if(payMethod == '' || payMethod == null) {
+	            		layer.alert("请选择支付方式");
+	            		return false;
+	            	}
+	            	
+	            	if(addUserMoblile == '' || addUserMoblile == null) {
+	            		layer.alert("请输入加盟人手机号");
+	            		return false;
+	            	}
+	            	
+	            	jQuery.ajax({
+						data : {
+							"picUrl":picUrl,
+							"addType":addType,
+							"orderType":orderType,
+							"payMethod":payMethod,
+							"addUserMoblile":addUserMoblile
+						},
+				        async : false,
+				        type : "POST",
+				        timeout: 60000,
+				        url : "/order/addOrzApply.do",
+				        dataType  :"json",
+				        exception : function(data){
+				        },
+				        error : function(data){
+				        },
+				        success: function(data) {
+				        	if(data.status) {
+			            		//window.location.href = "/order/uploadSucceed.do";
+			            		layer.alert(data.message);
+			            		return false;
+				        	} else {
+				        		layer.alert(data.errorMessage);
+				        		return false;
+				        	}
+				        }
+				    });
+	 			});
+            }); 
+            
+            $("#upload_btn").click(function() {
+            	var picUrl = $(".layui-upload-choose").text();
             	if(picUrl == '' || picUrl == null) {
             		layer.alert("请上传凭证");
-            		return;
+            		return false;
             	}
-            	
-            	if(addType == '' || addType == null) {
-            		layer.alert("请选择加盟类型");
-            		return;
-            	}
-            	
-            	if(payMethod == '' || payMethod == null) {
-            		layer.alert("请选择支付方式");
-            		return;
-            	}
-            	
-            	if(addUserMoblile == '' || addUserMoblile == null) {
-            		layer.alert("请输入加盟人手机号");
-            		return;
-            	}
-            	
-            	jQuery.ajax({
-					data : params,
-			        async : false,
-			        type : "POST",
-			        timeout: 60000,
-			        url : "/order/addOrzApply.do",
-			        dataType  :"json",
-			        exception : function(data){
-			        },
-			        error : function(data){
-			        },
-			        success: function(data) {
-			        	if(data.status) {
-			        		layer.alert(data.message);
-		            		window.location.href =  '/order/uploadSucceed.do';
-			        	} else {
-			        		layer.alert(data.errorMessage);
-			        		return false;
-			        	}
-			        }
-			    });
-            })
+            })       
                    
         </script>
     </body>

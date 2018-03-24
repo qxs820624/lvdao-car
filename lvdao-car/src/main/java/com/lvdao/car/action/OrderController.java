@@ -33,17 +33,21 @@ import com.lvdao.common.enums.OrderTypeEnum;
 import com.lvdao.common.enums.PaymentMethodEnum;
 import com.lvdao.common.util.AliyunOSSUtil;
 import com.lvdao.common.util.StringUtil;
+import com.lvdao.entity.DictEntity;
 import com.lvdao.entity.OrderTypeEntity;
 import com.lvdao.entity.PictureEntity;
 import com.lvdao.entity.PictureGroupEntity;
 import com.lvdao.entity.UserAccountEntity;
 import com.lvdao.entity.UserEntity;
 import com.lvdao.entity.UserOrderEntity;
+import com.lvdao.entity.UserPicEntity;
 import com.lvdao.entity.UserWithdrawEntity;
+import com.lvdao.service.IDictService;
 import com.lvdao.service.IPictureGroupService;
 import com.lvdao.service.IPictureService;
 import com.lvdao.service.IUserAccountService;
 import com.lvdao.service.IUserOrderService;
+import com.lvdao.service.IUserPicService;
 import com.lvdao.service.IUserService;
 
 @Controller
@@ -53,19 +57,25 @@ public class OrderController {
 	private static final Logger LOGGER = LoggerFactory.getLogger(OrderController.class);
 	
 	@Autowired
-	IPictureService pictureService;
+	private IPictureService pictureService;
 	
 	@Autowired
-	IPictureGroupService pictureGroupService;
+	private IPictureGroupService pictureGroupService;
 	
 	@Autowired
-	IUserService userService;
+	private IUserService userService;
 	
 	@Autowired
-	IUserOrderService userOrderService;
+	private IUserOrderService userOrderService;
 	
 	@Autowired
     private IUserAccountService userAccountService;
+	
+	@Autowired
+	private IUserPicService userPicService;
+	
+	@Autowired
+	private IDictService dictService;
 	
 	/**
 	 * 确认订单
@@ -109,7 +119,20 @@ public class OrderController {
 	public ModelAndView uploadVoucher(HttpServletRequest request) {
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
 		ModelAndView mav = new ModelAndView("/uploadVoucher");
-		mav.addObject("user",user);
+		mav.addObject("user", user);
+		String orderType = request.getParameter("orderType");
+		if (StringUtils.isBlank(orderType)) {
+			mav = new ModelAndView("/uploadSucceed");
+		}
+		mav.addObject("orderType", orderType);
+		if (!StringUtils.isBlank(user.getUserParentName())) {
+			String userParentName = user.getUserParentName();
+			UserEntity userEntity = userService.queryByUserName(user.getUserParentName());
+			if (userEntity != null && !StringUtils.isBlank(userEntity.getUserRealName())) {
+				userParentName = userEntity.getUserRealName();
+			}
+			mav.addObject("userParentName", userParentName);
+		}
 		return mav;
 	}
 	
@@ -132,17 +155,17 @@ public class OrderController {
 		}
 		
 		//何种加盟类型 0自主加盟 1代人申购
-		String addType = (String) request.getAttribute("addType");
+		String addType = request.getParameter("addType");
 		//支付方式
-		String payMethod = (String) request.getAttribute("payMethod");
+		String payMethod = request.getParameter("payMethod");
 		//订单价格
-		String orderAmount = (String) request.getAttribute("orderAmount");
+		String orderType = request.getParameter("orderType");
 		//推荐人手机号
-		String recommendUserMoblile = (String) request.getAttribute("recommendMoblile");
+		String recommendUserMoblile = request.getParameter("recommendMoblile");
 		//加盟人手机号
-		String addUserMoblile = (String) request.getAttribute("addUserMoblile");
+		String addUserMoblile = request.getParameter("addUserMoblile");
 		//打款凭证图片
-		String picUrl = (String) request.getAttribute("picUrl");
+		String picUrl = request.getParameter("picUrl");
 		
 		//默认银联支付
 		if(null == payMethod || StringUtils.isBlank(payMethod)) {
@@ -161,14 +184,30 @@ public class OrderController {
 			return map;
 		}
 		
+		if (StringUtils.isBlank(orderType)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "投资级别未选择");
+			return map;
+		}
+		
 		Boolean picUrlisExist = checkPicUrlisExist(picUrl);
 		if(picUrlisExist == false) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
 			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "图片未上传,请先上传打款凭证");
 			return map;
 		}
-
+		
 		UserOrderEntity userOrderEntity = new UserOrderEntity();
+		Map<String, Object> paramMap = new HashMap<String, Object>();
+		paramMap.put("dict", orderType);
+		paramMap.put("dictGroupId", "investment_vehicle");
+		List<DictEntity> dictList = dictService.queryList(paramMap);
+		if (dictList == null || dictList.isEmpty()) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "该投资级别未配置");
+			return map;
+		}
+		String orderAmount = dictList.get(CommonConst.DIGIT_ZERO).getDictValue();
 		
 		//代人申购  必须要加盟人手机号
 		if(addType.equals(CommonConst.STRING_ONE)) {
@@ -188,11 +227,12 @@ public class OrderController {
 					return map;
 				}
 				userOrderEntity.setId(StringUtil.produceUUID());
+				userOrderEntity.setOrderType(OrderTypeEnum.INVESTMENT_ORDER.getId());
 				userOrderEntity.setUserId(mobileUser.getUserId());
 				userOrderEntity.setUserName(mobileUser.getUserName());
 				userOrderEntity.setAddMethod(OrderTypeEnum.INVESTMENT_ORDER.getId()); //订单类型
 				userOrderEntity.setPaymentMethod(payMethod);//支付方式
-				userOrderEntity.setOrderId(StringUtil.produceUUID()); //订单号
+				userOrderEntity.setOrderId(StringUtil.getOrderSn()); //订单号
 				userOrderEntity.setCreateTime(new Date());
 				userOrderEntity.setPaidStatus(CommonConst.DIGIT_ZERO);//订单状态
 				userOrderEntity.setOrderMoney(orderAmount); //加盟金额 
@@ -200,19 +240,20 @@ public class OrderController {
 				userOrderEntity.setOtherPersonMobile(user.getUserId());
 				userOrderEntity.setOtherPersonRealName(user.getUserRealName());
 				userOrderEntity.setRemark(picUrl);//凭证图片 存放组id
+				userOrderEntity.setActive(true);
 				int insert = userOrderService.insert(userOrderEntity);
 				
-				if(insert > CommonConst.DIGIT_ZERO) {
+				if(insert == CommonConst.DIGIT_ZERO) {
 					map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
 					map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请成功 请耐心等待工作人员审批");
 					return map;
 				} else {
-					map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+					map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
 					map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请成功 请耐心等待工作人员审批");
 					return map;
 				}
 				
-			}else {
+			} else {
 				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
 				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "代人加盟 加盟人的手机号未注册 请先注册加盟人账户");
 				return map;
@@ -222,30 +263,32 @@ public class OrderController {
 		// 自主加盟 推荐人可有可无
 		if (addType.equals(CommonConst.STRING_TWO)) {
 			userOrderEntity.setId(StringUtil.produceUUID());
+			userOrderEntity.setOrderType(OrderTypeEnum.INVESTMENT_ORDER.getId());
 			userOrderEntity.setUserId(user.getUserId());
 			userOrderEntity.setUserName(user.getUserName());
 			userOrderEntity.setAddMethod(OrderTypeEnum.INVESTMENT_ORDER.getId()); // 订单类型
 			userOrderEntity.setPaymentMethod(payMethod);// 支付方式
-			userOrderEntity.setOrderId(StringUtil.produceUUID()); // 订单号
+			userOrderEntity.setOrderId(StringUtil.getOrderSn()); // 订单号
 			userOrderEntity.setCreateTime(new Date());
 			userOrderEntity.setPaidStatus(CommonConst.DIGIT_ZERO);// 订单状态
 			userOrderEntity.setOrderMoney(orderAmount); // 加盟金额
 			userOrderEntity.setAddMethod(CommonConst.STRING_ZERO);
 			userOrderEntity.setRemark(picUrl);// 凭证图片 存放组id
+			userOrderEntity.setActive(true);
 			int insert = userOrderService.insert(userOrderEntity);
 
-			if (insert > CommonConst.DIGIT_ZERO) {
+			if (insert == CommonConst.DIGIT_ZERO) {
 				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请成功 请耐心等待工作人员审批");
+				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请失败 请联系工作人员审批");
 				return map;
 			} else {
 				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
-				map.put(CommonConst.RESPONSE_MESSAGE, "加盟申请失败 请联系工作人员审批");
+				map.put(CommonConst.RESPONSE_MESSAGE, "加盟申请成功 请耐心等待工作人员审批");
 				return map;
 			}
 		}
 		
-		map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
+		map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
 		map.put(CommonConst.RESPONSE_MESSAGE, "加盟申请失败 请联系工作人员审批");
 		return map;
 
@@ -275,12 +318,14 @@ public class OrderController {
 		
 		String picId = (String) picMap.get("maxPicId");
 		String url = (String) picMap.get("url"); 
+		String picName = (String) picMap.get("picName");
 		
 		HashMap<String,Object> resultMap = new HashMap<String, Object>();
 		if(null != picId && !StringUtils.isBlank(picId)) {
 			resultMap.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
 			resultMap.put(CommonConst.RESPONSE_MESSAGE, "上传成功");
 			resultMap.put("url", url);
+			resultMap.put("picName", picName);
 			return resultMap;
 		}else{
 			resultMap.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
@@ -306,7 +351,7 @@ public class OrderController {
 		if (null == picList || picList.isEmpty()) {
 			return false;
 		} else {
-			return false;
+			return true;
 		}
 	}
 	
@@ -428,9 +473,6 @@ public class OrderController {
 		return files;
 	}
 	
-	
-	
-	
 	/**
 	 * 插入 返回maxPicId
 	 * 
@@ -480,7 +522,19 @@ public class OrderController {
 					// pic.setCreateUserName(sessionUserEntity.getUserName());
 					int insert = pictureService.insert(pic);
 					if (insert > CommonConst.DIGIT_ZERO) {
+						UserPicEntity userPicEntity = new UserPicEntity();
+						userPicEntity.setActive(true);
+						userPicEntity.setCreateTime(new Date());
+						userPicEntity.setId(StringUtil.produceUUID());
+						userPicEntity.setPicId(maxId);
+						userPicEntity.setPicUrl(url);
+						userPicEntity.setPicUse(31);
+						userPicEntity.setUserId(sessionUserEntity.getUserId());
+						userPicEntity.setUserName(sessionUserEntity.getUserName());
+						userPicEntity.setVersion(1);
+						insert = userPicService.insert(userPicEntity);
 						map.put("url", url);
+						map.put("picName", key);
 						LOGGER.info("图片插入成功");
 					} else {
 						LOGGER.info("图片插入失败");
