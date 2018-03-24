@@ -199,7 +199,7 @@ public class OrderController {
 		
 		UserOrderEntity userOrderEntity = new UserOrderEntity();
 		Map<String, Object> paramMap = new HashMap<String, Object>();
-		paramMap.put("dict", orderType);
+		paramMap.put("dictId", "investment" + orderType);
 		paramMap.put("dictGroupId", "investment_vehicle");
 		List<DictEntity> dictList = dictService.queryList(paramMap);
 		if (dictList == null || dictList.isEmpty()) {

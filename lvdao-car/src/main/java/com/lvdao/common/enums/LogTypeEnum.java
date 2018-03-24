@@ -6,31 +6,32 @@ import java.util.Map;
 import org.apache.commons.lang.StringUtils;
 
 public enum LogTypeEnum {
+	/**
+	 * 所有类型同app端，需及时同步
+	 */
+	LOG_TYPE_REGISTER_INFO("0", "注册日志"), 
+	LOG_TYPE_LOGIN_INFO("1", "登录日志"),
+	LOG_TYPE_APPLY_AGENCY("3", "升级"),
+	LOG_TYPE_RECHARGE("4", "充值"),
+	LOG_TYPE_SHOPPING("5", "消费"),
+	LOG_TYPE_ADD_INTEGRAL("6", "增加积分"),
+	LOG_TYPE_SUBTRACT_INTEGRAL("7", "扣减积分"),
+	LOG_TYPE_WITHDRAW("8", "提现"),
+	LOG_TYPE_SIGNIN("9", "签到"),
+	LOG_TYPE_PROFIT("10", "分红"),
+	LOG_TYPE_GET_RED_PACKAGE("11", "领取红包"),
+	LOG_TYPE_ADD_RMB("12", "增加现金"),
+	LOG_TYPE_SUBTRACT_RMB("13", "扣减现金"),
+	LOG_TYPE_RECOMMEND_BONUS_AMOUNT("14", "推荐奖"),
+	LOG_TYPE_ADD_STOCK("15", "增加股券"),
+	LOG_TYPE_SUBTRACT_STOCK("16", "扣减股券"),
+	LOG_TYPE_PUBLISH_INFO("17", "发布用车信息"),
+	LOG_TYPE_CHANGE_PERMISSION_INFO("18", "权限变更日志"),
+	LOG_TYPE_CHANGE_ROLE_INFO("19", "角色变更日志"),
+	LOG_TYPE_BOUNS_RETURN("20", "燃油补贴"),
+	LOG_TYPE_OUT_CAR_RETURN("21", "上车补贴"),
+	LOG_TYPE_REWARD_STOCK("22", "加盟返股票记录");
 	
-	LOG_TYPE_LOGIN_INFO("0", "登录日志"), 
-	LOG_TYPE_CASH_RECORD_INFO("1", "资金交易日志"), 
-	LOG_TYPE_CHANGE_ROLE_INFO("2", "角色变更日志"), 
-	LOG_TYPE_CHANGE_PERMISSION_INFO("3", "权限变更日志"), 
-	LOG_TYPE_REGISTER_INFO("4", "注册新用户日志"), 
-	LOG_TYPE_BUY_STOCK_INFO("5", "股票购买日志"), 
-	LOG_TYPE_STOCK_TRADE_INFO("6", "股票交易日志"),
-	LOG_TYPE_INSERT_APP_SELLER("7", "插入app商家表日志"),
-	LOG_TYPE_INSERT_APP_USER("8", "插入app会员表日志"),
-	LOG_TYPE_INSERT_USER_FROM_APP_SELLER("9", "获取appSeller插入user表错误日志"),
-	LOG_TYPE_INSERT_USER_FROM_APP_USER("10", "获取appUser插入user表错误日志"),
-	LOG_TYPE_DATA_SYNC_INFO("11","数据库同步日志"),
-	LOG_TYPE_SMS_SENDER_INFO("12" , "短信发送日志"),
-	LOG_TYPE_MAIL_SENDER_INFO("13" , "邮件发送日志"),
-	LOG_TYPE_INSERT_WEIXIN_USER("14", "插入微信会员表日志"),
-	LOG_TYPE_BUYPOINT_TRADE_INFO("15", "积分认购交易日志"),
-	LOG_TYPE_VIP_PROMOTION_BONUS_INFO("18", "VIP推荐奖金"),
-	LOG_TYPE_MANAGER_PROMOTION_BONUS_INFO("19", "经理人推荐奖金"),
-	LOG_TYPE_VIP_BONUS_INFO("20", "加权分红"),
-	LOG_TYPE_MANAGER_BONUS_INFO("21", "经理人分红"),
-	LOG_TYPE_WITHDRAW_INFO("22", "提现"),
-	LOG_TYPE_BOUNS_RETURN("23", "投资返还"),
-	LOG_TYPE_RECOMMEND_BOUNS("24", "推荐奖励发放"),
-	LOG_TYPE_OUT_CAR_RETURN("24", "上车补贴");
 
     private String id;
     private String value;

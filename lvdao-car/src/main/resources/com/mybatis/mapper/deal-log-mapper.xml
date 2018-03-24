@@ -226,6 +226,9 @@
 	      	<if test="ltCreateTime != null and ltCreateTime != '' " >
 	        	D.CREATE_TIME &lt; #{ltCreateTime} AND 
 	      	</if>
+	      	<if test="selectDate != null and selectDate != ''" >
+	        	D.CREATE_TIME LIKE CONCAT('%',#{selectDate, jdbcType=VARCHAR},'%') AND 
+	      	</if>
 			D.ACTIVE = '1'  
 		</where>
 	</select>
