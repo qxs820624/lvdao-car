@@ -90,7 +90,7 @@
                 <div class="ask_box">
                     <p>是否确认投资？</p>
                     <div class="ask_btn outer">
-                        <button class="confirm_btn" onclick="javascript:window.location.href='/order/uploadVoucher.do'">确认</button>
+                        <button class="confirm_btn" onclick="javascript:window.location.href='/order/uploadVoucher.do?orderType=${orderType}'">确认</button>
                         <button class="cancel_btn">取消</button>
                     </div>
                 </div>
