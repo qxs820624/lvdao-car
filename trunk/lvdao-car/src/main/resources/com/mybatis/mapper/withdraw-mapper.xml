@@ -7,6 +7,8 @@
 	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
 	    <result column="PARENT_USER_NAME" property="parentUserName" jdbcType="VARCHAR" />
 	    <result column="PARENT_USER_NAME" property="parentUserName" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_TYPE_ID" property="accountTypeId" jdbcType="VARCHAR" />
+	    <result column="ACCOUNT_TYPE_NAME" property="accountTypeName" jdbcType="VARCHAR" />
 	    <result column="WITHDRAW_ACCOUNT_TYPE" property="withdrawAccountType" jdbcType="VARCHAR"/>
 	    <result column="WITHDRAW_ACCOUNT" property="withdrawAccount" jdbcType="VARCHAR"/>
 	    <result column="WITHDRAW_MONEY" property="withdrawMoney" jdbcType="VARCHAR"/>
@@ -34,6 +36,8 @@
     	U.USER_NAME,
     	U.PARENT_USER_ID,
     	U.PARENT_USER_NAME,
+    	U.ACCOUNT_TYPE_ID,
+    	U.ACCOUNT_TYPE_NAME,
     	U.WITHDRAW_ACCOUNT_TYPE,
     	U.WITHDRAW_ACCOUNT,
     	U.WITHDRAW_MONEY,
@@ -62,6 +66,8 @@
 	    	USER_ID,
 	    	PARENT_USER_NAME,
 	    	PARENT_USER_ID,
+	    	ACCOUNT_TYPE_ID,
+    		ACCOUNT_TYPE_NAME,
 	    	WITHDRAW_ACCOUNT_TYPE,
 	    	WITHDRAW_ACCOUNT,
 	    	WITHDRAW_MONEY,
@@ -87,6 +93,8 @@
 			#{userId, jdbcType=VARCHAR},
 			#{parentUserName, jdbcType=VARCHAR},
 			#{parentUserId, jdbcType=VARCHAR},
+			#{accountTypeId, jdbcType=VARCHAR},
+			#{accountTypeName, jdbcType=VARCHAR},
 			#{withdrawAccountType, jdbcType=VARCHAR},
 			#{withdrawAccount, jdbcType=VARCHAR},
 			#{withdrawMoney, jdbcType=VARCHAR},
@@ -121,6 +129,33 @@
 			<if test="userId != null and userId != '' ">
 				AND U.USER_ID = #{userId}
 			</if>
+			<if test="userName != null and userName != '' ">
+				AND U.USER_NAME = #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND U.USER_ID = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="accountTypeId != null and accountTypeId != '' ">
+				AND U.ACCOUNT_TYPE_ID = #{accountTypeId,jdbcType=VARCHAR}
+			</if>
+			<if test="accountTypeName != null and accountTypeName != '' ">
+				AND U.ACCOUNT_TYPE_NAME = #{accountTypeName,jdbcType=VARCHAR}
+			</if>
+			<if test="thisUsers != null and thisUsers != ''" >
+	        	AND U.USER_ID IN ${thisUsers} 
+	      	</if>
+			<if test="withdrawAccountType != null and withdrawAccountType != '' ">
+				AND	U.WITHDRAW_ACCOUNT_TYPE = #{withdrawAccountType, jdbcType=VARCHAR}
+			</if>
+			<if test="status != null and status != ''" >
+	        	AND U.STATUS = #{status, jdbcType=TINYINT}
+	      	</if>
+			<if test="startTime != null">
+		     		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
+			</if>
+		    <if test="endTime != null and endTime != ''">
+		     		<![CDATA[ AND CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
+			</if>
 		</where>
       	ORDER BY U.CREATE_TIME DESC
 		limit #{startIndex}, #{pageSize}
@@ -134,7 +169,31 @@
 		<where>
 			U.ACTIVE = '1'
 			<if test="userName != null and userName != '' ">
-				AND U.USER_NAME = #{userName}
+				AND U.USER_NAME = #{userName,jdbcType=VARCHAR}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND U.USER_ID = #{userId,jdbcType=VARCHAR}
+			</if>
+			<if test="accountTypeId != null and accountTypeId != '' ">
+				AND U.ACCOUNT_TYPE_ID = #{accountTypeId,jdbcType=VARCHAR}
+			</if>
+			<if test="accountTypeName != null and accountTypeName != '' ">
+				AND U.ACCOUNT_TYPE_NAME = #{accountTypeName,jdbcType=VARCHAR}
+			</if>
+			<if test="thisUsers != null and thisUsers != ''" >
+	        	AND U.USER_ID IN ${thisUsers} 
+	      	</if>
+			<if test="withdrawAccountType != null and withdrawAccountType != ''" >
+        		AND	U.WITHDRAW_ACCOUNT_TYPE = #{withdrawAccountType, jdbcType=VARCHAR}
+      		</if>
+			<if test="status != null and status != ''" >
+	        	AND U.STATUS = #{status, jdbcType=TINYINT}
+	      	</if>
+			<if test="startTime != null">
+		     		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
+			</if>
+		    <if test="endTime != null and endTime != ''">
+		     		<![CDATA[ AND CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
 			</if>
 		</where>
 	</select>
@@ -164,20 +223,41 @@
 	      	<if test="userName != null and userName != ''" >
 	        	AND U.USER_NAME = #{userName, jdbcType=VARCHAR}
 	      	</if>
+	      	<if test="accountTypeId != null and accountTypeId != '' ">
+				AND U.ACCOUNT_TYPE_ID = #{accountTypeId,jdbcType=VARCHAR}
+			</if>
+			<if test="accountTypeName != null and accountTypeName != '' ">
+				AND U.ACCOUNT_TYPE_NAME = #{accountTypeName,jdbcType=VARCHAR}
+			</if>
+	      	<if test="withdrawAccountType != null and withdrawAccountType != '' ">
+				AND	U.WITHDRAW_ACCOUNT_TYPE = #{withdrawAccountType, jdbcType=VARCHAR}
+			</if>
 	      	<if test="status != null and status != ''" >
 	        	AND U.STATUS = #{status, jdbcType=TINYINT}
 	      	</if>
+	      	<if test="startTime != null and startTime !=''">
+		     		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
+			</if>
+		    <if test="endTime != null and endTime != ''">
+		     		<![CDATA[ AND CREATE_TIME <= #{endTime,jdbcType=TIMESTAMP}]]>
+			</if>
 		</where>
   	</select> 
   	
   	<update id="update" parameterType="com.lvdao.entity.UserWithdrawEntity" >
     	UPDATE T_WITHDRAW S SET
-      	<if test="userId != null and userId != ''" >
+      <if test="userId != null and userId != ''" >
         	S.USER_ID = #{userId, jdbcType=VARCHAR},
       	</if>
       	<if test="userName != null and userName != ''" >
         	S.USER_NAME = #{userName, jdbcType=VARCHAR},
       	</if>
+      	<if test="accountTypeId != null and accountTypeId != '' ">
+			AND U.ACCOUNT_TYPE_ID = #{accountTypeId,jdbcType=VARCHAR}
+		</if>
+		<if test="accountTypeName != null and accountTypeName != '' ">
+			AND U.ACCOUNT_TYPE_NAME = #{accountTypeName,jdbcType=VARCHAR}
+		</if>
       	<if test="withdrawAccountType != null and withdrawAccountType != ''" >
         	S.WITHDRAW_ACCOUNT_TYPE = #{withdrawAccountType, jdbcType=VARCHAR},
       	</if>
@@ -201,6 +281,9 @@
       	</if>
       	<if test="orderSn != null and orderSn != ''" >
         	S.ORDER_SN = #{orderSn, jdbcType=VARCHAR},
+      	</if>
+      	<if test="payPicUrl != null and payPicUrl != ''" >
+        	S.PAY_PIC_URL = #{payPicUrl, jdbcType=VARCHAR},
       	</if>
       	<if test="active != null and active != ''" >
         	S.ACTIVE = #{active, jdbcType=TINYINT},
