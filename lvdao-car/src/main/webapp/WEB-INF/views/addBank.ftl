@@ -82,20 +82,47 @@
             	}
             	
             	if (alipayAccount == null || alipayAccount == '') {
-            		layer.alert("请先选择支付宝账户");
+            		layer.alert("请先输入支付宝账户");
             		return false;
             	}
             	
             	if (userRealName == null || userRealName == '') {
-            		layer.alert("请先选择支付宝账户");
+            		layer.alert("请先输入姓名");
             		return false;
             	}
             	
             	if (withdrawAmount == null || withdrawAmount == '') {
-            		layer.alert("请先选择支付宝账户");
+            		layer.alert("请先输入提现金额");
             		return false;
             	}
             	
+            	jQuery.ajax({
+					data : {
+						"accountId":accountId,
+						"alipayAccount":alipayAccount,
+						"userRealName":userRealName,
+						"desc":desc,
+						"withdrawAmount":withdrawAmount
+					},
+			        async : false,
+			        type : "POST",
+			        timeout: 60000,
+			        url : "/user/takeCashApply.do",
+			        dataType  :"json",
+			        exception : function(data){
+			        },
+			        error : function(data){
+			        },
+			        success: function(data) {
+			        	if(data.status) {
+		            		layer.alert(data.message);
+		            		return false;
+			        	} else {
+			        		layer.alert(data.errorMessage);
+			        		return false;
+			        	}
+			        }
+			    });
             })
         </script>
     </body>

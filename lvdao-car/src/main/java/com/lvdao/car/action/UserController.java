@@ -139,6 +139,25 @@ public class UserController {
 	@RequestMapping(value = "/cashWithdraw", method = RequestMethod.GET)
 	public ModelAndView orderList(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/addBank");
+		String accountType = request.getParameter("accountType");
+		
+		if (StringUtils.isBlank(accountType)) {
+			return mav;
+		}
+		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("userId", user.getUserId());
+		paramMap.put("accountId", accountType);
+		List<UserAccountEntity> userAccountList = userAccountService.queryList(paramMap);
+		if (userAccountList != null && userAccountList.size() > CommonConst.DIGIT_ZERO) {
+			UserAccountEntity userAccountEntity = userAccountList.get(CommonConst.DIGIT_ZERO);
+			//可提现的金额是整百
+			if (!StringUtils.isBlank(userAccountEntity.getAccountAmount())) {
+				int accountAmount = Integer.valueOf(userAccountEntity.getAccountAmount()) / CommonConst.DIGIT_HUNDRED * CommonConst.DIGIT_HUNDRED;
+				userAccountEntity.setAccountAmount(Integer.toString(accountAmount));
+			}
+			mav.addObject("userAccount", userAccountEntity);
+		}
 		return mav;
 	}
 
@@ -281,35 +300,34 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/reference", method = RequestMethod.GET)
-	public ModelAndView reference(HttpServletRequest request, HttpServletResponse response) {
-		Map<String, Object> map = new HashMap<String, Object>();
+	public ModelAndView reference(HttpServletRequest request,HttpServletResponse response) {
 		ModelAndView mav = new ModelAndView("/reference");
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
 		if (user != null) {
-			// 我的推荐人
-
 			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.clear();
-			paramMap.put("userId", user.getUserId());
-			paramMap.put("userParentName", user.getUserName());
-			List<UserEntity> userRecommendList = userService.queryList(paramMap);
-
-			if (null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
-				UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
-				String userParentName = userEntity.getUserParentName();
-				mav.addObject("myRecommendUser", userParentName);
+			// 我的推荐人
+			if (!StringUtils.isBlank(user.getUserParentId()) && !StringUtils.isBlank(user.getUserParentName())) {
+				paramMap.clear();
+				paramMap.put("userId", user.getUserId());
+				paramMap.put("userName", user.getUserName());
+				List<UserEntity> userRecommendList = userService.queryList(paramMap);
+				
+				if (null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
+					UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
+					mav.addObject("myRecommendUser", userEntity);
+				}
+				
 			}
 
 			// 直接推荐人数
 			paramMap.clear();
-			paramMap.put("userParentName", user.getUserRealName());
-			int countUser = userService.countUser(paramMap);
-			mav.addObject("countUser", countUser);
-
-			// String createQRCode =
-			// createQRCode(response,request,"HTTP://192.168.0.1");
-			// mav.addObject("createQRCode", createQRCode);
-
+			paramMap.put("userParentName", user.getUserName());
+			List<UserEntity> userList = userService.queryList(paramMap);
+			mav.addObject("userList", userList);
+			
+//			String createQRCode = createQRCode(response,request,"http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
+			mav.addObject("createQRCode", "http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
+			
 		}
 		return mav;
 	}
@@ -444,7 +462,7 @@ public class UserController {
 
 		return resultMap;
 	}
-
+	
 	/**
 	 * @author guotao
 	 * @since 2018-03-17 判断是否为小数
