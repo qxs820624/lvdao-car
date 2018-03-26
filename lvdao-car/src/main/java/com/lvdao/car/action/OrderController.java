@@ -237,7 +237,7 @@ public class OrderController {
 				userOrderEntity.setPaidStatus(CommonConst.DIGIT_ZERO);//订单状态
 				userOrderEntity.setOrderMoney(orderAmount); //加盟金额 
 				userOrderEntity.setAddMethod(CommonConst.STRING_ONE);
-				userOrderEntity.setOtherPersonMobile(user.getUserId());
+				userOrderEntity.setOtherPersonMobile(user.getUserName());
 				userOrderEntity.setOtherPersonRealName(user.getUserRealName());
 				userOrderEntity.setRemark(picUrl);//凭证图片 存放组id
 				userOrderEntity.setActive(true);

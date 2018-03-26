@@ -20,7 +20,7 @@ public enum LogTypeEnum {
 	LOG_TYPE_SIGNIN("9", "签到"),
 	LOG_TYPE_PROFIT("10", "分红"),
 	LOG_TYPE_GET_RED_PACKAGE("11", "领取红包"),
-	LOG_TYPE_ADD_RMB("12", "增加现金"),
+	LOG_TYPE_ADD_RMB("12", "增加现金"),   //lvdao-web 现金记录
 	LOG_TYPE_SUBTRACT_RMB("13", "扣减现金"),
 	LOG_TYPE_RECOMMEND_BONUS_AMOUNT("14", "推荐奖"),
 	LOG_TYPE_ADD_STOCK("15", "增加股券"),
@@ -30,7 +30,9 @@ public enum LogTypeEnum {
 	LOG_TYPE_CHANGE_ROLE_INFO("19", "角色变更日志"),
 	LOG_TYPE_BOUNS_RETURN("20", "燃油补贴"),
 	LOG_TYPE_OUT_CAR_RETURN("21", "上车补贴"),
-	LOG_TYPE_REWARD_STOCK("22", "加盟返股票记录");
+	LOG_TYPE_REWARD_STOCK("22", "加盟返股票记录"),
+	LOG_TYPE_RIDE_CUPON("23", "乘车券记录"),
+	LOG_TYPE_REWARD_PACKAGE("24", "燃油包变更记录");//	 用desc做加减统计
 	
 
     private String id;
