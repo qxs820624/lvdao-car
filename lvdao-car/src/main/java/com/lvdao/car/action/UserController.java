@@ -427,10 +427,10 @@ public class UserController {
 			return map;
 		}
 
-		String userMobile = request.getParameter("userMobile");// 支付宝账户
-		String realName = request.getParameter("realName");// 真实姓名
-		String amount = request.getParameter("amount");// 提现金额
-		String accountType = request.getParameter("accountType");
+		String userMobile = request.getParameter("alipayAccount");// 支付宝账户
+		String realName = request.getParameter("userRealName");// 真实姓名
+		String amount = request.getParameter("withdrawAmount");// 提现金额
+		String accountType = request.getParameter("accountId");
 		String comment = request.getParameter("desc");// 备注
 		if (StringUtils.isBlank(userMobile)) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
