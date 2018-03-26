@@ -42,15 +42,18 @@ import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
 import com.lvdao.common.util.DateUtils;
 import com.lvdao.common.util.StringUtil;
+import com.lvdao.entity.BonusReturnEntity;
 import com.lvdao.entity.DealLogEntity;
 import com.lvdao.entity.UserAccountEntity;
 import com.lvdao.entity.UserEntity;
 import com.lvdao.entity.UserWithdrawEntity;
 import com.lvdao.service.IAccountService;
+import com.lvdao.service.IBonusReturnService;
 import com.lvdao.service.IDealLogService;
 import com.lvdao.service.IUserAccountService;
 import com.lvdao.service.IUserService;
 import com.lvdao.service.IUserWithdrawService;
+import com.lvdao.service.impl.BonusReturnServiceImpl;
 
 @Controller
 @RequestMapping("/user")
@@ -74,7 +77,8 @@ public class UserController {
     @Autowired
 	private IUserService userService;
     
-    
+    @Autowired
+    private IBonusReturnService bonusReturnService;
     
     /**
 	 * app跳转过来首页
@@ -238,7 +242,18 @@ public class UserController {
 				String accountShareRewardAmount = shareRewardAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
 				mav.addObject("shareRewardAccount", roundByScale(accountShareRewardAmount, 2));
 			}
-
+			
+			//燃油补贴返还  TODO
+//			map.clear();
+//			map.put("userId", user.getUserId());
+//			List<BonusReturnEntity> bonusReturnList = bonusReturnService.queryList(map);
+//			BigDecimal totalOrderAmount = new BigDecimal(CommonConst.DIGIT_ZERO);
+//			BigDecimal totalReturnAmount = new BigDecimal(CommonConst.DIGIT_ZERO);
+//			for (BonusReturnEntity bonusReturnEntity : bonusReturnList) {
+//				totalOrderAmount = totalOrderAmount.add(new BigDecimal(bonusReturnEntity.getOrderAmount()));
+//				totalReturnAmount = totalReturnAmount.add(new BigDecimal(bonusReturnEntity.getReturnAmount()));
+//			}
+			
 			// 激活状态
 			map.clear();
 			map.put("userId", user.getUserId());
@@ -354,6 +369,8 @@ public class UserController {
 		}
 		mav.addObject("totalPrice", totalPrice.toString());
 		mav.addObject("accountList", logList);
+		mav.addObject("logType", logType);
+		mav.addObject("selectDate", selectDate);
 		return mav;
 	    
 	}

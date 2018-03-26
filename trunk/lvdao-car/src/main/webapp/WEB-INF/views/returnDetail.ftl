@@ -42,11 +42,15 @@
         </div>
         <script type="text/javascript" src="../../resources/layui/layui.js"></script>
         <script type="text/javascript">
-            var myDate = new Date();
-            var Year = myDate.getFullYear();
-            var Month = '0' + (myDate.getMonth()+1);
-            $(".date>input").attr('placeholder',Year+'-'+Month);
-
+            var currentDate = '${selectDate}';
+            if (currentDate == null || currentDate == '') {
+	            var myDate = new Date();
+	            var Year = myDate.getFullYear();
+	            var Month = '0' + (myDate.getMonth()+1);
+	            currentDate = Year+'-'+Month;
+            }
+            $(".date>input").attr('placeholder', currentDate);
+			
             //日历
             layui.use('laydate', function() {
                 var laydate = layui.laydate;
@@ -55,11 +59,14 @@
                     elem: '#test3',
                     type: 'month',
                     theme: '#076C45',
-                    format: 'yyyy-MM'
+                    format: 'yyyy-MM',
+                    done:function(value, date){//value, date, endDate点击日期、清空、现在、确定均会触发。回调返回三个参数，分别代表：生成的值、日期时间对象、结束的日期时间对象
+				        window.location.href = "/user/accountListDetail.do?logType=${logType}&selectDate=" + value;
+				    }
                 });
             })
             
-            var selectDate = $("#test3").val();
+            
         </script>
     </body>
 </html>
