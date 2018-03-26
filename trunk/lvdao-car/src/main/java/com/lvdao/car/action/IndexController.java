@@ -33,7 +33,7 @@ public class IndexController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/index");
 		//测试数据
-		UserEntity userEntity = userService.queryByUserName("18717874379");
+		UserEntity userEntity = userService.queryByUserName("18800000001");
 		request.getSession().setAttribute(CommonConst.SESSION_USER, userEntity);
 		return mav;
 	}

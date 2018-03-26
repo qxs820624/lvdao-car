@@ -25,8 +25,8 @@
                                 <h4>燃油补贴账户</h4>
                                 <span>¥<#if accountbonuAmount??>${accountbonuAmount}<#else>0</#if></span>
                                 <div class="button return_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'20'">返还明细</button>
-                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=20'">返还明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountId=4'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -35,7 +35,7 @@
                                 <h4>燃油包</h4>
                                 <span>¥<#if shareRewardAccount??>${shareRewardAccount}</span><#else>0</#if></span>
                                 <div class="button income_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'24'">收入明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=24'">收入明细</button>
                                 </div>
                             </div>
                         </div>
@@ -44,7 +44,7 @@
                                 <h4>现金账户</h4>
                                 <span>¥<#if rmbAccount??>${rmbAccount}<#else>0</#if></span>
                                 <div class="button commended_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'12'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=12'">奖励明细</button>
                                 </div>
                             </div>
                         </div>
@@ -55,8 +55,8 @@
                                 <h4>上车补贴账户</h4>
                                 <span>¥<#if recommendBonusAccount??>${recommendBonusAccount}<#else>0</#if></span>
                                 <div class="button income_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'21'">奖励明细</button>
-                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=21'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountId=3'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -67,7 +67,7 @@
                                 <h4>乘车券账户</h4>
                                 <span>¥<#if rideCouponAccount??>${rideCouponAccount}<#else>0</#if></span>
                                 <div class="button return_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'23'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=23'">奖励明细</button>
                                 </div>
                             </div>
                         </div>
@@ -77,7 +77,7 @@
                                 <h4>美股账户<#if stockAccount??>${stockAccount}</span><#else>0</#if></h4>
                                 <div class="shares"><i>见市值</i>股</div>
                                 <div class="button commended_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType='+'22'">奖励明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=22'">奖励明细</button>
                                 </div>
                             </div>
                         </div>

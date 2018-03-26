@@ -18,7 +18,7 @@
             </header>
             <input type = 'hidden' id = 'picUrl' value='' />
             <input type = 'hidden' id = 'orderAmount' value='' />
-             <input type ="hidden" id = "orderType" value= "${orderType}"  />
+            <input type ="hidden" id = "orderType" value= "${orderType}"  />
             <div class="upload_cons">
                 <div class="layui-upload">
                     <button type="button" class="upload_file" id="upload_file"></button>
