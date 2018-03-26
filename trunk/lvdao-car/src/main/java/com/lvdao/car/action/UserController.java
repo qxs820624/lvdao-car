@@ -5,7 +5,6 @@ import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -38,6 +37,7 @@ import com.google.zxing.common.BitMatrix;
 import com.lvdao.common.CommonConst;
 import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
+import com.lvdao.common.enums.WithdrawAccountTypeEnum;
 import com.lvdao.common.util.DateUtils;
 import com.lvdao.common.util.StringUtil;
 import com.lvdao.entity.BonusReturnEntity;
@@ -57,32 +57,32 @@ import com.lvdao.service.IUserWithdrawService;
 @Controller
 @RequestMapping("/user")
 public class UserController {
-	
+
 	private static final Logger LOGGER = LoggerFactory.getLogger(UserController.class);
-	
+
 	@Autowired
 	private IAccountService accountService;
-	
+
 	@Autowired
 	private IDealLogService dealLogService;
-	
+
 	@Autowired
 	private IUserAccountService userAccountService;
-	
-	//用户提现servier
-    @Autowired	
+
+	// 用户提现servier
+	@Autowired
 	private IUserWithdrawService userWithdrawService;
-    
-    @Autowired
+
+	@Autowired
 	private IUserService userService;
-    
-    @Autowired
-    private IBonusReturnService bonusReturnService;
-    
-    @Autowired
-    private IDictService dictService;
-    
-    /**
+
+	@Autowired
+	private IBonusReturnService bonusReturnService;
+
+	@Autowired
+	private IDictService dictService;
+
+	/**
 	 * app跳转过来首页
 	 * 
 	 * @param request
@@ -92,14 +92,14 @@ public class UserController {
 	public ModelAndView index(HttpServletRequest request) {
 		String userName = request.getParameter("getUserName");
 		ModelAndView mav = new ModelAndView("/index");
-		if(userName == null || StringUtils.isBlank(userName)) {
+		if (userName == null || StringUtils.isBlank(userName)) {
 			return mav;
 		}
-		
+
 		try {
 			String userNamecode = getUserName(userName);
 			UserEntity user = getMobileUser(userNamecode);
-			request.getSession().setAttribute(CommonConst.SESSION_USER,user);
+			request.getSession().setAttribute(CommonConst.SESSION_USER, user);
 		} catch (Exception e) {
 			LOGGER.info("解码失败" + userName);
 			e.printStackTrace();
@@ -107,30 +107,29 @@ public class UserController {
 
 		return mav;
 	}
-	
-	
+
 	private String getUserName(String encodedText) throws Exception {
-	  final Base64 base64 = new Base64();
-	  final String text = "字串文字";
-	   final byte[] textByte = text.getBytes("UTF-8");
-	//编码
-	//final String encodedText = base64.encodeToString(textByte);
-	//解码
-	   return new String(base64.decode(encodedText), "UTF-8");
+		final Base64 base64 = new Base64();
+		final String text = "字串文字";
+		final byte[] textByte = text.getBytes("UTF-8");
+		// 编码
+		// final String encodedText = base64.encodeToString(textByte);
+		// 解码
+		return new String(base64.decode(encodedText), "UTF-8");
 	}
-	
-   /**
-    * 添加银行卡
-    * 
-    * @param request
-    * @return
-    */
+
+	/**
+	 * 添加银行卡
+	 * 
+	 * @param request
+	 * @return
+	 */
 	@RequestMapping(value = "/addBank", method = RequestMethod.GET)
 	public ModelAndView addBank(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/addBank");
 		return mav;
 	}
-	
+
 	/**
 	 * 现金提现
 	 * 
@@ -140,23 +139,9 @@ public class UserController {
 	@RequestMapping(value = "/cashWithdraw", method = RequestMethod.GET)
 	public ModelAndView orderList(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/addBank");
-		String accountType = request.getParameter("accountType");
-		
-		if (StringUtils.isBlank(accountType)) {
-			return mav;
-		}
-		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("userId", user.getUserId());
-		paramMap.put("accountId", accountType);
-		List<UserAccountEntity> userAccountList = userAccountService.queryList(paramMap);
-		if (userAccountList != null && userAccountList.size() > CommonConst.DIGIT_ZERO) {
-			UserAccountEntity userAccountEntity = userAccountList.get(CommonConst.DIGIT_ZERO);
-			mav.addObject("userAccount", userAccountEntity);
-		}
 		return mav;
 	}
-	
+
 	/**
 	 * 收入明细
 	 * 
@@ -167,8 +152,8 @@ public class UserController {
 	public ModelAndView incomeDetail(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/incomeDetail");
 		return mav;
-	}	
-	
+	}
+
 	/**
 	 * 选择投资项目
 	 * 
@@ -180,13 +165,7 @@ public class UserController {
 		ModelAndView mav = new ModelAndView("/investment");
 		return mav;
 	}
-	
-	/**
-	 * 个人中心
-	 * 
-	 * @param request
-	 * @return
-	 */
+
 	/**
 	 * 个人中心
 	 * 
@@ -294,7 +273,7 @@ public class UserController {
 
 		return mav;
 	}
-	
+
 	/**
 	 * 推荐人
 	 * 
@@ -302,81 +281,81 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/reference", method = RequestMethod.GET)
-	public ModelAndView reference(HttpServletRequest request,HttpServletResponse response) {
+	public ModelAndView reference(HttpServletRequest request, HttpServletResponse response) {
+		Map<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("/reference");
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
 		if (user != null) {
-			Map<String, Object> paramMap = new HashMap<String, Object>();
 			// 我的推荐人
-			if (!StringUtils.isBlank(user.getUserParentId()) && !StringUtils.isBlank(user.getUserParentName())) {
-				paramMap.clear();
-				paramMap.put("userId", user.getUserId());
-				paramMap.put("userName", user.getUserName());
-				List<UserEntity> userRecommendList = userService.queryList(paramMap);
-				
-				if (null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
-					UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
-					mav.addObject("myRecommendUser", userEntity);
-				}
-				
+
+			Map<String, Object> paramMap = new HashMap<String, Object>();
+			paramMap.clear();
+			paramMap.put("userId", user.getUserId());
+			paramMap.put("userParentName", user.getUserName());
+			List<UserEntity> userRecommendList = userService.queryList(paramMap);
+
+			if (null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
+				UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
+				String userParentName = userEntity.getUserParentName();
+				mav.addObject("myRecommendUser", userParentName);
 			}
 
 			// 直接推荐人数
 			paramMap.clear();
-			paramMap.put("userParentName", user.getUserName());
-			List<UserEntity> userList = userService.queryList(paramMap);
-			mav.addObject("userList", userList);
-			
-//			String createQRCode = createQRCode(response,request,"http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
-			mav.addObject("createQRCode", "http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
-			
+			paramMap.put("userParentName", user.getUserRealName());
+			int countUser = userService.countUser(paramMap);
+			mav.addObject("countUser", countUser);
+
+			// String createQRCode =
+			// createQRCode(response,request,"HTTP://192.168.0.1");
+			// mav.addObject("createQRCode", createQRCode);
+
 		}
 		return mav;
 	}
-	
-/*	*//**
-	 * 返还明细
-	 * 
-	 * @param request
-	 * @return
-	 *//*
-	@RequestMapping(value = "/returnDetail", method = RequestMethod.GET)
-	public ModelAndView returnDetail(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/returnDetail");
-		return mav;
-	}*/
-	
-/*	*//**
-	 * 奖励明细
-	 * 
-	 * @param request
-	 * @return
-	 *//*
-	@RequestMapping(value = "/rewardDetail", method = RequestMethod.GET)
-	public ModelAndView rewardDetail(HttpServletRequest request) {
-		ModelAndView mav = new ModelAndView("/rewardDetail");
-		return mav;
-	}
-	*/
-	
-	
+
+	/*	*//**
+			 * 返还明细
+			 * 
+			 * @param request
+			 * @return
+			 *//*
+			 * @RequestMapping(value = "/returnDetail", method =
+			 * RequestMethod.GET) public ModelAndView
+			 * returnDetail(HttpServletRequest request) { ModelAndView mav = new
+			 * ModelAndView("/returnDetail"); return mav; }
+			 */
+
+	/*	*//**
+			 * 奖励明细
+			 * 
+			 * @param request
+			 * @return
+			 *//*
+			 * @RequestMapping(value = "/rewardDetail", method =
+			 * RequestMethod.GET) public ModelAndView
+			 * rewardDetail(HttpServletRequest request) { ModelAndView mav = new
+			 * ModelAndView("/rewardDetail"); return mav; }
+			 */
 
 	/**
 	 * 根据
+	 * 
 	 * @author guotao
 	 * @param request
-	 * @param logType 账户日志类型
+	 * @param logType
+	 *            账户日志类型
 	 * @return
 	 */
-	@RequestMapping(value="/accountListDetail", method=RequestMethod.GET)
+	@RequestMapping(value = "/accountListDetail", method = RequestMethod.GET)
 	public ModelAndView accountListBySource(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/returnDetail");
 
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
-		if(user == null) {
+		if (user == null) {
 			return new ModelAndView("redirect:/index/index.do");
 		}
-		
+
 		String logType = request.getParameter("logType");
 		String selectDate = request.getParameter("selectDate");
 		if (StringUtils.isBlank(selectDate)) {
@@ -397,9 +376,9 @@ public class UserController {
 		mav.addObject("logType", logType);
 		mav.addObject("selectDate", selectDate);
 		return mav;
-	    
+
 	}
-	
+
 	/**
 	 * 返回这个用户类型的当月补贴总金额
 	 * 
@@ -410,7 +389,6 @@ public class UserController {
 	private String getAmountMoney(String userId, String accountType) {
 		return "";
 	}
-
 
 	/**
 	 * 提现申请
@@ -431,136 +409,40 @@ public class UserController {
 			return map;
 		}
 
-		String userMobile = request.getParameter("userMobile");
-		String realName = request.getParameter("realName");
-		String desc = request.getParameter("desc");
-		String amount = request.getParameter("amount");
+		String userMobile = request.getParameter("userMobile");// 支付宝账户
+		String realName = request.getParameter("realName");// 真实姓名
+		String amount = request.getParameter("amount");// 提现金额
 		String accountType = request.getParameter("accountType");
-		//
-		if (null == userMobile || StringUtils.isBlank(userMobile)) {
+		String comment = request.getParameter("desc");// 备注
+		if (StringUtils.isBlank(userMobile)) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			// map.put(CommonConst.RESPONSE_MESSAGE,
-			// MessageConst.WARN_USER_ACCOUNT_NULL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "支付宝账户不能为空");
 			return map;
 		}
-
-		if (null == userMobile || StringUtils.isBlank(userMobile)) {
+		if (StringUtils.isBlank(realName)) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			// map.put(CommonConst.RESPONSE_MESSAGE,
-			// MessageConst.WARN_USER_ACCOUNT_NAME_NULL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "姓名不能为空");
 			return map;
 		}
-
-		if (null == amount || StringUtils.isBlank(amount)) {
+		
+		if (StringUtils.isBlank(amount)) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			// map.put(CommonConst.RESPONSE_MESSAGE,
-			// MessageConst.WARN_USER_ACCOUNT_MONEY_NULL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "金额不能为空！");
 			return map;
 		}
-
-		if (null == accountType || StringUtils.isBlank(accountType)) {
+		
+		if (StringUtils.isBlank(accountType)) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			map.put(CommonConst.RESPONSE_MESSAGE, "账户类型不能为空");
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "获取被提现账户失败！");
 			return map;
 		}
+		
+		// 提现到哪种类型账户(默认是支付宝)
+		String toAccountName = WithdrawAccountTypeEnum.WITHDRAW_ACCOUNT_TYPE_ALIPAY.getValue();
+		Map<String, Object> resultMap = this.saveWithdrawals(user.getUserId(), amount, AccountEnum.RMB.getId(),
+				realName, accountType, userMobile, toAccountName, comment);
 
-		// fundTransBillNo 商户转账唯一订单号 payeeType
-		// (1、ALIPAY_USERID：支付宝账号对应的支付宝唯一用户号。以2088开头的16位纯数字组成。
-		// 2、ALIPAY_LOGONID：支付宝登录号，支持邮箱和手机号格式。)
-		// payerShowName 付款方姓名
-		// boolean result = AlipayUtil.FundTransToAccount("fundTransBillNo",
-		// "payeeType", userMobile, amount, "payerShowName", realName, desc);
-		/*
-		 * if(result) { map.put(CommonConst.RESPONSE_STATUS,
-		 * CommonConst.RESPONSE_STATUS_SUCCESS);
-		 * map.put(CommonConst.RESPONSE_MESSAGE,
-		 * MessageConst.REMINDER_APPLY_SUCCESS); return map; } else {
-		 * map.put(CommonConst.RESPONSE_STATUS,
-		 * CommonConst.RESPONSE_STATUS_FAIL);
-		 * map.put(CommonConst.RESPONSE_ERROR_MESSAGE,
-		 * MessageConst.REMINDER_EDIT_FAIL); return map; }
-		 */
-
-		List<UserAccountEntity> userAccountList = new ArrayList<>();
-		if (accountType.equals(CommonConst.STRING_TWO)) {
-			map.clear();
-			map.put("userId", user.getUserId());
-			map.put("accountId", AccountEnum.BOUNS_RETURN.getId());
-			userAccountList = userAccountService.queryList(map);
-			if (null == userAccountList || userAccountList.size() == CommonConst.DIGIT_ZERO) {
-				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "没有查询到该账户余额记录");
-				return map;
-			}
-
-		}
-		if (accountType.equals(CommonConst.STRING_TWO)) {
-			map.clear();
-			map.put("userId", user.getUserId());
-			map.put("accountId", AccountEnum.RECOMMEND_BONUS.getId());
-			userAccountService.queryList(map);
-			if (null == userAccountList || userAccountList.size() == CommonConst.DIGIT_ZERO) {
-				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "没有查询到该账户余额记录");
-				return map;
-			}
-		}
-
-		UserAccountEntity userAccountEntity = userAccountList.get(CommonConst.DIGIT_ZERO);
-		String accountBalance = userAccountEntity.getAccountAmount();
-		if (null == accountBalance || StringUtils.isBlank(accountBalance)) {
-			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "查询到该账户余额为空");
-			return map;
-		}
-
-		BigDecimal submitAmount = new BigDecimal(CommonConst.DIGIT_ZERO);
-		BigDecimal accountBalanceBig = new BigDecimal(accountBalance);
-
-		int res = accountBalanceBig.compareTo(new BigDecimal(amount));
-		if (res != -1) {
-			submitAmount = new BigDecimal(amount).subtract(new BigDecimal(accountBalance));
-		} else {
-			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "查询到该账户余额不足");
-			return map;
-		}
-
-		BigDecimal procedureMoney = submitAmount.multiply(new BigDecimal("0.2"));
-		BigDecimal withdrawMoney = submitAmount.subtract(procedureMoney);
-		BigDecimal Balance = accountBalanceBig.subtract(new BigDecimal(amount));
-		UserWithdrawEntity userWithdrawEntity = new UserWithdrawEntity();
-
-		userWithdrawEntity.setId(StringUtil.produceUUID());
-		userWithdrawEntity.setUserId(user.getUserId());
-		userWithdrawEntity.setUserName(user.getUserName());
-		userWithdrawEntity.setParentUserId(user.getUserParentId());
-		userWithdrawEntity.setParentUserName(userWithdrawEntity.getParentUserName());
-		userWithdrawEntity.setWithdrawAccountType(CommonConst.STRING_ONE); // 支付宝类型
-		userWithdrawEntity.setWithdrawAccount(userMobile);// 账户
-		userWithdrawEntity.setWithdrawMoney(withdrawMoney.toString());// 提现总额减去手续费
-		userWithdrawEntity.setWithdrawProcedure(procedureMoney.toString());// 手续费
-		userWithdrawEntity.setWithdrawTotal(amount);
-		userWithdrawEntity.setAccountBalance(Balance.toString());// 账户余额
-		userWithdrawEntity.setWithdrawAccountName("");// 银行
-		userWithdrawEntity.setWithdrawBankFullName("");// 开户行全名
-		userWithdrawEntity.setComment(desc);
-		userWithdrawEntity.setOrderSn(StringUtil.getOrderSn()); // 订单号
-		userWithdrawEntity.setStatus(CommonConst.DIGIT_ONE);
-
-		int result = userWithdrawService.insert(userWithdrawEntity);
-
-		if (result >= 1) {
-			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
-			// map.put(CommonConst.RESPONSE_MESSAGE,
-			// MessageConst.REMINDER_APPLY_SUCCESS);
-			return map;
-		} else {
-			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-			// map.put(CommonConst.RESPONSE_ERROR_MESSAGE,
-			// MessageConst.REMINDER_WITHDRAW_APPLY_FAIL);
-			return map;
-		}
+		return resultMap;
 	}
 
 	/**
@@ -576,7 +458,7 @@ public class UserController {
 		}
 		return isdecimal;
 	}
-	
+
 	/**
 	 * @author guotao
 	 * @since 2018-03-17
@@ -612,7 +494,7 @@ public class UserController {
 		}
 		return new DecimalFormat(formatStr).format(d);
 	}
-	
+
 	/**
 	 * 生成二维码
 	 * 
@@ -624,13 +506,14 @@ public class UserController {
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "/createQRCode")
-	public String createQRCode(HttpServletResponse response,HttpServletRequest request,@RequestParam(required = true, defaultValue = "") String codeUrl) {
-		
+	public String createQRCode(HttpServletResponse response, HttpServletRequest request,
+			@RequestParam(required = true, defaultValue = "") String codeUrl) {
+
 		try {
-			if(null == codeUrl){
+			if (null == codeUrl) {
 				return null;
 			}
-			
+
 			OutputStream os = response.getOutputStream();
 
 			response.reset();
@@ -642,10 +525,10 @@ public class UserController {
 			response.setDateHeader("Expire", 0);
 
 			Hashtable hints = new Hashtable();
-			
+
 			// 内容所使用编码
 			hints.put(EncodeHintType.CHARACTER_SET, "utf-8");
-			BitMatrix bitMatrix = new MultiFormatWriter().encode(codeUrl,BarcodeFormat.QR_CODE, 300, 300, hints);
+			BitMatrix bitMatrix = new MultiFormatWriter().encode(codeUrl, BarcodeFormat.QR_CODE, 300, 300, hints);
 			// 生成二维码
 			MatrixToImageWriter.writeToStream(bitMatrix, "jpg", os);
 			os.close();
@@ -656,8 +539,7 @@ public class UserController {
 		}
 		return null;
 	}
-	
-	
+
 	/**
 	 * 验证手机号反回userEntity
 	 * 
@@ -677,7 +559,7 @@ public class UserController {
 			return list.get(CommonConst.DIGIT_ZERO);
 		}
 	}
-	
+
 	/**
 	 * 用户提交提现申请(暂默认提现到支付宝)
 	 *
@@ -694,13 +576,13 @@ public class UserController {
 	 *            提现方式(WithdrawAccountTypeEnum为准)
 	 * @param accountNum
 	 *            提现至账户(银行卡号或支付宝账号)
-	 * @param toAccountName
-	 *            提现至账户名称
+	 * @param toAccountType
+	 *            提现至账户类型
 	 * @param comment
 	 *            备注
 	 */
 	private Map<String, Object> saveWithdrawals(String userId, String amount, String accountId, String userRealName,
-			String type, String accountNum, String toAccountName, String comment) {
+			String type, String accountNum, String toAccountType, String comment) {
 		LOGGER.info("Entering UserWithdrawService saveWithdrawals...  parameters = :{}");
 
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -763,9 +645,31 @@ public class UserController {
 		withdrawEntity.setId(StringUtil.produceUUID());
 		withdrawEntity.setUserId(userId);
 		withdrawEntity.setUserName(userAccountEntity.getUserName());
+		String accountTypeName=null;
+		for (AccountEnum account : AccountEnum.values()) {
+			if (accountId.equals(account.getId())) {
+				accountTypeName=account.getValue();
+				break;
+			}
+		}
+		withdrawEntity.setAccountTypeId(accountId);
+		withdrawEntity.setAccountTypeName(accountTypeName);
 		withdrawEntity.setWithdrawMoney(amount);// 提现金额(只能100的倍数)
 		withdrawEntity.setWithdrawAccount(accountNum);// 提现账号
 		withdrawEntity.setWithdrawAccountType(type);// 提现方式（枚举类为准）
+		
+		String toAccountName=null;
+		for (WithdrawAccountTypeEnum enums : WithdrawAccountTypeEnum.values()) {
+			if (toAccountType.equals(enums.getId())) {
+				toAccountName=enums.getValue();
+						break;
+			}
+		}
+		if (StringUtils.isBlank(toAccountName)) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "获取接收账户类型失败");
+			return result;
+		}
 		withdrawEntity.setWithdrawBankFullName(toAccountName);// 银行全称
 		withdrawEntity.setWithdrawAccountName(userRealName);// 开户人名称（真实姓名）
 		withdrawEntity.setWithdrawProcedure(serviceCharge.toString());// 手续费
@@ -855,5 +759,4 @@ public class UserController {
 		return amout.setScale(2, BigDecimal.ROUND_DOWN).toString();// 截取小数点后两位
 	}
 
-	
 }
