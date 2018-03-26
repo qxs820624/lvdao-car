@@ -8,7 +8,6 @@
     	<meta name="apple-mobile-web-app-capable" content="yes">
     	<script type="text/javascript" src="../resources/js/jquery-2.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
-        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
     </head>
     <body>
     	<div class="container">
@@ -33,69 +32,42 @@
                         </div>
                         <div class="erweima" style="width:60%;position:fixed;bottom:20%;left:20%;padding:20px;box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;">
                             <!-- 二维码 -->
-                            <img src="../resources/images/erweima.jpg" alt="">
+                            <img src="/user/createQRCode.do?codeUrl=${createQRCode}" alt="">
                             <p style="text-align:center;margin-top:10px;">我的推荐二维码</p>
                         </div>
                     </li>
                     <li style="display:none;">
-                        <div class="list">
-                            <ul class="outer">
-                                <li>序号</li>
-                                <li>姓名</li>
-                                <li>手机号</li>
-                            </ul>
-                            <ol id="reference_data">
-                                <li class="outer">
-                                    <span>1</span>
-                                    <span>兔斯基</span>
-                                    <span>15012341718</span>
-                                </li>
-                            </ol>
+                        <div class="table">
+                            <table border="0" cellspacing="0" cellpadding="0">
+                                <thead>
+                                    <tr>
+                                        <th>序号</th>
+                                        <th>姓名</th>
+                                        <th>手机号</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <#if userList??>
+                                    	<#list userList as user>
+		                                    <tr>
+		                                        <td>${user_index+1}</td>
+		                                        <td>${user.userRealName!''}</td>
+		                                        <td>${user.userName!''}</td>
+		                                    </tr>
+                                    	</#list>
+                                    </#if>
+                                </tbody>
+                            </table>
                         </div>
                     </li>
                 </ol>
             </div>
         </div>
-        <script type="text/javascript" src="../../resources/layui/layui.js"></script>
         <script type="text/javascript">
             $(".reference_cons>ul>li").click(function(event) {
                 $(this).addClass('reference_current').siblings().removeClass('reference_current');
                 $(".reference_cons>ol>li").eq($(this).index()).show().siblings().hide();
             });
-
-            var Width = $(window).width();
-            if(Width<321){
-                $(".erweima").css('bottom', '10%');
-            }else{
-                $(".erweima").css('bottom', '20%');
-            }
-
-            var er_Width = $(".erweima").width();
-            $(".erweima>img").height(er_Width);
-
-            //流加载
-            layui.use('flow', function(){
-                var flow = layui.flow;
-                flow.load({
-                    elem: '#reference_data' //流加载容器
-                    ,scrollElem: '' //滚动条所在元素，一般不用填，此处只是演示需要。
-                    ,done: function(page, next){ //执行下一页的回调
-                  
-                    //模拟数据插入
-                    setTimeout(function(){
-                        var lis = [];
-                        for(var i = 0; i < 20; i++){
-                            //TODO  后台数据
-                            lis.push('<li class="outer"><span>'+ ( (page-1)*20 + i + 1 ) +'</span><span>兔斯基</span><span>15012341718</span></li>')
-                        }
-                    
-                        //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
-                        //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
-                        next(lis.join(''), page < 10); //假设总页数为 10
-                    }, 500);
-                    }
-                });
-            })
         </script>
     </body>
 </html>

@@ -299,11 +299,11 @@ public class UserController {
 			// 直接推荐人数
 			paramMap.clear();
 			paramMap.put("userParentName", user.getUserRealName());
-			int countUser = userService.countUser(paramMap);
-			mav.addObject("countUser", countUser);
+			List<UserEntity> userList = userService.queryList(paramMap);
+			mav.addObject("userList", userList);
 			
-//			String createQRCode = createQRCode(response,request,"HTTP://192.168.0.1");
-//			mav.addObject("createQRCode", createQRCode);
+//			String createQRCode = createQRCode(response,request,"http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
+			mav.addObject("createQRCode", "http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
 			
 		}
 		return mav;
