@@ -11,6 +11,8 @@ public class UserWithdrawEntity extends BaseEntity implements Serializable {
 	private String userName;	//用户名
 	private String parentUserId;
 	private String parentUserName;
+	private String accountTypeId;
+	private String accountTypeName;
 	private String withdrawAccountType; // 银行名称
 	private String withdrawAccount; // 提现账户
 	private String withdrawMoney; // 提现金额
@@ -139,6 +141,22 @@ public class UserWithdrawEntity extends BaseEntity implements Serializable {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public synchronized String getAccountTypeId() {
+		return accountTypeId;
+	}
+
+	public synchronized void setAccountTypeId(String accountTypeId) {
+		this.accountTypeId = accountTypeId;
+	}
+
+	public synchronized String getAccountTypeName() {
+		return accountTypeName;
+	}
+
+	public synchronized void setAccountTypeName(String accountTypeName) {
+		this.accountTypeName = accountTypeName;
 	}
 	
 }
