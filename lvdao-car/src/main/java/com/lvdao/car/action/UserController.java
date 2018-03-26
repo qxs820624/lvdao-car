@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
@@ -38,13 +40,16 @@ import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
 import com.lvdao.common.util.DateUtils;
 import com.lvdao.common.util.StringUtil;
+import com.lvdao.entity.BonusReturnEntity;
 import com.lvdao.entity.DealLogEntity;
+import com.lvdao.entity.DictEntity;
 import com.lvdao.entity.UserAccountEntity;
 import com.lvdao.entity.UserEntity;
 import com.lvdao.entity.UserWithdrawEntity;
 import com.lvdao.service.IAccountService;
 import com.lvdao.service.IBonusReturnService;
 import com.lvdao.service.IDealLogService;
+import com.lvdao.service.IDictService;
 import com.lvdao.service.IUserAccountService;
 import com.lvdao.service.IUserService;
 import com.lvdao.service.IUserWithdrawService;
@@ -73,6 +78,9 @@ public class UserController {
     
     @Autowired
     private IBonusReturnService bonusReturnService;
+    
+    @Autowired
+    private IDictService dictService;
     
     /**
 	 * app跳转过来首页
@@ -132,6 +140,20 @@ public class UserController {
 	@RequestMapping(value = "/cashWithdraw", method = RequestMethod.GET)
 	public ModelAndView orderList(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/addBank");
+		String accountType = request.getParameter("accountType");
+		
+		if (StringUtils.isBlank(accountType)) {
+			return mav;
+		}
+		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("userId", user.getUserId());
+		paramMap.put("accountId", accountType);
+		List<UserAccountEntity> userAccountList = userAccountService.queryList(paramMap);
+		if (userAccountList != null && userAccountList.size() > CommonConst.DIGIT_ZERO) {
+			UserAccountEntity userAccountEntity = userAccountList.get(CommonConst.DIGIT_ZERO);
+			mav.addObject("userAccount", userAccountEntity);
+		}
 		return mav;
 	}
 	
@@ -159,6 +181,12 @@ public class UserController {
 		return mav;
 	}
 	
+	/**
+	 * 个人中心
+	 * 
+	 * @param request
+	 * @return
+	 */
 	/**
 	 * 个人中心
 	 * 
@@ -214,16 +242,19 @@ public class UserController {
 				String accountbonuAmount = bonusReturnAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
 				mav.addObject("accountbonuAmount", roundByScale(accountbonuAmount, 2));
 			}
+			String sumBonusRaturn = this.sumBonusRaturn(user.getUserId());
+			mav.addObject("sumBonusRaturn", sumBonusRaturn);
 
 			// 乘车券账户
 			map.clear();
 			map.put("userId", user.getUserId());
 			map.put("accountId", AccountEnum.RIDE_COUPON.getId());
 			List<UserAccountEntity> rideCouponAccountList = userAccountService.queryList(map);
-
 			if (rideCouponAccountList != null && rideCouponAccountList.size() > CommonConst.DIGIT_ZERO) {
+				UserAccountEntity accountEntity = rideCouponAccountList.get(CommonConst.DIGIT_ZERO);
 				String accountRideCouponAmount = rideCouponAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
 				mav.addObject("rideCouponAccount", roundByScale(accountRideCouponAmount, 2));
+				mav.addObject("expirationDate", expirationDate(accountEntity.getCreateTime()));
 			}
 
 			// 燃油包账户
@@ -233,21 +264,21 @@ public class UserController {
 			List<UserAccountEntity> shareRewardAccountList = userAccountService.queryList(map);
 
 			if (shareRewardAccountList != null && shareRewardAccountList.size() > CommonConst.DIGIT_ZERO) {
-				String accountShareRewardAmount = shareRewardAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
-				mav.addObject("shareRewardAccount", roundByScale(accountShareRewardAmount, 2));
+				UserAccountEntity accountEntity = shareRewardAccountList.get(CommonConst.DIGIT_ZERO);
+				String accountShareRewardAmount = shareRewardAccountList.get(CommonConst.DIGIT_ZERO).getOwnAmount();
+				mav.addObject("ownAmount", roundByScale(accountShareRewardAmount, 2));
+				mav.addObject("packagePrice", roundByScale(accountEntity.getAccountAmount(), 2));
+
 			}
-			
-			//燃油补贴返还  TODO
-//			map.clear();
-//			map.put("userId", user.getUserId());
-//			List<BonusReturnEntity> bonusReturnList = bonusReturnService.queryList(map);
-//			BigDecimal totalOrderAmount = new BigDecimal(CommonConst.DIGIT_ZERO);
-//			BigDecimal totalReturnAmount = new BigDecimal(CommonConst.DIGIT_ZERO);
-//			for (BonusReturnEntity bonusReturnEntity : bonusReturnList) {
-//				totalOrderAmount = totalOrderAmount.add(new BigDecimal(bonusReturnEntity.getOrderAmount()));
-//				totalReturnAmount = totalReturnAmount.add(new BigDecimal(bonusReturnEntity.getReturnAmount()));
-//			}
-			
+
+			// 推荐人数
+			List<UserEntity> recommendList = getUserRecommendList(user.getUserId());
+			if (null == recommendList || recommendList.isEmpty()) {
+				mav.addObject("sumRecommend", CommonConst.STRING_ZERO);
+			} else {
+				mav.addObject("sumRecommend", recommendList.size());
+			}
+
 			// 激活状态
 			map.clear();
 			map.put("userId", user.getUserId());
@@ -272,27 +303,27 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/reference", method = RequestMethod.GET)
 	public ModelAndView reference(HttpServletRequest request,HttpServletResponse response) {
-		Map<String, Object> map = new HashMap<String, Object>();
 		ModelAndView mav = new ModelAndView("/reference");
 		UserEntity user = (UserEntity) request.getSession().getAttribute(CommonConst.SESSION_USER);
 		if (user != null) {
-			// 我的推荐人
-
 			Map<String, Object> paramMap = new HashMap<String, Object>();
-			paramMap.clear();
-			paramMap.put("userId", user.getUserId());
-			paramMap.put("userParentName", user.getUserName());
-			List<UserEntity> userRecommendList = userService.queryList(paramMap);
-
-			if (null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
-				UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
-				String userParentName = userEntity.getUserParentName();
-				mav.addObject("myRecommendUser", userParentName);
+			// 我的推荐人
+			if (!StringUtils.isBlank(user.getUserParentId()) && !StringUtils.isBlank(user.getUserParentName())) {
+				paramMap.clear();
+				paramMap.put("userId", user.getUserId());
+				paramMap.put("userName", user.getUserName());
+				List<UserEntity> userRecommendList = userService.queryList(paramMap);
+				
+				if (null != userRecommendList && userRecommendList.size() != CommonConst.DIGIT_ZERO) {
+					UserEntity userEntity = userRecommendList.get(CommonConst.DIGIT_ZERO);
+					mav.addObject("myRecommendUser", userEntity);
+				}
+				
 			}
 
 			// 直接推荐人数
 			paramMap.clear();
-			paramMap.put("userParentName", user.getUserRealName());
+			paramMap.put("userParentName", user.getUserName());
 			List<UserEntity> userList = userService.queryList(paramMap);
 			mav.addObject("userList", userList);
 			
@@ -646,5 +677,183 @@ public class UserController {
 			return list.get(CommonConst.DIGIT_ZERO);
 		}
 	}
+	
+	/**
+	 * 用户提交提现申请(暂默认提现到支付宝)
+	 *
+	 * @since 2018年3月22日 10:30
+	 * @param userId
+	 *            用户ID
+	 * @param amount
+	 *            提现金额
+	 * @param accountId
+	 *            从当前账户提现(账户类型ID)
+	 * @param userRealName
+	 *            提现至账号的用户真实姓名
+	 * @param type
+	 *            提现方式(WithdrawAccountTypeEnum为准)
+	 * @param accountNum
+	 *            提现至账户(银行卡号或支付宝账号)
+	 * @param toAccountName
+	 *            提现至账户名称
+	 * @param comment
+	 *            备注
+	 */
+	private Map<String, Object> saveWithdrawals(String userId, String amount, String accountId, String userRealName,
+			String type, String accountNum, String toAccountName, String comment) {
+		LOGGER.info("Entering UserWithdrawService saveWithdrawals...  parameters = :{}");
+
+		Map<String, Object> result = new HashMap<String, Object>();
+		// 提现金额
+		BigDecimal withdrawalsAmount = new BigDecimal(amount);
+		// 校验提现金额(只能是100的倍数)
+		int compare = new BigDecimal(withdrawalsAmount.intValue()).compareTo(withdrawalsAmount);
+		// 非百的整数倍
+		if (compare != 0) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "请输入一百的整数倍提现金额。");
+			return result;
+		}
+
+		// 获取当前用户的账号余额
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("userId", userId);
+		map.put("accountId", accountId);
+		List<UserAccountEntity> userAccountEntities = userAccountService.queryList(map);
+		if (userAccountEntities == null || userAccountEntities.size() == CommonConst.DIGIT_ZERO) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "该用户的账户不存在");
+			return result;
+		}
+		UserAccountEntity userAccountEntity = userAccountEntities.get(CommonConst.DIGIT_ZERO);
+		String userAmount = userAccountEntity.getAccountAmount();
+		if (StringUtils.isBlank(userAmount)) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "获取账户余额失败！");
+			return result;
+		}
+
+		// 账号余额
+		BigDecimal userAccoutAmount = new BigDecimal(userAmount);
+		// 字典表查询手续费
+		map.clear();
+		map.put("dictId", "withdrawal_commission_rate");
+		List<DictEntity> dictEntities = dictService.queryList(map);
+		if (dictEntities == null || dictEntities.size() == CommonConst.DIGIT_ZERO) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "获取手续费失败，请稍后重试。");
+			return result;
+		}
+		// 提现费用率
+		BigDecimal reat = new BigDecimal(dictEntities.get(CommonConst.DIGIT_ZERO).getDictValue());
+
+		// 手续费
+		BigDecimal serviceCharge = reat.multiply(withdrawalsAmount);
+
+		// 若账户总额小于提现金额加上手续费则返回失败
+		int compareTo = userAccoutAmount.compareTo(serviceCharge.add(withdrawalsAmount));
+		if (compareTo < 0) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "账户余额不足，您可尝试减小提现金额！");
+			return result;
+		}
+
+		// 生成提现记录
+		UserWithdrawEntity withdrawEntity = new UserWithdrawEntity();
+		withdrawEntity.setId(StringUtil.produceUUID());
+		withdrawEntity.setUserId(userId);
+		withdrawEntity.setUserName(userAccountEntity.getUserName());
+		withdrawEntity.setWithdrawMoney(amount);// 提现金额(只能100的倍数)
+		withdrawEntity.setWithdrawAccount(accountNum);// 提现账号
+		withdrawEntity.setWithdrawAccountType(type);// 提现方式（枚举类为准）
+		withdrawEntity.setWithdrawBankFullName(toAccountName);// 银行全称
+		withdrawEntity.setWithdrawAccountName(userRealName);// 开户人名称（真实姓名）
+		withdrawEntity.setWithdrawProcedure(serviceCharge.toString());// 手续费
+		withdrawEntity.setWithdrawTotal(serviceCharge.add(withdrawalsAmount).toString());// 提现总额=提现金额+手续费
+		withdrawEntity.setAccountBalance(userAccoutAmount.toString());// 账户余额
+		withdrawEntity.setCreateUserId(userId);
+		withdrawEntity.setOrderSn(StringUtil.getOrderSn());
+		withdrawEntity.setCreateTime(new Date());
+		withdrawEntity.setActive(true);
+		withdrawEntity.setStatus(CommonConst.DIGIT_ONE);
+		withdrawEntity.setComment(comment);
+		// 插入数据
+		int insert = userWithdrawService.insert(withdrawEntity);
+		if (insert < 1) {
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "提交失败，请刷新页面后重试！");
+			return result;
+		}
+		// 更新用户账户
+		BigDecimal nowAccountAmou = userAccoutAmount.subtract(serviceCharge).subtract(withdrawalsAmount);
+		userAccountEntity.setAccountAmount(nowAccountAmou.setScale(9, BigDecimal.ROUND_HALF_UP).toString());
+		userAccountEntity.setUpdateUserId(userAccountEntity.getUserId());
+		userAccountEntity.setUpdateUserName(userAccountEntity.getUserName());
+		userAccountEntity.setUpdateTime(new Date());
+		int updateResult = userAccountService.update(userAccountEntity);
+		if (updateResult < 1) {
+			userWithdrawService.delete(withdrawEntity);
+			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			result.put(CommonConst.RESPONSE_MESSAGE, "提交失败，请刷新页面后重试！");
+			return result;
+		}
+		result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+		result.put(CommonConst.RESPONSE_MESSAGE, "提交成功！");
+		return result;
+
+	}
+
+	/**
+	 * 获取用户推荐的所有人
+	 */
+	private List<UserEntity> getUserRecommendList(String userId) {
+		if (StringUtils.isBlank(userId)) {
+			return null;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("userParentId", userId);
+		List<UserEntity> list = userService.queryList(map);
+		return list;
+	}
+
+	/**
+	 * 获取乘车券过期日期
+	 */
+	private String expirationDate(Date date) {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		Date expirationDate = calendar.getTime();
+		return format.format(expirationDate);
+	}
+
+	/**
+	 * 获取投资者投资返还记录已返还总额
+	 *
+	 * @author fqb @since2018年3月26日 @param @return @throws
+	 */
+	private String sumBonusRaturn(String userId) {
+		if (StringUtils.isBlank(userId)) {
+			return CommonConst.STRING_ZERO;
+		}
+		Map<String, Object> map = new HashMap<>();
+		map.put("userId", userId);
+		List<BonusReturnEntity> list = bonusReturnService.queryList(map);
+		if (null == list || list.isEmpty()) {
+			return CommonConst.STRING_ZERO;
+		}
+		BigDecimal amout = new BigDecimal("0.00");
+		for (BonusReturnEntity bonusReturn : list) {
+			String returnAmount = bonusReturn.getReturnAmount();
+			if (StringUtils.isBlank(returnAmount)) {
+				continue;
+			}
+			amout = amout.add(new BigDecimal(returnAmount));
+		}
+
+		return amout.setScale(2, BigDecimal.ROUND_DOWN).toString();// 截取小数点后两位
+	}
+
 	
 }

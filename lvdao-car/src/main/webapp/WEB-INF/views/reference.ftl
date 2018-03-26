@@ -24,11 +24,11 @@
                     <li>
                         <div class="reference_info outer">
                             <p>姓名</p>
-                            <span><#if userParentName??>${userParentName}</span><#else>？？</#if></span>
+                            <span><#if myRecommendUser??>${myRecommendUser.userRealName!''}</span><#else>暂无</#if></span>
                         </div>
                         <div class="reference_info outer">
                             <p>手机号</p>
-                            <span><#if myRecommendUser??>${myRecommendUser}</span><#else>？？</#if></span>
+                            <span><#if myRecommendUser??>${myRecommendUser.userName!''}</span><#else>暂无</#if></span>
                         </div>
                         <div class="erweima" style="width:60%;position:fixed;bottom:20%;left:20%;padding:20px;box-sizing:border-box; -webkit-box-sizing:border-box; -moz-box-sizing:border-box;">
                             <!-- 二维码 -->

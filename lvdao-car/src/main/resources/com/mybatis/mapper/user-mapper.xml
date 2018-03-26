@@ -30,6 +30,8 @@
 	    <result column="USER_PAYMENT_PASSWORD" property="userPaymentPassword" jdbcType="VARCHAR" />
 	    <result column="USER_DEGREE_ID" property="userDegreeId" jdbcType="VARCHAR" />
 	   	<result column="USER_DEGREE_NAME" property="userDegreeName" jdbcType="VARCHAR" />
+	   	<result column="USER_PARENT_ID" property="userParentId" jdbcType="VARCHAR" />
+	   	<result column="USER_PARENT_NAME" property="userParentName" jdbcType="VARCHAR" />
 	    <result column="USER_BANK_NAME" property="userBankName" jdbcType="VARCHAR" />
 	    <result column="USER_BANK_CARD_NO" property="userBankCardNo" jdbcType="VARCHAR" />
 	    <result column="ACTIVE" property="active" jdbcType="TINYINT" />
