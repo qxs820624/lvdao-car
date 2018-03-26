@@ -1,6 +1,5 @@
 package com.lvdao.car.action;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -9,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -22,13 +20,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.zxing.BarcodeFormat;
@@ -42,7 +38,6 @@ import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
 import com.lvdao.common.util.DateUtils;
 import com.lvdao.common.util.StringUtil;
-import com.lvdao.entity.BonusReturnEntity;
 import com.lvdao.entity.DealLogEntity;
 import com.lvdao.entity.UserAccountEntity;
 import com.lvdao.entity.UserEntity;
@@ -53,7 +48,6 @@ import com.lvdao.service.IDealLogService;
 import com.lvdao.service.IUserAccountService;
 import com.lvdao.service.IUserService;
 import com.lvdao.service.IUserWithdrawService;
-import com.lvdao.service.impl.BonusReturnServiceImpl;
 
 @Controller
 @RequestMapping("/user")
