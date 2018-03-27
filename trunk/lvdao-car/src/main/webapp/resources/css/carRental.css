@@ -222,10 +222,10 @@ footer a.selected i{ color:#076842; }
 /* 汽车信息 */
 .no_border{ border:none !important; }
 .car_info_cons .car_num{ height:48px; font-size: 15px; line-height: 48px; color:#3A3A3A; padding-left:18px; }
-.car_info_cons>ul>li{ height:80px; background:#fff; border-top:1px solid #E4E4E4; padding:0 15px 0 18px; }
-.car_info_cons>ul>li .car_type>span{ float:left; font-size: 18px; color:#3A3A3A; line-height:20px; margin-top:15px; }
-.car_info_cons>ul>li .car_type>i{ float:right; font-size: 18px; color:#3A3A3A; line-height:20px; margin-top:15px; font-family: Arial; }
-.car_info_cons>ul>li>p{ font-size:12px; color:#3A3A3A; line-height:16px; margin-top:15px; background-image: url(../images/icon_address.png); background-repeat: no-repeat; background-size: 15px 15px; background-position: left center; padding-left:25px; }
+.car_info_cons>ul>a>li{ height:80px; background:#fff; border-top:1px solid #E4E4E4; padding:0 15px 0 18px; }
+.car_info_cons>ul>a>li .car_type>span{ float:left; font-size: 18px; color:#3A3A3A; line-height:20px; margin-top:15px; }
+.car_info_cons>ul>a>li .car_type>i{ float:right; font-size: 18px; color:#3A3A3A; line-height:20px; margin-top:15px; font-family: Arial; }
+.car_info_cons>ul>a>li>p{ font-size:12px; color:#3A3A3A; line-height:16px; margin-top:15px; background-image: url(../images/icon_address.png); background-repeat: no-repeat; background-size: 15px 15px; background-position: left center; padding-left:25px; }
 
 /* 返还明细、收入明细 、奖励明细*/
 .total{ height:45px; padding:0 13px; }

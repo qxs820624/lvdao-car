@@ -16,22 +16,20 @@
                 <span>汽车信息</span>
             </header>
             <div class="car_info_cons">
-                <div class="car_num">投资汽车数：2辆</div>
+                <div class="car_num">投资汽车数：${carSize!'0'}辆</div>
                 <ul>
-                    <li class="no_border">
-                        <div class="car_type outer">
-                            <span>一汽宝来</span>
-                            <i>粤B 888888</i>
-                        </div>
-                        <p>当前位置：宝源路1234号</p>
-                    </li>
-                    <li>
-                        <div class="car_type outer">
-                            <span>奥迪a4l</span>
-                            <i>粤B 888888</i>
-                        </div>
-                        <p>当前位置：宝源路1234号</p>
-                    </li>
+                    <#if userOrderList??>
+                    	<#list userOrderList as userOrder>
+                    	<a href="/vehicle/viewCarVoucher.do?orderId=${userOrder.orderId}">
+	                    <li class="no_border">
+	                        <div class="car_type outer">
+	                            <span>${userOrder.orderMoney}元新能源汽车</span>
+	                            <i><#if userOrder.paidStatus == 1>已支付<#else>待审核</#if></i>
+	                        </div>
+	                        <p>当前位置：宝源路1234号</p>
+	                    </li></a>
+	                    </#list>
+                    </#if>
                 </ul>
             </div>
         </div>

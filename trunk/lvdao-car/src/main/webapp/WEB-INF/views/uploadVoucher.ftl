@@ -17,6 +17,7 @@
                 <span>上传付款凭证</span>
             </header>
             <input type = 'hidden' id = 'picUrl' value='' />
+            <input type = 'hidden' id = 'picRealUrl' value='' />
             <input type = 'hidden' id = 'orderAmount' value='' />
             <input type ="hidden" id = "orderType" value= "${orderType}"  />
             <div class="upload_cons">
@@ -31,7 +32,7 @@
                         <div class="layui-input-block" style="margin-left:40%;">
                             <select id="addType" name="addType" lay-filter="aihao">
                                 <option value="" selected=""></option>
-                                <option value="2">自主加盟</option>
+                                <option value="0">自主加盟</option>
                                 <option value="1">代人申购</option>
                             </select>
                         </div>
@@ -89,6 +90,7 @@
                       if(res.status) {
                       layer.msg(res.message);
                       $("#picUrl").val(res.picName);
+                      $("#picRealUrl").val(res.url);
                       $("#upload_file").attr("style", "background:url("+res.url+")");
                       }else{
                       layer.msg(res.message);
@@ -102,6 +104,7 @@
 	            //监听提交
 	            form.on('submit(formDemo)', function(data){
 		           	var picUrl = $("#picUrl").val();
+		           	var picRealUrl = $("#picRealUrl").val();
 	            	var addType = $("#addType option:selected").val();
 	            	var payMethod = $("#payMethod option:selected").val();
 	            	var addUserMoblile = $("#addUserMoblile").val();
@@ -129,6 +132,7 @@
 	            	jQuery.ajax({
 						data : {
 							"picUrl":picUrl,
+							"picRealUrl":picRealUrl,
 							"addType":addType,
 							"orderType":orderType,
 							"payMethod":payMethod,
