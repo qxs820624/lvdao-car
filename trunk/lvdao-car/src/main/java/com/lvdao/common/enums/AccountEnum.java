@@ -14,13 +14,13 @@ import org.apache.commons.lang.StringUtils;
 public enum AccountEnum {
 	
 	RMB("1", "现金账户"),
-//	INTEGRAL("2","积分账户"),
-//	RMB_COUPON("3","现金券账户"),
-	STOCK("2","股券积分账户"),
-	RECOMMEND_BONUS("3","分享补贴账户"),
-	BOUNS_RETURN("4","燃油补贴账户"),
-	RIDE_COUPON("5","乘车券账户"),
-	SHARE_REWARD("6","燃油包账户");
+	INTEGRAL("2","积分账户"),
+	RMB_COUPON("3","现金券账户"),
+	STOCK("4","股券积分账户"),
+	RECOMMEND_BONUS("5","分享补贴账户"),
+	BOUNS_RETURN("6","燃油补贴账户"),
+	RIDE_COUPON("7","乘车券账户"),
+	SHARE_REWARD("8","燃油包账户");
 
     private String id;
     private String value;
