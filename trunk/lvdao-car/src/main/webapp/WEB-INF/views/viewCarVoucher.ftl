@@ -14,7 +14,7 @@
     	<div class="container">
             <header>
                 <a class="return_arr" href="/vehicle/carInfo.do"></a>
-                <span>返回</span>
+                <span>查看车辆凭证</span>
             </header>
             <div class="upload_cons">
                 <div class="layui-upload">
