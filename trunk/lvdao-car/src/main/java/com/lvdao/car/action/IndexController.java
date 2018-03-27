@@ -2,6 +2,7 @@ package com.lvdao.car.action;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,12 @@ public class IndexController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/index");
+		String userName = request.getParameter("userName");
+		if (StringUtils.isBlank(userName)) {
+			userName = "18800000001";
+		}
 		//测试数据
-		UserEntity userEntity = userService.queryByUserName("18800000001");
+		UserEntity userEntity = userService.queryByUserName(userName);
 		request.getSession().setAttribute(CommonConst.SESSION_USER, userEntity);
 		return mav;
 	}
