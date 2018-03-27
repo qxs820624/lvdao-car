@@ -21,22 +21,22 @@
                         <img src="../../resources/images/info_system.png" alt="">
                         <div class="info_center">
                             <span>系统通知</span>
-                            <p>平台从2018年5月开始将推出更高端的投平台从2018年5月开始将推出更高端的投</p>
+                            <p><#if systemMessageVO??>${systemMessageVO.dictValue!''}</#if></p>
                         </div>
                         <div class="info_right">
-                            <span>2条</span>
-                            <i>1分钟前</i>
+                            <span>${systemMessageSize!'0'}条</span>
+                            <#if systemMessageTime??><i>${systemMessageTime!''}</i></#if>
                         </div>
                     </li>
                     <li class="outer" onclick="javascript:window.location.href='/info/infoMoney.do'">
                         <img src="../../resources/images/info_money.png" alt="">
                         <div class="info_center">
                             <span>收款通知</span>
-                            <p>您的收入账户进账128元，已存入账户余额！</p>
+                            <p><#if returnMessageVO??>您的账户进账${returnMessageVO.amount!'0'}，已存入${returnMessageVO.accountTypeName!''}账户余额！</#if></p>
                         </div>
                         <div class="info_right">
-                            <span>2条</span>
-                            <i>1分钟前</i>
+                            <span>${returnMessageSize!'0'}条</span>
+                            <#if returnMessageTime??><i>${returnMessageTime!''}</i></#if>
                         </div>
                     </li>
                     <li class="outer">

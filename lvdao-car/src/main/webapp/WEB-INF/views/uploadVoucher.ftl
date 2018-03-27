@@ -19,7 +19,7 @@
             <input type = 'hidden' id = 'picUrl' value='' />
             <input type = 'hidden' id = 'picRealUrl' value='' />
             <input type = 'hidden' id = 'orderAmount' value='' />
-            <input type ="hidden" id = "orderType" value= "${orderType}"  />
+            <input type ="hidden" id = "orderType" value= "<#if orderType??>${orderType}</#if>"  />
             <div class="upload_cons">
                 <div class="layui-upload">
                     <button type="button" class="upload_file" id="upload_file"></button>
@@ -27,6 +27,7 @@
                 </div>
                 
                 <form class="layui-form" style="margin-top:50px;">
+                <input type = 'hidden' id = 'submitStatus' name="submitStatus" value='0' />
                     <div class="layui-form-item">
                         <label class="layui-form-label" style="text-align:right;padding:9px 0;">加盟类型</label>
                         <div class="layui-input-block" style="margin-left:40%;">
@@ -150,6 +151,7 @@
 				        success: function(data) {
 				        	if(data.status) {
 			            		//window.location.href = "/order/uploadSucceed.do";
+			            		$("#submitStatus").val("1");
 			            		layer.alert(data.message);
 			            		return false;
 				        	} else {
