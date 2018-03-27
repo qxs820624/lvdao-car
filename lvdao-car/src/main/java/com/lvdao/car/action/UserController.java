@@ -431,6 +431,7 @@ public class UserController {
 		String realName = request.getParameter("userRealName");// 真实姓名
 		String amount = request.getParameter("withdrawAmount");// 提现金额
 		String accountType = request.getParameter("accountId");
+		String acceptAccountType = request.getParameter("accountType");//	提现至账户
 		String comment = request.getParameter("desc");// 备注
 		if (StringUtils.isBlank(userMobile)) {
 			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
@@ -456,9 +457,8 @@ public class UserController {
 		}
 		
 		// 提现到哪种类型账户(默认是支付宝)
-		String toAccountName = WithdrawAccountTypeEnum.WITHDRAW_ACCOUNT_TYPE_ALIPAY.getValue();
-		Map<String, Object> resultMap = this.saveWithdrawals(user.getUserId(), amount, AccountEnum.RMB.getId(),
-				realName, accountType, userMobile, toAccountName, comment);
+		acceptAccountType = WithdrawAccountTypeEnum.WITHDRAW_ACCOUNT_TYPE_ALIPAY.getId();
+		Map<String, Object> resultMap = this.saveWithdrawals(user.getUserId(), realName, userMobile,amount, accountType, acceptAccountType, comment);
 
 		return resultMap;
 	}
@@ -581,26 +581,17 @@ public class UserController {
 	/**
 	 * 用户提交提现申请(暂默认提现到支付宝)
 	 *
+	 * @author fqb
 	 * @since 2018年3月22日 10:30
-	 * @param userId
-	 *            用户ID
-	 * @param amount
-	 *            提现金额
-	 * @param accountId
-	 *            从当前账户提现(账户类型ID)
-	 * @param userRealName
-	 *            提现至账号的用户真实姓名
-	 * @param type
-	 *            提现方式(WithdrawAccountTypeEnum为准)
-	 * @param accountNum
-	 *            提现至账户(银行卡号或支付宝账号)
-	 * @param toAccountType
-	 *            提现至账户类型
-	 * @param comment
-	 *            备注
+	 * @param userId 用户ID
+	 * @param amount 提现金额
+	 * @param accountId 从当前类型账户提现(账户类型ID)
+	 * @param userRealName 提现至账号的用户真实姓名
+	 * @param type 提现方式(WithdrawAccountTypeEnum为准)
+	 * @param accountNum 提现至账户(银行卡号或支付宝账号)
+	 * @param acceptAccountType 提现至账户类型
 	 */
-	private Map<String, Object> saveWithdrawals(String userId, String amount, String accountId, String userRealName,
-			String type, String accountNum, String toAccountType, String comment) {
+	private Map<String, Object> saveWithdrawals(String userId, String realName, String userMobile,String amount, String accountType, String acceptAccountType,String comment) {
 		LOGGER.info("Entering UserWithdrawService saveWithdrawals...  parameters = :{}");
 
 		Map<String, Object> result = new HashMap<String, Object>();
@@ -619,7 +610,7 @@ public class UserController {
 		// 获取当前用户的账号余额
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("userId", userId);
-		map.put("accountId", accountId);
+		map.put("accountId", accountType);
 		List<UserAccountEntity> userAccountEntities = userAccountService.queryList(map);
 		if (userAccountEntities == null || userAccountEntities.size() == CommonConst.DIGIT_ZERO) {
 			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
@@ -666,20 +657,20 @@ public class UserController {
 		withdrawEntity.setUserName(userAccountEntity.getUserName());
 		String accountTypeName=null;
 		for (AccountEnum account : AccountEnum.values()) {
-			if (accountId.equals(account.getId())) {
+			if (accountType.equals(account.getId())) {
 				accountTypeName=account.getValue();
 				break;
 			}
 		}
-		withdrawEntity.setAccountTypeId(accountId);
+		withdrawEntity.setAccountTypeId(accountType);
 		withdrawEntity.setAccountTypeName(accountTypeName);
 		withdrawEntity.setWithdrawMoney(amount);// 提现金额(只能100的倍数)
-		withdrawEntity.setWithdrawAccount(accountNum);// 提现账号
-		withdrawEntity.setWithdrawAccountType(type);// 提现方式（枚举类为准）
-		
+		withdrawEntity.setWithdrawAccount(userMobile);// 提现账号(支付宝账号)
+		withdrawEntity.setWithdrawAccountType(acceptAccountType);// 提现方式（枚举类为准）
 		String toAccountName=null;
+		//	暂时默认为支付宝，以待修改
 		for (WithdrawAccountTypeEnum enums : WithdrawAccountTypeEnum.values()) {
-			if (toAccountType.equals(enums.getId())) {
+			if (acceptAccountType.equals(enums.getId())) {
 				toAccountName=enums.getValue();
 						break;
 			}
@@ -689,8 +680,8 @@ public class UserController {
 			result.put(CommonConst.RESPONSE_MESSAGE, "获取接收账户类型失败");
 			return result;
 		}
-		withdrawEntity.setWithdrawBankFullName(toAccountName);// 银行全称
-		withdrawEntity.setWithdrawAccountName(userRealName);// 开户人名称（真实姓名）
+		withdrawEntity.setWithdrawBankFullName(toAccountName);// 银行全称(此处为支付宝)
+		withdrawEntity.setWithdrawAccountName(realName);// 开户人名称（真实姓名）
 		withdrawEntity.setWithdrawProcedure(serviceCharge.toString());// 手续费
 		withdrawEntity.setWithdrawTotal(serviceCharge.add(withdrawalsAmount).toString());// 提现总额=提现金额+手续费
 		withdrawEntity.setAccountBalance(userAccoutAmount.toString());// 账户余额
@@ -699,6 +690,7 @@ public class UserController {
 		withdrawEntity.setCreateTime(new Date());
 		withdrawEntity.setActive(true);
 		withdrawEntity.setStatus(CommonConst.DIGIT_ONE);
+		withdrawEntity.setVersion(1l);
 		withdrawEntity.setComment(comment);
 		// 插入数据
 		int insert = userWithdrawService.insert(withdrawEntity);
