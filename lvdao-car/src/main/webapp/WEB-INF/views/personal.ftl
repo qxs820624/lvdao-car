@@ -26,7 +26,7 @@
                                 <span>¥<#if accountbonuAmount??>${accountbonuAmount}<#else>0</#if></span>
                                 <div class="button return_account_btn outer">
                                     <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=20'">返还明细</button>
-                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountId=4'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountType=6'">账户提现</button>
                                 </div>
                             </div>
                         </div>
@@ -56,7 +56,7 @@
                                 <span>¥<#if recommendBonusAccount??>${recommendBonusAccount}<#else>0</#if></span>
                                 <div class="button income_account_btn outer">
                                     <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=21'">奖励明细</button>
-                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountId=3'">账户提现</button>
+                                    <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountType=5'">账户提现</button>
                                 </div>
                             </div>
                         </div>
