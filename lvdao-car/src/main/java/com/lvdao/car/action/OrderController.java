@@ -166,7 +166,7 @@ public class OrderController {
 		String addUserMoblile = request.getParameter("addUserMoblile");
 		//打款凭证图片
 		String picUrl = request.getParameter("picUrl");
-		
+		String picRealUrl = request.getParameter("picRealUrl");
 		//默认银联支付
 		if(null == payMethod || StringUtils.isBlank(payMethod)) {
 			payMethod = PaymentMethodEnum.PAYMENT_METHOD_OFFLINE_BANK.getId();
@@ -261,7 +261,7 @@ public class OrderController {
 		}
 		
 		// 自主加盟 推荐人可有可无
-		if (addType.equals(CommonConst.STRING_TWO)) {
+		if (addType.equals(CommonConst.STRING_ZERO)) {
 			userOrderEntity.setId(StringUtil.produceUUID());
 			userOrderEntity.setOrderType(OrderTypeEnum.INVESTMENT_ORDER.getId());
 			userOrderEntity.setUserId(user.getUserId());
