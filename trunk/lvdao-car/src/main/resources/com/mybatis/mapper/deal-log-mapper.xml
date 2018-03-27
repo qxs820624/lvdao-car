@@ -178,6 +178,9 @@
 	      	<if test="logType != null and logType != ''" >
 	        	D.LOG_TYPE = #{logType, jdbcType=VARCHAR} AND
 	      	</if>
+	      	<if test="LogTypes != null and LogTypes != ''" >
+	        	D.LOG_TYPE IN LogTypes AND
+	      	</if>
 	      	<if test="logAmount != null and logAmount != ''" >
 	        	D.LOG_AMOUNT = #{logAmount, jdbcType=VARCHAR} AND
 	      	</if>
@@ -220,6 +223,12 @@
 	      	<if test="updateTime != null" >
 	      		D.UPDATE_TIME = #{updateTime, jdbcType=TIMESTAMP} AND 
 	      	</if>
+	      	<if test="startTime != null and startTime != ''">
+      			<![CDATA[  CREATE_TIME >= #{orderStartTime,jdbcType=TIMESTAMP} AND]]>
+			</if>
+			<if test="endTime != null and endTime != ''">
+      			<![CDATA[ CREATE_TIME <= #{orderEndTime,jdbcType=TIMESTAMP} AND]]>
+			</if>
 	      	<if test="gteCreateTime != null and gteCreateTime != '' " >
 	        	D.CREATE_TIME &gt; #{gteCreateTime} AND 
 	      	</if>
