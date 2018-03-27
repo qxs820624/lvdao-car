@@ -17,36 +17,14 @@
             </header>
             <div class="info_system_cons">
                 <ul>
-                    <li>
-                        <div class="info_time">今天 12:30</div>
-                        <div class="system_main">
-                            <div class="system_main_img">
-                                <img src="../../resources/images/info_img.png" alt="">
-                                <p>投资项目新提升！</p>
-                            </div>
-                            <div class="info_system_text">平台新推出最新奔驰s580,给投资者有更高的要求和期待！</div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="info_time">今天 12:30</div>
-                        <div class="system_main">
-                            <div class="system_main_img">
-                                <img src="../../resources/images/info_img.png" alt="">
-                                <p>投资项目新提升！</p>
-                            </div>
-                            <div class="info_system_text">平台新推出最新奔驰s580,给投资者有更高的要求和期待！</div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="info_time">今天 12:30</div>
-                        <div class="system_main">
-                            <div class="system_main_img">
-                                <img src="../../resources/images/info_img.png" alt="">
-                                <p>投资项目新提升！</p>
-                            </div>
-                            <div class="info_system_text">平台新推出最新奔驰s580,给投资者有更高的要求和期待！</div>
-                        </div>
-                    </li>
+                    <#if dictList??>
+                    	<#list dictList as dict>
+		                    <li>
+		                        <div class="info_time"><#if dict.createTime??>${dict.createTime?string('yyyy/MM/dd hh:mm')}</#if></div>
+		                        <div class="money_main">${dict.dictValue!''}</div>
+		                    </li>
+	                    </#list>
+                    </#if>
                 </ul>
             </div>
         </div>

@@ -17,14 +17,14 @@
             </header>
             <div class="info_money_cons">
                 <ul>
-                    <li>
-                        <div class="info_time">今天 12:30</div>
-                        <div class="money_main">投资返还账户收到返利<span>¥500</span>元，已存入账户余额，可点击“<a href="">投资返还账户</a>”进行查询！</div>
-                    </li>
-                    <li>
-                        <div class="info_time">今天 12:30</div>
-                        <div class="money_main">投资返还账户收到返利<span>¥500</span>元，已存入账户余额，可点击“<a href="">投资返还账户</a>”进行查询！</div>
-                    </li>
+                	<#if userAccountMsgList??>
+                		<#list userAccountMsgList as userAccountMsg>
+		                    <li>
+		                        <div class="info_time"><#if userAccountMsg.createTime??>${userAccountMsg.createTime?string('yyyy/MM/dd hh:mm')}</#if></div>
+		                        <div class="money_main">您的账户进账<span>¥${userAccountMsg.amount}</span>，已存入账户余额，可点击“<a href="/user/personal.do">${userAccountMsg.accountTypeName!''}</a>”进行查询！</div>
+		                    </li>
+	                    </#list>
+                    </#if>
                 </ul>
             </div>
         </div>

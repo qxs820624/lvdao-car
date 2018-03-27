@@ -93,7 +93,8 @@ public class OrderController {
 		}
 
 		ModelAndView mav = new ModelAndView("/orderForm");
-		mav.addObject("orderType", inversType);
+		request.getSession().removeAttribute("orderType");
+		request.getSession().setAttribute("orderType", inversType);
 		return mav;
 	}
 	
@@ -106,6 +107,7 @@ public class OrderController {
 	@RequestMapping(value = "/uploadSucceed", method = RequestMethod.GET)
 	public ModelAndView uploadSucceed(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/uploadSucceed");
+		request.getSession().removeAttribute("orderType");
 		return mav;
 	}
 	
@@ -121,7 +123,9 @@ public class OrderController {
 		ModelAndView mav = new ModelAndView("/uploadVoucher");
 		mav.addObject("user", user);
 		String orderType = request.getParameter("orderType");
-		if (StringUtils.isBlank(orderType)) {
+		String submitStatus = request.getParameter("submitStatus");
+		if (StringUtils.isBlank(orderType) && CommonConst.STRING_ONE.equals(submitStatus)) {
+			request.getSession().removeAttribute("orderType");
 			mav = new ModelAndView("/uploadSucceed");
 		}
 		mav.addObject("orderType", orderType);
@@ -239,7 +243,7 @@ public class OrderController {
 				userOrderEntity.setAddMethod(CommonConst.STRING_ONE);
 				userOrderEntity.setOtherPersonMobile(user.getUserName());
 				userOrderEntity.setOtherPersonRealName(user.getUserRealName());
-				userOrderEntity.setRemark(picUrl);//凭证图片 存放组id
+				userOrderEntity.setRemark(picRealUrl);//凭证图片 存放组id
 				userOrderEntity.setActive(true);
 				int insert = userOrderService.insert(userOrderEntity);
 				
@@ -273,7 +277,7 @@ public class OrderController {
 			userOrderEntity.setPaidStatus(CommonConst.DIGIT_ZERO);// 订单状态
 			userOrderEntity.setOrderMoney(orderAmount); // 加盟金额
 			userOrderEntity.setAddMethod(CommonConst.STRING_ZERO);
-			userOrderEntity.setRemark(picUrl);// 凭证图片 存放组id
+			userOrderEntity.setRemark(picRealUrl);// 凭证图片 存放组id
 			userOrderEntity.setActive(true);
 			int insert = userOrderService.insert(userOrderEntity);
 
