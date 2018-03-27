@@ -253,10 +253,10 @@
         	S.USER_NAME = #{userName, jdbcType=VARCHAR},
       	</if>
       	<if test="accountTypeId != null and accountTypeId != '' ">
-			AND U.ACCOUNT_TYPE_ID = #{accountTypeId,jdbcType=VARCHAR}
+			S.ACCOUNT_TYPE_ID = #{accountTypeId,jdbcType=VARCHAR},
 		</if>
 		<if test="accountTypeName != null and accountTypeName != '' ">
-			AND U.ACCOUNT_TYPE_NAME = #{accountTypeName,jdbcType=VARCHAR}
+			S.ACCOUNT_TYPE_NAME = #{accountTypeName,jdbcType=VARCHAR},
 		</if>
       	<if test="withdrawAccountType != null and withdrawAccountType != ''" >
         	S.WITHDRAW_ACCOUNT_TYPE = #{withdrawAccountType, jdbcType=VARCHAR},
