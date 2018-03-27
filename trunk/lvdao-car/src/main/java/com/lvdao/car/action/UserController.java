@@ -629,7 +629,12 @@ public class UserController {
 		BigDecimal userAccoutAmount = new BigDecimal(userAmount);
 		// 字典表查询手续费
 		map.clear();
-		map.put("dictId", "withdrawal_commission_rate");
+		//	燃油补贴、分享账户提现和现金账户不同费用率
+		if (accountType.equals(AccountEnum.BOUNS_RETURN.getId())||accountType.equals(AccountEnum.RECOMMEND_BONUS.getId())) {
+			map.put("dictId", "bonus_commission_rate");
+		}else {
+			map.put("dictId", "withdrawal_commission_rate");
+		}
 		List<DictEntity> dictEntities = dictService.queryList(map);
 		if (dictEntities == null || dictEntities.size() == CommonConst.DIGIT_ZERO) {
 			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
