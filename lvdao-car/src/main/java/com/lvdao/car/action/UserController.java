@@ -396,7 +396,7 @@ public class UserController {
 		return mav;
 
 	}
-
+	
 	/**
 	 * 返回这个用户类型的当月补贴总金额
 	 * 
@@ -587,8 +587,8 @@ public class UserController {
 	 * @param amount 提现金额
 	 * @param accountId 从当前类型账户提现(账户类型ID)
 	 * @param userRealName 提现至账号的用户真实姓名
-	 * @param type 提现方式(WithdrawAccountTypeEnum为准)
-	 * @param accountNum 提现至账户(银行卡号或支付宝账号)
+	 * @param acceptAccountType 提现方式(WithdrawAccountTypeEnum为准)
+	 * @param userMobile 提现至账户(银行卡号或支付宝账号,暂默认支付宝账号)
 	 * @param acceptAccountType 提现至账户类型
 	 */
 	private Map<String, Object> saveWithdrawals(String userId, String realName, String userMobile,String amount, String accountType, String acceptAccountType,String comment) {
