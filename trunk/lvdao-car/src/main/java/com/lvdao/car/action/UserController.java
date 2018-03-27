@@ -607,9 +607,10 @@ public class UserController {
 		// 提现金额
 		BigDecimal withdrawalsAmount = new BigDecimal(amount);
 		// 校验提现金额(只能是100的倍数)
-		int compare = new BigDecimal(withdrawalsAmount.intValue()).compareTo(withdrawalsAmount);
+//		int compare = new BigDecimal(withdrawalsAmount.intValue()).compareTo(withdrawalsAmount);
+		int compare = Integer.valueOf(amount) % CommonConst.DIGIT_HUNDRED;
 		// 非百的整数倍
-		if (compare != 0) {
+		if (compare != CommonConst.DIGIT_ZERO) {
 			result.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
 			result.put(CommonConst.RESPONSE_MESSAGE, "请输入一百的整数倍提现金额。");
 			return result;

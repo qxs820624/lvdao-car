@@ -6,8 +6,8 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
-    	<script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="../../resources/css/carRental.css">
+        <link rel="stylesheet" type="text/css" href="../../resources/layui/css/layui.css">
         <style type="text/css">
             .layui-form-select .layui-input{height:50px;border:none;text-align:center;}
         </style>
@@ -63,13 +63,17 @@
                 <button id="withdrawButton">确认提现</button>
             </div>
         </div>
+        <script type="text/javascript" src="../../resources/layui/layui.js"></script>    
+        <script type="text/javascript" src="../../resources/js/jquery-2.1.1.min.js"></script>    
         <script type="text/javascript">
             $("#withdrawSpan").click(function() {
             	var withdrawAmount = $("#accountAmount").val();
-            	$("#withdrawAmount").val(withdrawAmount);
+            	$("#withdrawAmount").val(parseInt(withdrawAmount));
             })
             
-            $("#withdrawButton").click(function() {
+            
+            layui.use('layer',function () {
+				$("#withdrawButton").click(function() {
             	var accountId = $("#accountId").val();
             	var alipayAccount = $("#alipayAccount").val();
             	var userRealName = $("#userRealName").val();
@@ -77,22 +81,27 @@
             	var withdrawAmount = $("#withdrawAmount").val();
             	
             	if (accountId == null || accountId == '') {
-            		layer.alert("请先选择提现账户");
+            		layer.alert("请选择提现账户");
             		return false;
             	}
             	
             	if (alipayAccount == null || alipayAccount == '') {
-            		layer.alert("请先输入支付宝账户");
+            		layer.alert("请输入支付宝账户");
             		return false;
             	}
             	
             	if (userRealName == null || userRealName == '') {
-            		layer.alert("请先输入姓名");
+            		layer.alert("请输入姓名");
             		return false;
             	}
             	
             	if (withdrawAmount == null || withdrawAmount == '') {
-            		layer.alert("请先输入提现金额");
+            		layer.alert("请输入提现金额");
+            		return false;
+            	}
+            	
+            	if (parseInt(withdrawAmount) <= 0) {
+            		layer.alert("提现金额应大于0");
             		return false;
             	}
             	
@@ -118,12 +127,14 @@
 		            		layer.alert(data.message);
 		            		return false;
 			        	} else {
-			        		layer.alert(data.errorMessage);
+			        		layer.alert(data.message);
 			        		return false;
 			        	}
 			        }
 			    });
             })
+		})
+            
         </script>
     </body>
 </html>
