@@ -540,7 +540,7 @@ public class UserController {
 			mav.addObject("userList", userList);
 			
 //			String createQRCode = createQRCode(response,request,"http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
-			mav.addObject("createQRCode", "http://car.motian123.cn/user/register.do?type=0&userParentName=" + user.getUserName());
+			mav.addObject("createQRCode", "http://car.motian123.cn/user/register.do?userParentName=" + user.getUserName());
 			
 		}
 		return mav;
