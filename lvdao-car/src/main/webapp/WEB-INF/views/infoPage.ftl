@@ -12,7 +12,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="/index/index.do"></a>
+                <a class="return_arr" href="/index/index.do?userName=<#if user??>${user.userName}</#if>"></a>
                 <span>消息</span>
             </header>
             <div class="info_cons">
