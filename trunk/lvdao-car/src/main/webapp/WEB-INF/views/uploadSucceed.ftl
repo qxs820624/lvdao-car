@@ -22,7 +22,7 @@
                     </div>
                     <span>提交成功！</span>
                     <p>待平台审核通过后，可以参加返利～</p>
-                    <button onclick="javascript:window.location.href='/index/index.do'">返回首页</button>
+                    <button onclick="javascript:window.location.href='/index/index.do?userName=<#if user??>${user.userName}</#if>'">返回首页</button>
                 </div>
             </div>
         </div>

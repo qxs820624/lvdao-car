@@ -53,6 +53,7 @@ public class IndexController {
 			return new ModelAndView("redirect:/user/userLogin.do");
 		}
 		
+		mav.addObject("isApp", dictEntity.getDictValue());
 		request.getSession().setAttribute(CommonConst.SESSION_USER, userEntity);
 		return mav;
 	}

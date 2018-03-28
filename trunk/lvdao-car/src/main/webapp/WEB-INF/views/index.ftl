@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>首页</title>
+        <title><#if isApp == '1'>汽车租赁<#else>首页</#if></title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta name="format-detection" content="telephone=no">
     	<meta name="apple-mobile-web-app-capable" content="yes">
@@ -14,6 +14,7 @@
     <body>
     	<div class="container">
             <header>
+            	<#if isApp == '1'><a class="return_arr" href="/user/userLogin.do"></a></#if>
                 <span>首页</span>
                 <a class="header_info layui-nav-item" href="/info/infoPage.do">
                     <img src="../../resources/images/icon_info.png" alt="">
@@ -103,7 +104,7 @@
                 </div>
             </div>
             <footer>
-                <a class="selected" href="/index/index.do">
+                <a class="selected" href="/index/index.do?userName=<#if user??>${user.userName}</#if>">
                     <span>
                         <b class="index"></b>
                     </span>

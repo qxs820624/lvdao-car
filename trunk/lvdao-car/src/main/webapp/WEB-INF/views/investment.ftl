@@ -13,7 +13,7 @@
     <body>
     	<div class="container">
             <header>
-                <a class="return_arr" href="/index/index.do"></a>
+                <a class="return_arr" href="/index/index.do?userName=<#if user??>${user.userName}</#if>"></a>
                 <span>选择投资项目</span>
             </header>
             <div class="investment_cons">

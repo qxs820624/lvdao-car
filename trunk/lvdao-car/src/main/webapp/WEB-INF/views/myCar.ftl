@@ -30,7 +30,7 @@
                 </div>
             </div>
             <footer>
-                <a href="/index/index.do">
+                <a href="/index/index.do?userName=<#if user??>${user.userName}</#if>">
                     <span>
                         <b class="index"></b>
                     </span>
