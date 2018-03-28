@@ -92,7 +92,7 @@
                       layer.msg(res.message);
                       $("#picUrl").val(res.picName);
                       $("#picRealUrl").val(res.url);
-                      $("#upload_file").attr("style", "background:url("+res.url+")");
+                      $("#upload_file").attr("style", "background:url("+res.url+");background-size: 100%");
                       }else{
                       layer.msg(res.message);
                       }
