@@ -40,7 +40,7 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView("/index");
 		String userName = request.getParameter("userName");
 		DictEntity dictEntity = dictService.queryDitcValueByDictId("app_switch");
-		if(!CommonConst.STRING_ONE.equals(dictEntity.getDictValue())) {
+		if(!CommonConst.STRING_ONE.equals(dictEntity.getDictValue()) && StringUtils.isBlank(userName)) {
 			userName = "18800000001";
 		}
 		
