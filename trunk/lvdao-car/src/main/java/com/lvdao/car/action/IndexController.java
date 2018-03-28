@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvdao.common.CommonConst;
+import com.lvdao.entity.DictEntity;
 import com.lvdao.entity.UserEntity;
+import com.lvdao.service.IDictService;
 import com.lvdao.service.IUserService;
 
 @Controller
@@ -24,6 +26,9 @@ public class IndexController {
 	@Autowired
 	private IUserService userService;
 	
+	@Autowired
+	private IDictService dictService;
+	
 	/**
 	 * 首页
 	 * 
@@ -34,6 +39,11 @@ public class IndexController {
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/index");
 		String userName = request.getParameter("userName");
+		DictEntity dictEntity = dictService.queryDitcValueByDictId("app_switch");
+		if(!CommonConst.STRING_ONE.equals(dictEntity.getDictValue())) {
+			userName = "18800000001";
+		}
+		
 		if (StringUtils.isBlank(userName)) {
 			return new ModelAndView("redirect:/user/userLogin.do");
 		}
