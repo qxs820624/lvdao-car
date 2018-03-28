@@ -1,0 +1,296 @@
+@charset "utf-8";
+/* 禁用iPhone中Safari的字号自动调整 */
+html { -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%; }
+/* 去除iPhone中默认的input样式 */
+input[type="submit"],input[type="reset"],input[type="button"],input{ -webkit-appearance:none; resize: none; }
+/* 取消链接高亮  */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article, 
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }
+/* 设置HTML5元素为块 */
+article, aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section { display: block; }
+/* 图片自适应 */
+img { max-width: 100%; height: auto; width:auto\9; /* ie8 */
+-ms-interpolation-mode:bicubic; /*为了照顾ie图片缩放失真*/; }
+/* 初始化 */
+body,div,ul,li,ol,h1,h2,h3,h4,h5,h6,input,textarea,select,p,dl,dt,dd,a,img,button,form,table,th,tr,td,tbody,article, 
+aside, details,figcaption,figure,footer,header,hgroup, menu,nav,section{ margin:0; padding:0; border:none; }
+body{ font-family:Microsoft YaHei,Tahoma,Arial,sans-serif; color:#333; }
+em,i{ font-style:normal; }
+strong{ font-weight: normal; }
+a{ text-decoration:none; color:#fff; font-family: Microsoft YaHei,Tahoma,Arial,sans-serif; }
+a:hover{ color:#fff; text-decoration:none; }
+ul,ol{ list-style:none; }
+h1, h2, h3, h4, h5, h6{ font-size:100%; font-family: Microsoft YaHei; }
+img{ border: none; display:block; width:100%; height:100%; }
+
+
+/* 清楚浮动 */
+.outer:after{ content:"."; height:0; visibility:hidden; display:block; clear:both; }
+.outer{ zoom:1; }
+html,body{ height:auto; margin:auto; background:#f4f4f4; position: relative; }
+.container{ min-width: 320px; max-width: 750px; height:auto; margin:0 auto; }
+
+header{ height:50px; background:#0088f4; font-size:20px; color:#fff; text-align:center; line-height:50px; position: relative; }
+header a{ width:60px; height:50px; font-size:16px; color:#fff; background-image: url(../images/return_arr.png); background-repeat: no-repeat; background-size: 8px 16px; background-position: left center; padding-left:15px; position: absolute; left:13px; text-align:left; }
+.selected_station header{ background:#fff; color:#333; }
+.selected_station header a{ background-image: url(../images/return_arr_blue.png); }
+
+footer{ width:100%; height:49px; background:#fff; border-top:1px solid #e0e0e0; position: fixed; bottom:0; left:0; z-index: 99; }
+footer a{ width:25%; height:49px; float:left; text-align:center; }
+footer a span{ width:100%; height:23px; display:block; margin-top:5px; }
+footer a span b{ width:23px; height:23px; display:inline-block; }
+footer a span b.banci{ background:url(../images/banci.png) no-repeat; background-size: cover; }
+footer a span b.order{ background:url(../images/order.png) no-repeat; background-size: cover; }
+footer a span b.ticket{ background:url(../images/ticket.png) no-repeat; background-size: cover; }
+footer a span b.user{ background:url(../images/user.png) no-repeat; background-size: cover; }
+footer a i{ font-size:13px; color:#999; width:100%; display:block; margin-top:2px; }
+footer a.selected span b.banci{ background:url(../images/banci_cur.png) no-repeat; background-size: cover; }
+footer a.selected span b.order{ background:url(../images/order_cur.png) no-repeat; background-size: cover; }
+footer a.selected span b.ticket{ background:url(../images/ticket_cur.png) no-repeat; background-size: cover; }
+footer a.selected span b.user{ background:url(../images/user_cur.png) no-repeat; background-size: cover; }
+footer a.selected i{ color:#5694df; }
+.content{ padding-bottom:80px; }
+.hangke{ width:100%; font-size: 13px; color:#999; text-align:center; background-image: url(../images/icon.jpg); background-size: 10px 10px; background-repeat: no-repeat; background-position: left 40% center; position: fixed; bottom:60px; padding-left:10px; z-index: 99; }
+.color_gray{ color:#999 !important; }
+.color_blue{ color:#0088f4 !important; }
+.color_red{ color:#fe6b5a !important; }
+.no_border{ border:none !important; }
+.times{ letter-spacing:2px; }
+
+/*index.html*/
+/*车票查询*/
+.ticket_inquiry{ padding:0 20px; }
+.ticket_inquiry_box{ background:#edf8ff; padding:25px 15px 35px; box-shadow: 0px 1px 4px rgba(86, 148, 223, 0.6); border-radius: 8px; }
+.ticket_inquiry_box span{ font-size:15px; color:#989898; }
+.ticket_inquiry_box .title span:nth-child(1){ float:left; }
+.ticket_inquiry_box .title span:nth-child(2){ float:right; }
+.ticket_inquiry_box .address{ padding-bottom:10px; border-bottom:1px solid #d7d7d7; }
+.ticket_inquiry_box .address a{ font-size:24px; color:#333; line-height:60px; }
+.ticket_inquiry_box .address a:nth-child(1){ float:left; }
+.ticket_inquiry_box .address a:nth-child(2){ float:right; }
+.ticket_inquiry_box .date{ height:60px; border-bottom:1px solid #d7d7d7; }
+.ticket_inquiry_box .date input{ float:left; font-size:24px; color:#333; width:50%; height:60px; border:none; outline: none; background:none; }
+.ticket_inquiry_box .date a{ float:right; }
+.ticket_inquiry_box .date a span{ font-size:20px; color:#5694df; line-height:60px; background-image: url(../images/date.png); background-size: 20px 20px; background-repeat: no-repeat; background-position: left center; padding-left:25px; }
+.ticket_inquiry_box .date a i{ width:6px; height:13px; background-image: url(../images/arr.jpg); background-size:cover; display:inline-block; margin:0 10px; }
+.ticket_inquiry_box a.ticket_inquiry_btn{ width:100%; height:44px; background:#5694df; font-size:22px; color:#fff; text-align:center; line-height:44px; display:block; border-radius: 6px; margin-top:40px; letter-spacing:2px; }
+/*最近查询站点*/
+.recent_searches{ padding:0 30px; margin-top:22px; }
+.recent_searches h4{ height:30px; font-size:14px; font-weight: normal; color:#999; line-height:30px; padding-left:6px; }
+.recent_searches ul li{ height:30px; padding-left:6px; border-top:1px solid #d7d7d7; }
+.recent_searches ul li .recent_site{ float:left; line-height:30px; }
+.recent_searches ul li .recent_site span{ font-size:14px; color:#666; }
+.recent_searches ul li i{ float:right; width:14px; height:14px; background:url(../images/delete.png) no-repeat; background-size: cover; margin-top:8px; }
+
+/*MyOrder.html*/
+.order_list{ padding:0 8px; }
+.order_list .order_list_piece{ background:#fff; border-radius: 4px; padding:0 8px 8px; margin-bottom:10px; }
+.order_list .order_list_piece .top{ height:44px; border-bottom:1px dashed #d7d7d7; }
+.order_list .order_list_piece .top span{ font-size:15px; line-height:44px; }
+.order_list .order_list_piece span.start_time{ float:left; }
+.order_list .order_list_piece span.bus_type{ float:right; }
+.order_list .order_list_piece .center span{ font-size:16px; line-height:38px; }
+.order_list .order_list_piece span.start_address{ float:left; }
+.order_list .order_list_piece .bottom span{ font-size:16px; line-height:30px; }
+.order_list .order_list_piece span.name{ float:left; color:#999; }
+.order_list .order_list_piece .bottom a.order_status{ float:right; color:#fe6b5a; font-size:14px; line-height:30px; }
+.order_list .order_list_piece span.ticket_price{ float:right; color:#0085f5; font-size:20px; }
+/*退款提示*/
+.reminder_box{ padding:15px 30px 30px; }
+.reminder_box h4{ font-size:20px; color:#0085f5; line-height:40px; font-weight: normal; text-align:center; letter-spacing:2px; }
+.reminder_box p{ font-size:14px; color:#333; line-height:23px; margin-top:5px; letter-spacing:2px; }
+
+/*已完成订单*/
+.order_list .order_list_piece span.ticket_price font{ font-size:15px; color:#333; margin-right:5px; }
+.order_list .order_list_piece span.end_time{ float:right; color:#999; font-size:15px; }
+
+/*已退款*/
+.order_list .order_list_piece span.refund_start_address{ float:right; font-size:15px; color:#999; }
+.order_list .order_list_piece span.refund_time{ float:left; font-size:15px; color:#333; }
+.order_list .order_list_piece span.refund_start_time{ float:left; font-size:15px; color:#999; }
+
+/*未支付订单*/
+.order_list .order_list_piece span.unpaid_start_time{ float:left; font-size:15px; color:#333; }
+.order_list .order_list_piece span.unpaid_bus_type{ float:right; font-size:15px; color:#999; }
+.order_list .order_list_piece span.unpaid_depart_time{ float:right; font-size:15px; color:#333; }
+.order_list .order_list_piece a.go_paid{ float:right; width:55px; height:20px; background:#fe6b5a; font-size:14px; color:#fff; border-radius: 10px; text-align:center; line-height:20px; margin-top:5px; margin-left:15px; }
+
+/*TicketCollector.html*/
+.add_ticket{ height:40px; background:#fff; padding:0 15px; }
+.add_ticket span{ float:left; line-height:40px; font-size:16px; }
+.add_ticket a.add{ float:right; font-size:16px; color:#fe6b5a; line-height:40px; background-image: url(../images/add_btn.jpg); background-repeat: no-repeat; background-size: 14px 14px; background-position: left center; padding-left:18px; }
+.ticket_info{ margin-top:10px; padding:12px 15px; background:#fff; }
+.ticket_info .user_info{ float:left; }
+.ticket_info .user_info .name_num{ line-height:30px; font-size:18px; color:#333; }
+.ticket_info .user_info .name_num span{ margin-right:15px; }
+.ticket_info .user_info .carded_num{ line-height:30px; font-size:16px; color:#999; }
+.ticket_info .user_info .carded_num span{ margin-left:10px; }
+.ticket_info a.edit{ float:right; width:18px; height:18px; background:url(../images/edit.jpg) no-repeat; background-size: cover; }
+/*弹窗*/
+.edit_ticket_box h4{ font-size:18px; line-height:67px; text-align:center; }
+.edit_ticket_box button{ width:50%; height:40px; float:left; font-size:16px; color:#fff; }
+.edit_ticket_box button:nth-child(1){ background:#ff6600; border-radius: 0 0 0 4px; }
+.edit_ticket_box button:nth-child(2){ background:#c7c7c7; border-radius: 0 0 4px 0; }
+.edit_ticket_box .edit_close{ width:35px; height:54px; background:url(../images/edit_close.png) no-repeat; background-size: cover; position: absolute; top:-54px; right:15px; z-index: 9999999; }
+
+/*AddTicketCollector.html*/
+.add_ticket_info{ padding:21px 14px 13px; background:#fff; border-radius: 4px; }
+.add_ticket_info .info{ margin-bottom:12px; }
+.add_ticket_info .info span{ width:25%; float:left; line-height:34px; font-size:16px; color:#333; letter-spacing:1px; text-align:center; }
+.add_ticket_info .info input{ width:73%; height:34px; float:left; font-size:14px; outline: none; border-bottom:1px solid #ececec; margin-left:2%; }
+.add_btn{ width:100%; max-width: 750px; height:40px; background:#ff6600; font-size: 18px; color:#fff; text-align:center; line-height:40px; position: fixed; bottom:0; letter-spacing:1px; }
+
+/*PersonalCenter.html*/
+.user_title{ position: relative; }
+.user_title a.personal_info{ width:100%; height:100%; position: absolute; top:0; left:0; padding:8% 20px 0; box-sizing:border-box; -webkit-box-sizing:border-box; }
+.user_title a.personal_info .personal_img{ float:left; }
+.user_title a.personal_info .personal_img img{ border-radius: 50%; }
+.user_title a.personal_info .personal_center{ float:left; margin-left:18px; }
+.user_title a.personal_info .personal_center span{ display:block; color:#fff; margin-top:5px; }
+.user_title a.personal_info .personal_center p{ color:#fff; margin-top:3px; }
+.user_title a.personal_info .arr_btn{ float:right; background:url(../images/arr03.png) no-repeat; background-size: cover; margin-right:5px; margin-top:25px; }
+ul.personal_center_list li{ width:25%; float:left; background:#fff; border-right:1px solid #e0e0e0; border-bottom:1px solid #e0e0e0; box-sizing:border-box; -webkit-box-sizing:border-box; }
+ul.personal_center_list li span{ display:block; text-align:center; }
+ul.personal_center_list li span b{ display:inline-block; }
+ul.personal_center_list li span b.all_order_icon{ background:url(../images/all_order_icon.jpg) no-repeat; background-size: cover; }
+ul.personal_center_list li span b.completed_order_icon{ background:url(../images/completed_order_icon.jpg) no-repeat; background-size: cover; }
+ul.personal_center_list li span b.unpaid_icon{ background:url(../images/unpaid_icon.jpg) no-repeat; background-size: cover; }
+ul.personal_center_list li span b.ticket_icon{ background:url(../images/ticket_icon.jpg) no-repeat; background-size: cover; }
+ul.personal_center_list li span b.refunded_icon{ background:url(../images/refunded_icon.jpg) no-repeat; background-size: cover; }
+ul.personal_center_list li i{ display:block; color:#484848; text-align:center; }
+.custom_service{ padding:8px 16px; background:#fff; }
+.custom_service a{ display:block; background-image: url(../images/phone_icon.jpg); background-repeat: no-repeat; background-size: 21px 21px; background-position: right center; }
+.custom_service a span{ font-size:16px; color:#333; line-height:20px; display:block; }
+.custom_service a p{ font-size:14px; color:#999; line-height:22px; }
+/*退出登录*/
+.login_off{ width:100%; padding:0 16px; position: fixed; bottom:75px; left:0; box-sizing:border-box; -webkit-box-sizing:border-box; }
+.login_off button{ width:100%; height:44px; background:#5694df; font-size:18px; color:#fff; border-radius: 5px; letter-spacing:1px; }
+
+/* TicketInquiry.html */
+.ticket_inquiry_title{ height:40px; background:#0088f4; }
+.ticket_inquiry_title a{ float:left; font-size:15px; text-align:center; }
+.ticket_inquiry_title a.day_before{ width:25%; color:#ddd; line-height:40px; }
+.ticket_inquiry_title a.today{ width:50%; color:#fff; line-height:40px; text-align:center; background-image: url(../images/arr02.jpg); background-repeat: no-repeat; background-size: 13px 6px; background-position: right 16% center; padding-right:13px; box-sizing:border-box; -webkit-box-sizing:border-box; }
+.ticket_inquiry_title a.day_after{ width:25%; color:#fff; line-height:40px; text-align:center; }
+.ticket_inquiry_list{ padding:15px 8px 0; }
+.ticket_inquiry_list .ticket_inquiry_line{ padding:10px 8px 0; background:#fff; border-radius: 4px; margin-bottom:10px; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top{ font-size:16px; border-bottom:1px dashed #d7d7d7; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top span{ float:left; width:25%; text-align:right; line-height:30px; color:#333; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top span .timers{ font-size:22px; line-height:40px; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top span:nth-child(1){ text-align:left; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top span:nth-child(2){ text-align:center; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top span:nth-child(2).can_book{ background-image: url(../images/can_book.jpg); background-repeat: no-repeat; background-size: 55px 3px; background-position: center bottom; }
+.ticket_inquiry_list .ticket_inquiry_line .line_top span:nth-child(4){ color:#0088f4; font-size:18px; }
+.ticket_inquiry_list .ticket_inquiry_line .line_bottom{ height:42px; font-size:16px; color:#999; line-height:42px; }
+
+/* TicketInquiryDetail.html */
+.ticket_detail_title{ background:#fff; }
+.ticket_detail_title a.day_before{ color:#aaa; }
+.ticket_detail_title a.today{ color:#0088f4; background-image: url(../images/arr04.jpg); }
+.ticket_detail_title a.day_after{ color:#0088f4; }
+.ticket_detail{ padding-top:10px; }
+.ticket_detail .ticket_detail_main{ background:#fff; padding:10px 13px; margin-bottom:17px; }
+.ticket_detail .ticket_detail_main .detail_left{ width:25%; float:left; text-align:left; }
+.ticket_detail .ticket_detail_main .detail_center{ width:50%; float:left; text-align:center; }
+.ticket_detail .ticket_detail_main .detail_right{ width:25%; float:left; text-align:right; }
+.ticket_detail .ticket_detail_main span{ display:block; line-height:30px; font-size:18px; }
+.ticket_detail .ticket_detail_main .detail_center span{ font-size:13px; }
+.ticket_detail .ticket_detail_number{ padding:20px 13px; background:#fff; }
+.ticket_detail .ticket_detail_number span{ float:left; font-size:18px; }
+.ticket_detail .ticket_detail_number span:nth-child(1){ width:25%; text-align:left; color:#0088f4; font-size:20px; }
+.ticket_detail .ticket_detail_number span:nth-child(2){ width:50%; text-align:center; color:#333; }
+.ticket_detail .ticket_detail_number span:nth-child(3){ width:25%; text-align:right; }
+.ticket_detail .ticket_detail_number span:nth-child(3) a{ width:55px; height:20px; background:#fe6b5a; border-radius: 10px; font-size:12px; text-align:center; line-height:20px; display:inline-block; color:#fff; }
+
+/* TicketBooking.html */
+.ticket_booking{ padding-top:10px; }
+.ticket_booking .ticket_booking_con{ padding:10px 13px 0; background:#fff; margin-bottom:10px; }
+.ticket_booking .ticket_booking_con .booking_con_top{ padding-bottom:10px; border-bottom:1px solid #d7d7d7; }
+.ticket_booking .booking_con_top .booking_left{ width:25%; float:left; text-align:left; }
+.ticket_booking .booking_con_top .booking_center{ width:50%; float:left; text-align:center; }
+.ticket_booking .booking_con_top .booking_right{ width:25%; float:left; text-align:right; }
+.ticket_booking .booking_con_top span{ display:block; line-height:30px; font-size:18px; }
+.ticket_booking .booking_con_top .booking_center span:nth-child(2){ height:30px; background-image: url(../images/booking_arr.jpg); background-repeat: no-repeat; background-size: 123px 9px; background-position: center top; }
+.timer_size{ font-size:14px !important; }
+.ticket_booking .booking_con_bottom{ height:41px; line-height:41px; }
+.ticket_booking .booking_con_bottom span:nth-child(1){ float:left; font-size:15px; }
+.ticket_booking .booking_con_bottom span:nth-child(2){ float:right; }
+.ticket_booking .ticket_booking_user{ padding:0 13px; background:#fff; font-size:15px; }
+.ticket_booking .booking_user_con{ height:45px; line-height:45px; border-bottom:1px solid #d7d7d7; }
+.ticket_booking .booking_user_con span:nth-child(1){ float:left; }
+.ticket_booking .booking_user_con span:nth-child(2){ float:right; }
+.ticket_booking_2 .booking_user_con span:nth-child(1){ float:left; }
+.ticket_booking_2 .booking_user_con span:nth-child(2){ float:left; }
+.ticket_booking_2 input { outline:none;font-size:16px;}
+.submit_order{ width:100%; padding:14px 15px; background:#f4f4f4; position: fixed; box-sizing:border-box; -webkit-box-sizing:border-box; }
+.submit_order a{ height:44px; display:block; text-align:center; line-height:44px; color:#fff; background:#5694df; font-size:18px; letter-spacing:1px; border-radius: 4px; }
+
+/* OrderDetail.html */
+.order_detail_header{ padding:5px 13px 5px; background:#fff; }
+.order_detail_header p{ font-size:14px; color:#999; line-height:23px; }
+.order_detail_tbody{ padding:20px 8px; }
+.order_detail_tbody .order_detail_main{ padding:19px 26px 27px; background:#5694df; border-radius: 4px; }
+.order_detail_tbody .order_detail_top{ height:26px; line-height:26px; font-size:15px; }
+.order_detail_tbody .order_detail_top span{ float:left; color:#fff; }
+.order_detail_tbody .order_detail_top a{ float:right; color:#ddd; }
+.order_detail_tbody .order_detail_bottom .order_detail_left{ width:25%; float:left; text-align:left; }
+.order_detail_tbody .order_detail_bottom .order_detail_center{ width:50%; float:left; text-align:center; }
+.order_detail_tbody .order_detail_bottom .order_detail_center span:nth-child(1){ height:35px; background-image: url(../images/order_detail_arr.jpg); background-repeat: no-repeat; background-size: 123px 9px; background-position: center center; }
+.order_detail_tbody .order_detail_bottom .order_detail_right{ width:25%; float:left; text-align:right; }
+.order_detail_tbody .order_span span:nth-child(1){ display:block; line-height:35px; font-size:15px; color:#fff; }
+.order_detail_tbody .order_span span:nth-child(2){ display:block; line-height:30px; font-size:15px; color:#fff; }
+.order_detail_tbody .order_detail_user{ padding:0 6px; background:#fff; border-radius: 4px; margin-top:-4px; }
+.order_detail_tbody .order_user_con{ height:45px; line-height:45px; border-bottom:1px solid #d7d7d7; }
+.order_detail_tbody .order_detail_user span:nth-child(1){ float:left; }
+.order_detail_tbody .order_detail_user span:nth-child(2){ float:right; }
+.wx_pay i{ width:19px; height:25px; background: url(../images/choose.jpg) no-repeat; background-size: 19px 19px; background-position: center center; margin-left:15px; float:left; }
+.wx_pay span{ height:25px; float:left; line-height:25px; font-size:16px; color:#333; margin-left:10px; }
+/* 支付成功 */
+.transparent{ width:100%; height:100%; background:rgba(0,0,0,0.6); position: fixed; top:0; left:0; z-index: 999; display:none; }
+.transparent .pay_succeed{ width:100%; position: fixed; top:28%; left:0; text-align:center; }
+.transparent .pay_succeed img{ width:95px; height:95px; display:inline-block; }
+.transparent .pay_succeed p{ font-size:22px; color:#fff; margin-top:15px; }
+
+/* SelectedStation.html */
+.header_search{ padding:8px; background:#dddddd; }
+.header_search input{ width:100%; height:28px; border:none; outline: none; padding-left:30px; border-radius: 4px; font-size:15px; box-sizing:border-box; -webkit-box-sizing:border-box; background-image: url(../images/search_icon.jpg); background-repeat: no-repeat; background-size: 18px 18px; background-position: left 5px center; }
+.history .clear_history{ height:44px; background:#fff; padding:0 15px; }
+.history .clear_history span{ float:left; font-size:16px; line-height:44px; }
+.history .clear_history i{ float:right; height:44px; background-image: url(../images/delete.png); background-repeat: no-repeat; background-size: 18px 18px; background-position: center center; padding-right:18px; }
+.selected_station h5{ padding-top:5px; padding-left:15px; font-size:15px; line-height:28px; }
+.history ul.history_station{ background:#fff; padding:10px 0 10px 15px; }
+.history ul.history_station li{ float:left; font-size:15px; line-height:25px; color:#666; padding:0 20px; }
+.history ol.hot_search{ background:#fff; padding:0 15px 10px; }
+.history ol.hot_search li{ height:43px; border-bottom:1px solid #d7d7d7; line-height:43px; }
+.history ol.hot_search li span{ float:left; width:33.333%; text-align:center; font-size:15px; color:#666; }
+.search_index{ position: absolute; top:185px; right:5px; padding-bottom:20px; }
+.search_index ol li{ font-size:12px; color:#0088f4; }
+
+/* Login.html */
+.login_con{ padding:0 18px; }
+.login_con .login_con_main{ background:#fff; border-radius: 4px; }
+.login_con .login_con_main .login_line{ height:62px; padding-left:53px; border-bottom:1px solid #e8f2ff; background-repeat: no-repeat; background-position: left 15px center; }
+.login_con .login_con_main .phone{ background-image: url(../images/phone_icon.png); background-size: 16px 24px; }
+.login_con .login_con_main .password{ background-image: url(../images/password_icon.png); background-size: 16px 22px; }
+.login_con .login_con_main .login_line input{ height:62px; outline: none; font-size: 15px; }
+.login_con .login_con_main .login_line select{ height:62px; outline: none; font-size: 15px; }
+.login_con .login_con_main .password input{ float:left; }
+.login_con .login_con_main .password i{ width:18px; height:14px; float:right; margin-top:24px; margin-right:15px; }
+.login_con .registered_password{ height:40px; line-height:40px; }
+.login_con .registered_password a.registered{ float:left; font-size:13px; }
+.login_con .registered_password a.forget_password{ float:right; font-size:13px; }
+.login_con .login_btn{ height:47px; background:#197fed; border-radius: 4px; font-size:18px; color:#fff; text-align:center; line-height:47px; letter-spacing:2px; margin-top:47px; }
+
+/* ForgetPassword.html */
+.phone input:disabled,.phone input[disabled],.phone input.disabled{ background-color:#ddd !important;}
+.login_con .login_con_main .code{ background-image: url(../images/code_icon.png); background-size: 20px 21px; }
+.login_con .login_con_main .re_enter{ background-image: url(../../images/re_enter_cion.png); background-size: 20px 20px; }
+.login_con .login_con_main .login_line input.phone_num{ width:140px; float:left; }
+.login_con .login_con_main .login_line input.code_btn{ float:right; width:82px; height:33px; background:#197fed; text-align:center; color:#fff; font-size:13px; border-radius: 4px; margin-top:14px; margin-right:5px; }
+
+/* Calendar.html */
+#datepicker .ui-widget.ui-widget-content{ width:98.5%; border:none; }
+#datepicker .ui-widget-header{ background:#fff; border:none; }
+#datepicker table.ui-datepicker-calendar thead{ background:#0088f4; color:#fff; }
+.ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default, .ui-button, html .ui-button.ui-state-disabled:hover, html .ui-button.ui-state-disabled:active{ border:none; background:#fff; text-align:center; }
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active, a.ui-button:active, .ui-button:active, .ui-button.ui-state-active:hover{ background:#0088f4; color:#fff; }

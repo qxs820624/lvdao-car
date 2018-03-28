@@ -3,6 +3,7 @@ package com.lvdao.car.action;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.net.URISyntaxException;
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -28,6 +29,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.aliyuncs.dysmsapi.model.v20170525.SendSmsResponse;
+import com.aliyuncs.exceptions.ClientException;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.EncodeHintType;
 import com.google.zxing.MultiFormatWriter;
@@ -38,19 +41,26 @@ import com.lvdao.common.CommonConst;
 import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
 import com.lvdao.common.enums.WithdrawAccountTypeEnum;
+import com.lvdao.common.util.AliyunSMSUtil;
+import com.lvdao.common.util.BaiduMapUtils;
+import com.lvdao.common.util.ChatIMUtil;
 import com.lvdao.common.util.DateUtils;
 import com.lvdao.common.util.StringUtil;
+import com.lvdao.entity.AccountEntity;
 import com.lvdao.entity.BonusReturnEntity;
 import com.lvdao.entity.DealLogEntity;
 import com.lvdao.entity.DictEntity;
+import com.lvdao.entity.LoginLogEntity;
 import com.lvdao.entity.UserAccountEntity;
 import com.lvdao.entity.UserEntity;
+import com.lvdao.entity.UserRoleEntity;
 import com.lvdao.entity.UserWithdrawEntity;
 import com.lvdao.service.IAccountService;
 import com.lvdao.service.IBonusReturnService;
 import com.lvdao.service.IDealLogService;
 import com.lvdao.service.IDictService;
 import com.lvdao.service.IUserAccountService;
+import com.lvdao.service.IUserRoleService;
 import com.lvdao.service.IUserService;
 import com.lvdao.service.IUserWithdrawService;
 
@@ -69,7 +79,7 @@ public class UserController {
 	@Autowired
 	private IUserAccountService userAccountService;
 
-	// 用户提现servier
+	//用户提现servier
 	@Autowired
 	private IUserWithdrawService userWithdrawService;
 
@@ -81,6 +91,210 @@ public class UserController {
 
 	@Autowired
 	private IDictService dictService;
+	
+	@Autowired
+	private IUserRoleService userRoleService;
+	
+	/**
+	 * 注册页面
+	 * 
+	 * @author hexiang
+	 * @since 2018-03-28 15:29
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	public ModelAndView register (HttpServletRequest request) {
+		String userParentName = request.getParameter("userParentName");
+		ModelAndView mav = new ModelAndView("/register");
+		mav.addObject("userParentName", userParentName);
+		return mav;
+	}
+	
+	/**
+	 * 获取验证码
+	 * 
+	 * @author hexiang
+	 * @since 2018-03-28 15:47
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "sendCode", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> forwardSendCode(HttpServletRequest request) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		String mobile = request.getParameter("mobile");
+		if (mobile == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(mobile)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "手机号码为空");
+			return map;
+		}
+		String code = StringUtil.randomNumber(CommonConst.DIGIT_SIX);
+		request.getSession().setAttribute(CommonConst.SEND_CODE, code);
+		request.getSession().setAttribute("userMobile", mobile);
+		LOGGER.info("code==========" + code);
+		LOGGER.info("userMobile=============" + mobile);
+//		int status = StringUtils.sendSmsCode(mobile, message);
+		SendSmsResponse sendSms = new SendSmsResponse();
+		try {
+			sendSms = AliyunSMSUtil.sendSms(mobile, code);
+		} catch (ClientException e) {
+			e.printStackTrace();
+		}
+		if ("OK".equals(sendSms.getCode())) {
+			map.put("result", "S");
+		} else {
+			map.put("result", "F");
+		}
+		return map;
+	}
+	
+	/**
+	 * 分享推荐注册
+	 * 
+	 * @author hexiang
+	 * @since 2017/7/20
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/userRegister", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> userRegister(HttpServletRequest request) {
+		//获取页面参数
+		String userMobile = request.getParameter("mobile");
+		String sendCode = request.getParameter("sendCode");
+		String userParentName = request.getParameter("userParentName");
+		String userParentId = CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS;
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		int result = CommonConst.DIGIT_ZERO;
+		//校验参数
+		if (userMobile == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(userMobile)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "手机号码为空");
+			return map;
+		}
+	
+		if (sendCode == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(sendCode)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "验证码为空");
+			return map;
+		}
+		String mobile = (String) request.getSession().getAttribute("userMobile");
+		String code = (String) request.getSession().getAttribute("sendCode");
+	
+		// 手机号码与验证码一致则登录成功 否则失败
+		if(!mobile.equals(userMobile) || !code.equals(sendCode)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "验证码不正确");
+			return map;
+		}
+		
+		// 验证手机号码是否已经存在
+		map.put("userName", userMobile);
+		List<UserEntity> userList = userService.queryList(map);
+		if(userList != null && userList.size() > CommonConst.DIGIT_ZERO) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "该用户已注册");
+			return map;
+		}
+		
+		//查看推荐人是否存在
+		if(!org.apache.commons.lang.StringUtils.isBlank(userParentName)) {
+			map.put("userName", userParentName);
+			List<UserEntity> userParentList = userService.queryList(map);
+			if(userParentList == null || userParentList.size() == CommonConst.DIGIT_ZERO) {
+				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "该推荐人手机号不存在");
+				return map;
+			}
+			userParentId = userParentList.get(CommonConst.DIGIT_ZERO).getUserId();
+		}
+		
+		UserEntity user = new UserEntity();
+		user.setId(StringUtil.produceUUID());
+		int userId = userService.getMaxId() + 1;//userId最大值+1
+		user.setUserId(Integer.toString(userId));
+		user.setUserName(mobile);
+		user.setUserMobile(mobile);
+		//EASEMOB_NAME 环信名称
+		user.setUserMobileValidation(true);//手机号是否验证 0未验证1已验证
+		user.setUserPassword("123456");//密码未加密
+		user.setActive(true);
+		user.setCreateUserId(userId+"");
+		user.setCreateTime(new Date());
+		user.setVersion(1);
+		
+		//根据userParentId查询parentUser
+		if(!StringUtils.isBlank(userParentName)) {
+			UserEntity parentUser = userService.queryByUserName(userParentName);
+			if(parentUser != null) {
+				user.setUserParentId(parentUser.getUserId());
+				user.setUserParentName(parentUser.getUserName());
+			}
+		}
+		
+		//环信注册
+		try {
+			 boolean registerIM = ChatIMUtil.registerIM(mobile, CommonConst.USER_PWD, "lvdao");
+			 LOGGER.info("环信是否注册成功："+registerIM);
+			 user.setEasemobName(mobile);
+		} catch (URISyntaxException e) {
+			LOGGER.info("Exiting UserServiceImpl register...  result = :{}, exception = :{}", result, e.getMessage());
+		}
+		
+		//t_user 表的数据插入
+		int insert = userService.insert(user);
+		if(insert > CommonConst.DIGIT_ZERO) {
+			//t_user_role-->插入角色表
+			UserRoleEntity userRoleEntity = new UserRoleEntity();
+			userRoleEntity.setId(StringUtil.produceUUID());
+			userRoleEntity.setUserId(Integer.toString(userId));
+			userRoleEntity.setUserName(mobile);
+			userRoleEntity.setRoleId(CommonConst.STRING_TWO);
+			userRoleEntity.setRoleName("乘客");
+			
+			userRoleEntity.setActive(true);
+			userRoleEntity.setCreateUserId(userId + "");
+			userRoleEntity.setCreateUserName(mobile);
+			userRoleEntity.setCreateTime(new Date());
+			userRoleEntity.setVersion(1);
+			userRoleService.insert(userRoleEntity);
+			//用户账单表插入
+			List<AccountEntity> accountList = accountService.queryAll();
+			for (AccountEntity accountEntity : accountList) {
+				UserAccountEntity userAccount = new UserAccountEntity();
+				userAccount.setAccountAmount("0.00");
+				userAccount.setAccountId(accountEntity.getAccountId());
+				userAccount.setAccountName(accountEntity.getAccountName());
+				userAccount.setActive(true);
+				userAccount.setCreateTime(new Date());
+				userAccount.setId(com.lvdao.common.util.StringUtil.produceUUID());
+				userAccount.setUserId(Integer.toString(userId));
+				userAccount.setUserName(mobile);
+				userAccount.setVersion(1l);
+				userAccountService.insert(userAccount);
+				
+			}
+			
+			//百度鹰眼
+			try {
+				BaiduMapUtils.registerBaiduMapYingYanUser(mobile);
+			} catch (URISyntaxException e) {
+				LOGGER.error("注册百度鹰眼轨迹用户失败");
+			}
+			
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
+			map.put(CommonConst.RESPONSE_MESSAGE, MessageConst.REMINDER_REGISTER_SUCCESS);
+			LOGGER.info("Exiting UserServiceImpl register...  result = :{}", result);
+			return map;
+		}	
+			
+		map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+		map.put(CommonConst.RESPONSE_ERROR_MESSAGE, MessageConst.REMINDER_REGISTER_FAIL);
+		LOGGER.info("Exiting UserServiceImpl register...  result = :{}", result);
+	    return map;
+	}
 
 	/**
 	 * app跳转过来首页
@@ -326,35 +540,11 @@ public class UserController {
 			mav.addObject("userList", userList);
 			
 //			String createQRCode = createQRCode(response,request,"http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
-			mav.addObject("createQRCode", "http://car.motian123.cn/order/uploadVoucher.do?type=0&userParentName=" + user.getUserName());
+			mav.addObject("createQRCode", "http://car.motian123.cn/user/register.do?type=0&userParentName=" + user.getUserName());
 			
 		}
 		return mav;
 	}
-
-	/*	*//**
-			 * 返还明细
-			 * 
-			 * @param request
-			 * @return
-			 *//*
-			 * @RequestMapping(value = "/returnDetail", method =
-			 * RequestMethod.GET) public ModelAndView
-			 * returnDetail(HttpServletRequest request) { ModelAndView mav = new
-			 * ModelAndView("/returnDetail"); return mav; }
-			 */
-
-	/*	*//**
-			 * 奖励明细
-			 * 
-			 * @param request
-			 * @return
-			 *//*
-			 * @RequestMapping(value = "/rewardDetail", method =
-			 * RequestMethod.GET) public ModelAndView
-			 * rewardDetail(HttpServletRequest request) { ModelAndView mav = new
-			 * ModelAndView("/rewardDetail"); return mav; }
-			 */
 
 	/**
 	 * 根据
