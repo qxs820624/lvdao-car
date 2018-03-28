@@ -35,10 +35,14 @@ public class IndexController {
 		ModelAndView mav = new ModelAndView("/index");
 		String userName = request.getParameter("userName");
 		if (StringUtils.isBlank(userName)) {
-			userName = "18800000001";
+			return new ModelAndView("redirect:/user/userLogin.do");
 		}
 		//测试数据
 		UserEntity userEntity = userService.queryByUserName(userName);
+		if (userEntity == null || StringUtils.isBlank(userEntity.getUserName())) {
+			return new ModelAndView("redirect:/user/userLogin.do");
+		}
+		
 		request.getSession().setAttribute(CommonConst.SESSION_USER, userEntity);
 		return mav;
 	}
