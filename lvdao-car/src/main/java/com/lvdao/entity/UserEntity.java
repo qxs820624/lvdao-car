@@ -15,6 +15,8 @@ public class UserEntity extends BaseEntity implements Serializable {
     private String userName;// 用户名
     private String userGender;//用户性别：1，男 0 女
     private String userRealName;//用户真实姓名
+    private String userCenterCode;//集团编码
+    private String userCenterName;//集团名称
     private String easemobName;//环信名称
     private String userIdNum;//用户身份证号码
     private String userDesc;//用户描述
@@ -473,6 +475,22 @@ public class UserEntity extends BaseEntity implements Serializable {
 
 	public void setUserWechatAccount(String userWechatAccount) {
 		this.userWechatAccount = userWechatAccount;
+	}
+
+	public synchronized String getUserCenterCode() {
+		return userCenterCode;
+	}
+
+	public synchronized void setUserCenterCode(String userCenterCode) {
+		this.userCenterCode = userCenterCode;
+	}
+
+	public synchronized String getUserCenterName() {
+		return userCenterName;
+	}
+
+	public synchronized void setUserCenterName(String userCenterName) {
+		this.userCenterName = userCenterName;
 	}
 	
 	
