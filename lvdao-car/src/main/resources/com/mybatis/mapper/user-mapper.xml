@@ -7,6 +7,8 @@
 	    <result column="WX_ID" property="wxId" jdbcType="VARCHAR" />
 	    <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
 	    <result column="USER_REAL_NAME" property="userRealName" jdbcType="VARCHAR" />
+	    <result column="USER_CENTER_CODE" property="userCenterCode" jdbcType="VARCHAR" />
+	    <result column="USER_CENTER_NAME" property="userCenterName" jdbcType="VARCHAR" />
 	    <result column="EASEMOB_NAME" property="easemobName" jdbcType="VARCHAR" />
 	    <result column="USER_ID_NUM" property="userIdNum" jdbcType="VARCHAR" /> 
 	    <result column="USER_DESC" property="userDesc" jdbcType="VARCHAR" />
@@ -63,6 +65,8 @@
     	U.WX_ID,
     	U.USER_NAME,
     	U.USER_REAL_NAME,
+    	U.USER_CENTER_CODE,
+    	U.USER_CENTER_NAME,
     	u.EASEMOB_NAME,
     	U.USER_ID_NUM,
     	U.USER_DESC,
@@ -119,6 +123,8 @@
     	WX_ID,
     	USER_NAME,
     	USER_REAL_NAME,
+    	USER_CENTER_CODE,
+    	USER_CENTER_NAME,
     	EASEMOB_NAME,
     	USER_ID_NUM,
     	USER_DESC,
@@ -165,6 +171,8 @@
 		#{wxId, jdbcType=VARCHAR},
 		#{userName, jdbcType=VARCHAR},
 		#{userRealName, jdbcType=VARCHAR},
+		#{userCenterCode, jdbcType=VARCHAR},
+		#{userCenterName, jdbcType=VARCHAR},
 		#{easemobName, jdbcType=VARCHAR},
 		#{userIdNum, jdbcType=VARCHAR},
 		#{userDesc, jdbcType=VARCHAR},
@@ -214,6 +222,12 @@
       	</if>
       	<if test="userRealName != null and userRealName != ''" >
         	U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userCenterCode != null and userCenterCode != ''" >
+        	U.USER_CENTER_CODE = #{userCenterCode, jdbcType=VARCHAR},
+      	</if>
+      	<if test="userCenterName != null and userCenterName != ''" >
+        	U.USER_CENTER_CODE = #{userCenterName, jdbcType=VARCHAR},
       	</if>
       	<if test="userIdNum != null and userIdNum != ''" >
         	U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR},
@@ -375,6 +389,12 @@
 	      	<if test="userRealName != null and userRealName != ''" >
         		AND U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR}
       		</if>
+      		<if test="userCenterCode != null and userCenterCode != ''" >
+	        	AND U.USER_CENTER_CODE = #{userCenterCode, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userCenterName != null and userCenterName != ''" >
+	        	AND U.USER_CENTER_CODE = #{userCenterName, jdbcType=VARCHAR}
+	      	</if>
 	      	<if test="userIdNum != null and userIdNum != ''" >
         		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
       		</if>
@@ -442,6 +462,12 @@
 	      	<if test="userRealName != null and userRealName != ''" >
         		AND U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR}
       		</if>
+      		<if test="userCenterCode != null and userCenterCode != ''" >
+	        	AND U.USER_CENTER_CODE = #{userCenterCode, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userCenterName != null and userCenterName != ''" >
+	        	AND U.USER_CENTER_CODE = #{userCenterName, jdbcType=VARCHAR}
+	      	</if>
 	      	<if test="userIdNum != null and userIdNum != ''" >
         		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
       		</if>
@@ -514,6 +540,12 @@
 	      	<if test="userRealName != null and userRealName != ''" >
         		AND U.USER_REAL_NAME = #{userRealName, jdbcType=VARCHAR}
       		</if>
+      		<if test="userCenterCode != null and userCenterCode != ''" >
+	        	AND U.USER_CENTER_CODE = #{userCenterCode, jdbcType=VARCHAR}
+	      	</if>
+	      	<if test="userCenterName != null and userCenterName != ''" >
+	        	AND U.USER_CENTER_CODE = #{userCenterName, jdbcType=VARCHAR}
+	      	</if>
 	      	<if test="userIdNum != null and userIdNum != ''" >
         		AND U.USER_ID_NUM = #{userIdNum, jdbcType=VARCHAR}
       		</if>
