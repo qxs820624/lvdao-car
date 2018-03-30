@@ -36,7 +36,7 @@
                         <div class="swiper-button-prev swiper-button-prev01"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>待定</i>万</p>
+                        <p><i>5</i>万</p>
                         <span>每天都可返利</span>
                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=5'">选TA</button>
                     </div>
@@ -60,7 +60,7 @@
                         <div class="swiper-button-prev swiper-button-prev02"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>待定</i>万</p>
+                        <p><i>10</i>万</p>
                         <span>每天都可返利</span>
                          <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=10'">选TA</button>
                     </div>
@@ -85,9 +85,10 @@
                         <div class="swiper-button-prev swiper-button-prev03"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>待定</i>万</p>
+                        <p><i>20</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?'+'inversType=20'">选TA</button>
+                        <!--<button onclick="javascript:window.location.href='/order/orderForm.do?'+'inversType=20'">选TA</button>-->
+                        <button >暂未开放</button>
                     </div>
                 </div>
                 
@@ -111,9 +112,10 @@
                         <div class="swiper-button-prev swiper-button-prev04"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>待定</i>万</p>
+                        <p><i>50</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=50'">选TA</button>
+                        <!-- <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=50'">选TA</button>-->
+                        <button >暂未开放</button>
                     </div>
                 </div>
                 
@@ -137,9 +139,10 @@
                         <div class="swiper-button-prev swiper-button-prev05"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>待定</i>万</p>
+                        <p><i>100</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=100'">选TA</button>
+                        <!--<button onclick="javascript:window.location.href='/order/orderForm.do?inversType=100'">选TA</button>-->
+                        <button >暂未开放</button>
                     </div>
                 </div>
                 
