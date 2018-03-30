@@ -78,7 +78,8 @@
                    <span>打款账号</span>
                     <div>
                         <p>深圳驴道房车连锁管理有限公司</p>
-                        <p>79140078801700000155</p>
+                        <p>浦发银行 深圳龙华支行</p>
+                        <p style='font-weight: bold;'>79140078801700000155</p>
                     </div>
                 </div>
                 <div class="order_form_btn">

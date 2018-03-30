@@ -37,7 +37,7 @@
                         <span>我是投资人</span>
                         <p>每天可以从平台领取返利</p>
                     </div>
-                    <div class="right_driver" id = "ale" onclick="javascript:layer.msg('请进入驴道拼货app使用此功能')">
+                    <div class="right_driver" id = "ale" onclick="javascript:window.location.href='/user/userLogin.do'">
                         <img src="../../resources/images/icon_driver.png" alt="">
                         <span>我是司机</span>
                         <p>平台提供车让你赚钱</p>
@@ -45,7 +45,7 @@
                 </div>
                 <div class="car_series">
                     <div class="swiper-container swiper-container02">
-                        <div class="swiper-wrapper">
+                        <div class="swiper-wrapper" onclick="javascript:window.location.href='/user/investment.do'">
                             <div class="swiper-slide">
                                 <img src="../../resources/images/benben1.jpg">
                                 <div class="outer">
