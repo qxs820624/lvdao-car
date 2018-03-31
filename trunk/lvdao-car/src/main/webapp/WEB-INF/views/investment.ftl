@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="investment_type">
-                    <h3>新能源汽车(十万)</h3>
+                    <h3>新能源汽车(十五万)</h3>
                     <div class="investment_img">
                         <div class="swiper-container investment02">
                             <div class="swiper-wrapper">
@@ -60,14 +60,14 @@
                         <div class="swiper-button-prev swiper-button-prev02"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>10</i>万</p>
+                        <p><i>15</i>万</p>
                         <span>每天都可返利</span>
-                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=10'">选TA</button>
+                         <button onclick="javascript:window.location.href='/order/orderForm.do?inversType=15'">选TA</button>
                     </div>
                 </div>
                 
                 <div class="investment_type">
-                    <h3>新能源汽车(二十万)</h3>
+                    <h3>新能源汽车(二十五万)</h3>
                     <div class="investment_img">
                         <div class="swiper-container investment03">
                             <div class="swiper-wrapper">
@@ -85,9 +85,9 @@
                         <div class="swiper-button-prev swiper-button-prev03"></div>
                     </div>
                     <div class="investment_info outer">
-                        <p><i>20</i>万</p>
+                        <p><i>25</i>万</p>
                         <span>每天都可返利</span>
-                        <!--<button onclick="javascript:window.location.href='/order/orderForm.do?'+'inversType=20'">选TA</button>-->
+                        <!--<button onclick="javascript:window.location.href='/order/orderForm.do?'+'inversType=25'">选TA</button>-->
                         <button >暂未开放</button>
                     </div>
                 </div>
@@ -142,6 +142,32 @@
                         <p><i>100</i>万</p>
                         <span>每天都可返利</span>
                         <!--<button onclick="javascript:window.location.href='/order/orderForm.do?inversType=100'">选TA</button>-->
+                        <button >暂未开放</button>
+                    </div>
+                </div>
+                
+                <div class="investment_type">
+                    <h3>新能源汽车(两百万)</h3>
+                    <div class="investment_img">
+                        <div class="swiper-container investment06">
+                            <div class="swiper-wrapper">
+                                <div class="swiper-slide"><img src="../../resources/images/haoche.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/haoche.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/haoche.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/haoche.jpg" alt=""></div>
+                                <div class="swiper-slide"><img src="../../resources/images/haoche.jpg" alt=""></div>
+                            </div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination swiper-pagination06"></div>
+                        <!-- Add Arrows -->
+                        <div class="swiper-button-next swiper-button-next06"></div>
+                        <div class="swiper-button-prev swiper-button-prev06"></div>
+                    </div>
+                    <div class="investment_info outer">
+                        <p><i>200</i>万</p>
+                        <span>每天都可返利</span>
+                        <!--<button onclick="javascript:window.location.href='/order/orderForm.do?inversType=200'">选TA</button>-->
                         <button >暂未开放</button>
                     </div>
                 </div>
