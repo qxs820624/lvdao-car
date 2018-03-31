@@ -33,7 +33,8 @@ public enum LogTypeEnum {
 	LOG_TYPE_REWARD_STOCK("22", "加盟返股票记录"),
 	LOG_TYPE_RIDE_CUPON("23", "乘车券记录"),
 	LOG_TYPE_REWARD_PACKAGE("24", "燃油包变更记录"),//	 用desc做加减统计
-	LOG_TYPE_REFUSE_WITHDRAW("25", "拒绝提现申请");
+	LOG_TYPE_REFUSE_WITHDRAW("25", "拒绝提现申请"),
+	LOG_TYPE_OUT_CAR_COMPENSATE("26", "出车补贴");
 	
 
     private String id;
