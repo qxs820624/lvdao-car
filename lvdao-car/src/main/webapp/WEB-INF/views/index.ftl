@@ -61,7 +61,7 @@
                                 <div class="outer">
                                     <div class="car_brand">
                                         <span>新能源</span>
-                                        <i>十万车主</i>
+                                        <i>十五万车主</i>
                                     </div>
                                    <!-- <button>选TA</button> -->
                                 </div>
@@ -71,7 +71,7 @@
                                 <div class="outer">
                                     <div class="car_brand">
                                         <span>新能源</span>
-                                        <i>二十万车主</i>
+                                        <i>二十五万车主</i>
                                     </div>
                                   <!--  <button>选TA</button>  -->
                                 </div>
@@ -93,6 +93,17 @@
                                     <div class="car_brand">
                                         <span>房车</span>
                                         <i>一百万车主</i>  
+                                    </div>
+                             <!--       <button>选TA</button>  -->
+                                </div>
+                            </div>
+                            
+                            <div class="swiper-slide">
+                                <img src="../../resources/images/haoche.jpg">
+                                <div class="outer">
+                                    <div class="car_brand">
+                                        <span>豪华房车</span>
+                                        <i>两百万车主</i>  
                                     </div>
                              <!--       <button>选TA</button>  -->
                                 </div>

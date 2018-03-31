@@ -29,25 +29,25 @@
                     </div>
                     </#if>
                     
-                    <#if orderType?? && orderType == "10" >
+                    <#if orderType?? && orderType == "15" >
                     <div class="order_form_img">
                         <img src="../../resources/images/benbenten1.jpg" alt="">
                     </div>
                     <div class="order_form_info">
                         <h5>新能源汽车中级轿车</h5>
                         <p>每天可返利</p>
-                        <span>¥10万</span>
+                        <span>¥15万</span>
                     </div>
                     </#if>
                     
-                    <#if orderType?? && orderType == "20" >
+                    <#if orderType?? && orderType == "25" >
                     <div class="order_form_img">
                         <img src="../../resources/images/chuanqi1.jpg" alt="">
                     </div>
                     <div class="order_form_info">
                         <h5>新能源汽车高级级轿车</h5>
                         <p>每天可返利</p>
-                        <span>¥20万</span>
+                        <span>¥25万</span>
                     </div>
                     </#if>
                     
@@ -70,6 +70,17 @@
                         <h5>品牌汽车高级房车</h5>
                         <p>每天可返利</p>
                         <span>¥100万</span>
+                    </div>
+                    </#if>
+
+					<#if orderType?? && orderType == "200" >
+                    <div class="order_form_img">
+                        <img src="../../resources/images/haoche.jpg" alt="">
+                    </div>
+                    <div class="order_form_info">
+                        <h5>品牌汽车豪华房车</h5>
+                        <p>每天可返利</p>
+                        <span>¥200万</span>
                     </div>
                     </#if>
                     
