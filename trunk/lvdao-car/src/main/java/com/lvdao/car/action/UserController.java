@@ -429,7 +429,7 @@ public class UserController {
 
 			if (stockAccountList != null && stockAccountList.size() > CommonConst.DIGIT_ZERO) {
 				String accountStockAmount = stockAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
-				mav.addObject("stockAccount", accountStockAmount);
+				mav.addObject("stockAccount", roundByScale(accountStockAmount, 2));
 			}
 
 			// 分享补贴账户
