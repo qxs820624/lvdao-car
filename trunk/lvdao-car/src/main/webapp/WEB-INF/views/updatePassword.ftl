@@ -27,6 +27,9 @@
                         <div class="login_line">
 							<input class="phone_num" id="newPassword" type="password" placeholder="请输入新密码">
 						</div>
+						<div class="login_line">
+							<input class="phone_num" id="confirmPassword" type="password" placeholder="请再次输入新密码">
+						</div>
 					</div>
                     <div class="login_btn" style="background-color: #076842;">
                         <a href="javascript:void(0);" id="updatePassword">修改密码</a>
@@ -109,6 +112,7 @@
 			var mobile = $("#userMobile").val();
 			var sendCode = $("#smsCode").val();
 			var newPassword = $("#newPassword").val();
+			var confirmPassword = $("#confirmPassword").val();
 			
 			if(mobile == "" || mobile == null || mobile == undefined){
 				 alert("手机号码不能为空");  
@@ -126,8 +130,18 @@
 				return false;
 			}
 			
+			if(confirmPassword == "" || confirmPassword == null){
+				alert("请再次输入密码");
+				return false;
+			}
+			
 			if(!verifyPassword(newPassword)){
 				alert("密码长度为6~20位，必须包含数字和字母");
+				return false;
+			}
+			
+			if(newPassword != confirmPassword) {
+				alert("两次密码不一致");
 				return false;
 			}
 			sendCode = sendCode.trim();
