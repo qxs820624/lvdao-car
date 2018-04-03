@@ -23,7 +23,7 @@
                         <div class="swiper-slide">
                             <div class="personal_box return_account">
                                 <h4>燃油补贴账户</h4>
-                                <span>¥<#if accountbonuAmount??>${accountbonuAmount}<#else>0</#if></span>
+                                <span>¥<#if accountbonuAmount??>${accountbonuAmount!'0'}<#else>0</#if></span>
                                 <div class="button return_account_btn outer">
                                     <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=20'">返还明细</button>
                                     <button onclick="javascript:window.location.href='/user/cashWithdraw.do?accountType=6'">账户提现</button>
@@ -33,7 +33,7 @@
                         <div class="swiper-slide">
                             <div class="personal_box income_account">
                                 <h4>燃油包</h4>
-                                <span>¥<#if shareRewardAccount??>${shareRewardAccount}</span><#else>0</#if></span>
+                                <span><#if ownAmount??>${ownAmount}个</span><#else>0个</#if></span>
                                 <div class="button income_account_btn outer">
                                     <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=24'">收入明细</button>
                                 </div>
