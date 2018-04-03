@@ -40,6 +40,7 @@ import com.google.zxing.common.BitMatrix;
 import com.lvdao.common.CommonConst;
 import com.lvdao.common.MessageConst;
 import com.lvdao.common.enums.AccountEnum;
+import com.lvdao.common.enums.LogTypeEnum;
 import com.lvdao.common.enums.WithdrawAccountTypeEnum;
 import com.lvdao.common.util.AliyunSMSUtil;
 import com.lvdao.common.util.BaiduMapUtils;
@@ -50,7 +51,6 @@ import com.lvdao.entity.AccountEntity;
 import com.lvdao.entity.BonusReturnEntity;
 import com.lvdao.entity.DealLogEntity;
 import com.lvdao.entity.DictEntity;
-import com.lvdao.entity.LoginLogEntity;
 import com.lvdao.entity.UserAccountEntity;
 import com.lvdao.entity.UserEntity;
 import com.lvdao.entity.UserRoleEntity;
@@ -452,6 +452,9 @@ public class UserController {
 
 			if (bonusReturnAccountList != null && bonusReturnAccountList.size() > CommonConst.DIGIT_ZERO) {
 				String accountbonuAmount = bonusReturnAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				if (StringUtils.isBlank(accountbonuAmount)) {
+					accountbonuAmount=CommonConst.STRING_ZERO;
+				}
 				mav.addObject("accountbonuAmount", roundByScale(accountbonuAmount, 2));
 			}
 			String sumBonusRaturn = this.sumBonusRaturn(user.getUserId());
@@ -575,13 +578,34 @@ public class UserController {
 		map.put("userId", user.getUserId());
 		map.put("selectDate", selectDate);
 		List<DealLogEntity> logList = dealLogService.queryList(map);
-		BigDecimal totalPrice = new BigDecimal(CommonConst.DIGIT_ZERO);
-		for (DealLogEntity dealLogEntity : logList) {
-			totalPrice = totalPrice.add(new BigDecimal(dealLogEntity.getLogAmount()));
+		//	若查询的是燃油包log则返还单独页面
+		if (logType.equals(LogTypeEnum.LOG_TYPE_REWARD_PACKAGE.getId())) {
+			ModelAndView otherMav = new ModelAndView("/packageChangeDetail");
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.SHARE_REWARD.getId());
+			List<UserAccountEntity> accountList = userAccountService.queryList(map);
+			if (null!=accountList && !accountList.isEmpty()) {
+				String ownAmount = accountList.get(CommonConst.DIGIT_ZERO).getOwnAmount();
+				if (StringUtils.isBlank(ownAmount)) {
+					ownAmount=CommonConst.STRING_ZERO;
+				}
+				otherMav.addObject("ownAmount", ownAmount);
+			}
+			otherMav.addObject("accountList", logList);
+			otherMav.addObject("logType", logType);
+			otherMav.addObject("selectDate", selectDate);
+			return otherMav;
+			
+		}else {
+			BigDecimal totalPrice = new BigDecimal(CommonConst.DIGIT_ZERO);
+			for (DealLogEntity dealLogEntity : logList) {
+				totalPrice = totalPrice.add(new BigDecimal(dealLogEntity.getLogAmount()));
+			}
+			mav.addObject("totalPrice", totalPrice.toString());
+			mav.addObject("accountList", logList);
+			mav.addObject("logType", logType);
 		}
-		mav.addObject("totalPrice", totalPrice.toString());
-		mav.addObject("accountList", logList);
-		mav.addObject("logType", logType);
 		mav.addObject("selectDate", selectDate);
 		return mav;
 
@@ -680,7 +704,7 @@ public class UserController {
 	 */
 	public String roundByScale(String v, int scale) {
 		if (StringUtils.isBlank(v) || v.equals("0") || v.equals("0.0") || v.equals("0.00")) {
-			return "";
+			return "0.00";
 		}
 		if (!judgeIsDecimal(v)) {
 			return v;
