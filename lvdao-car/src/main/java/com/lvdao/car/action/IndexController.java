@@ -38,15 +38,16 @@ public class IndexController {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public ModelAndView index(HttpServletRequest request) {
 		ModelAndView mav = new ModelAndView("/index");
-		String userName = request.getParameter("userName");
+//		String userName = request.getParameter("userName");
 		DictEntity dictEntity = dictService.queryDitcValueByDictId("app_switch");
-		if(!CommonConst.STRING_ONE.equals(dictEntity.getDictValue()) && StringUtils.isBlank(userName)) {
-			userName = "18800000001";
-		}
-		
-		if (StringUtils.isBlank(userName)) {
-			return new ModelAndView("redirect:/user/userLogin.do");
-		}
+//		if(!CommonConst.STRING_ONE.equals(dictEntity.getDictValue()) && StringUtils.isBlank(userName)) {
+//			userName = "18800000001";
+//		}
+//		
+//		if (StringUtils.isBlank(userName)) {
+//			return new ModelAndView("redirect:/user/userLogin.do");
+//		}
+		String userName="15979837642";
 		//测试数据
 		UserEntity userEntity = userService.queryByUserName(userName);
 		if (userEntity == null || StringUtils.isBlank(userEntity.getUserName())) {
