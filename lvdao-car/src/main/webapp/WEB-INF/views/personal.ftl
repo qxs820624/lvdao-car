@@ -104,10 +104,10 @@
                                     <p>已补贴金额</p>
                                     <span>¥<#if sumBonusRaturn??>${sumBonusRaturn}<#else>0</#if></span>
                                 </li>
-                                <!--<li class="outer">
-                                    <p>已返比例</p>
-                                    <span>20%</span>
-                                </li>-->
+                                <li class="outer" id="updatePasswordLi">
+                                    <p>修改密码</p>
+                                    <span></span>
+                                </li>
                             </ul>
                         </div>
                         <div class="swiper-slide">
@@ -212,6 +212,10 @@
             })
             galleryTop.params.control = galleryThumbs;
             galleryThumbs.params.control = galleryTop;
+            
+            $("#updatePasswordLi").click(function() {
+            	window.location.href = "/user/updatePasswordView.do";
+            })
         </script>
     </body>
 </html>
