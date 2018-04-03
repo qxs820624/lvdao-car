@@ -1062,7 +1062,7 @@ public class UserController {
 		}
 		
 		map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
-		map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "修改密码成功");
+		map.put(CommonConst.RESPONSE_MESSAGE, "修改密码成功");
 		LOGGER.info("Exiting UserServiceImpl updatePassword...  result = :{}", result);
 	    return map;
 	}
