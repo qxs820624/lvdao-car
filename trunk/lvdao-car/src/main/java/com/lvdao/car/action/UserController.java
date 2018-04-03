@@ -989,4 +989,81 @@ public class UserController {
 		return amout.setScale(2, BigDecimal.ROUND_DOWN).toString();// 截取小数点后两位
 	}
 
+	/**
+	 * 修改密码页
+	 * 
+	 * @author hexiang
+	 * @since 2018-04-03 14:20
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/updatePasswordView", method = RequestMethod.GET)
+	public ModelAndView updatePasswordView (HttpServletRequest request) {
+		ModelAndView mav = new ModelAndView("/updatePassword");
+		return mav;
+	}
+	
+	/**
+	 * 修改密码
+	 * 
+	 * @author hexiang
+	 * @since 2018-04-03 14:50
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/updatePassword", method = RequestMethod.POST)
+	@ResponseBody
+	public Map<String, Object> updatePassword(HttpServletRequest request) {
+		//获取页面参数
+		String userMobile = request.getParameter("mobile");
+		String sendCode = request.getParameter("sendCode");
+		String newPassword = request.getParameter("newPassword");
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		int result = CommonConst.DIGIT_ZERO;
+		//校验参数
+		if (userMobile == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(userMobile)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "手机号码为空");
+			return map;
+		}
+	
+		if (sendCode == null || CommonConst.PUNCTUATION_DOUBLE_QUOTATION_MARKS.equals(sendCode)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "验证码为空");
+			return map;
+		}
+		String mobile = (String) request.getSession().getAttribute("userMobile");
+		String code = (String) request.getSession().getAttribute("sendCode");
+	
+		// 手机号码与验证码一致则登录成功 否则失败
+		if(!mobile.equals(userMobile) || !code.equals(sendCode)) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "验证码不正确");
+			return map;
+		}
+		
+		// 验证手机号码是否已经存在
+		map.put("userName", userMobile);
+		List<UserEntity> userList = userService.queryList(map);
+		if(userList == null || userList.size() == CommonConst.DIGIT_ZERO) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "该用户不存在");
+			return map;
+		}
+		UserEntity userEntity = userList.get(CommonConst.DIGIT_ZERO);
+		userEntity.setUserPassword(newPassword);
+		int update = userService.update(userEntity);
+		if (update == CommonConst.DIGIT_ZERO) {
+			map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+			map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "修改密码失败");
+			LOGGER.info("Exiting UserServiceImpl updatePassword...  result = :{}", result);
+		    return map;
+		}
+		
+		map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
+		map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "修改密码成功");
+		LOGGER.info("Exiting UserServiceImpl updatePassword...  result = :{}", result);
+	    return map;
+	}
 }
