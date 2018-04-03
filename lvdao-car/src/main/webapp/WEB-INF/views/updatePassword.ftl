@@ -19,7 +19,7 @@
                     <div class="login_con_main" style="margin-top: 2rem;">
                         <div class="login_line">
                             <input class="phone_num" id="userMobile" type="text" readonly value="${user.userName}" />
-                            <input class="code code_btn code-btn" id="sendCode" readonly value="获取验证码" style="color:#fff;" />
+                            <input class="code code_btn code-btn" id="sendCode" readonly value="获取验证码" style="color:#fff;background-color: #076842;" />
                         </div>
                         <div class="login_line">
                             <input type="text" id="smsCode" placeholder="请输入验证码">
@@ -28,7 +28,7 @@
 							<input class="phone_num" id="newPassword" type="password" placeholder="请输入新密码">
 						</div>
 					</div>
-                    <div class="login_btn">
+                    <div class="login_btn" style="background-color: #076842;">
                         <a href="javascript:void(0);" id="updatePassword">修改密码</a>
                     </div>        
                 </div>
@@ -126,7 +126,7 @@
 				return false;
 			}
 			
-			if(!verifyPassword(password)){
+			if(!verifyPassword(newPassword)){
 				alert("密码长度为6~20位，必须包含数字和字母");
 				return false;
 			}
@@ -146,6 +146,7 @@
 		        success: function(data) {
 		        	if(data.status){
 		        		alert(data.message);
+		        		window.location.href = "/user/personal.do";
 		        	}else{
 		        		alert(data.errorMessage);
 		        		return false;
