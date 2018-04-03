@@ -957,7 +957,7 @@ public class UserController {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(date);
-		calendar.add(Calendar.DAY_OF_MONTH, 1);
+		calendar.add(Calendar.MONTH, 1);
 		Date expirationDate = calendar.getTime();
 		return format.format(expirationDate);
 	}
