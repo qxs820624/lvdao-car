@@ -17,7 +17,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.lvdao.car.vo.UserAccountMsgVO;
@@ -88,7 +87,9 @@ public class InfoController {
 		List<String> list=new ArrayList<>();
 		list.add(LogTypeEnum.LOG_TYPE_BOUNS_RETURN.getId());//	燃油补贴
 		list.add(LogTypeEnum.LOG_TYPE_OUT_CAR_RETURN.getId());// 上传补贴
-		list.add(LogTypeEnum.LOG_TYPE_REWARD_STOCK.getId());//	股券积分
+		list.add(LogTypeEnum.LOG_TYPE_YECO_STOCK.getId());//	YECO股
+		list.add(LogTypeEnum.LOG_TYPE_INGEO_STOCK.getId());//	英吉尔股
+		list.add(LogTypeEnum.LOG_TYPE_HONG_KONG_STOCK.getId());//	港股
 		map.clear();
 		map.put("logTypes", StringUtil.assembleParam(list));
 		map.put("userId", sessionUser.getUserId());
@@ -125,9 +126,17 @@ public class InfoController {
 				vo.setAccountTypeName(AccountEnum.RECOMMEND_BONUS.getValue());
 				vo.setAmount("￥"+amoutn.toString()+"元");
 				//	投资反股券积分
-			}else if(logType.equals(LogTypeEnum.LOG_TYPE_REWARD_STOCK.getId())){
-				vo.setAccountTypeId(AccountEnum.STOCK.getId());
-				vo.setAccountTypeName(AccountEnum.STOCK.getValue());
+			}else if(logType.equals(LogTypeEnum.LOG_TYPE_YECO_STOCK.getId())){
+				vo.setAccountTypeId(AccountEnum.YECO_STOCK.getId());
+				vo.setAccountTypeName(AccountEnum.YECO_STOCK.getValue());
+				vo.setAmount(amoutn.toString()+"份");
+			}else if(logType.equals(LogTypeEnum.LOG_TYPE_INGEO_STOCK.getId())){
+				vo.setAccountTypeId(AccountEnum.INGEO_STOCK.getId());
+				vo.setAccountTypeName(AccountEnum.INGEO_STOCK.getValue());
+				vo.setAmount(amoutn.toString()+"份");
+			}else if(logType.equals(LogTypeEnum.LOG_TYPE_HONG_KONG_STOCK.getId())){
+				vo.setAccountTypeId(AccountEnum.HONG_KONG_STOCK.getId());
+				vo.setAccountTypeName(AccountEnum.HONG_KONG_STOCK.getValue());
 				vo.setAmount(amoutn.toString()+"份");
 			}
 			vo.setCreateTime(log.getCreateTime());
@@ -177,7 +186,9 @@ public class InfoController {
 		List<String> list=new ArrayList<>();
 		list.add(LogTypeEnum.LOG_TYPE_BOUNS_RETURN.getId());//	燃油补贴
 		list.add(LogTypeEnum.LOG_TYPE_OUT_CAR_RETURN.getId());//	上传补贴
-		list.add(LogTypeEnum.LOG_TYPE_REWARD_STOCK.getId());//	股券积分
+		list.add(LogTypeEnum.LOG_TYPE_YECO_STOCK.getId());//	YECO股
+		list.add(LogTypeEnum.LOG_TYPE_INGEO_STOCK.getId());//	英吉尔股
+		list.add(LogTypeEnum.LOG_TYPE_HONG_KONG_STOCK.getId());//	港股
 		
 		Map<String, Object> map=new HashMap<>();
 		map.put("logTypes", StringUtil.assembleParam(list));
@@ -215,9 +226,17 @@ public class InfoController {
 				vo.setAccountTypeName(AccountEnum.RECOMMEND_BONUS.getValue());
 				vo.setAmount("￥"+amoutn.toString()+"元");
 				//	投资反股券积分
-			}else if(logType.equals(LogTypeEnum.LOG_TYPE_REWARD_STOCK.getId())){
-				vo.setAccountTypeId(AccountEnum.STOCK.getId());
-				vo.setAccountTypeName(AccountEnum.STOCK.getValue());
+			}else if(logType.equals(LogTypeEnum.LOG_TYPE_YECO_STOCK.getId())){
+				vo.setAccountTypeId(AccountEnum.YECO_STOCK.getId());
+				vo.setAccountTypeName(AccountEnum.YECO_STOCK.getValue());
+				vo.setAmount(amoutn.toString()+"份");
+			}else if(logType.equals(LogTypeEnum.LOG_TYPE_INGEO_STOCK.getId())){
+				vo.setAccountTypeId(AccountEnum.INGEO_STOCK.getId());
+				vo.setAccountTypeName(AccountEnum.INGEO_STOCK.getValue());
+				vo.setAmount(amoutn.toString()+"份");
+			}else if(logType.equals(LogTypeEnum.LOG_TYPE_HONG_KONG_STOCK.getId())){
+				vo.setAccountTypeId(AccountEnum.HONG_KONG_STOCK.getId());
+				vo.setAccountTypeName(AccountEnum.HONG_KONG_STOCK.getValue());
 				vo.setAmount(amoutn.toString()+"份");
 			}
 			vo.setCreateTime(log.getCreateTime());
