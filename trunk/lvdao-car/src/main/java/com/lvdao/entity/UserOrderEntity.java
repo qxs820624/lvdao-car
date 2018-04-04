@@ -17,7 +17,7 @@ public class UserOrderEntity extends BaseEntity  implements Serializable {
     private Integer paidStatus;
 
     private String orderMoney;
-
+    private String paymentAmount;
     private String transactionId;
 
     private String orderId;
@@ -52,6 +52,7 @@ public class UserOrderEntity extends BaseEntity  implements Serializable {
     private String addMethod;
     
     private String otherPersonMobile;
+    private String otherPersonName;
     
     private String otherPersonRealName;//	页面需求,没有字段
 
@@ -237,6 +238,22 @@ public class UserOrderEntity extends BaseEntity  implements Serializable {
 
 	public synchronized void setOtherPersonRealName(String otherPersonRealName) {
 		this.otherPersonRealName = otherPersonRealName;
+	}
+
+	public synchronized String getPaymentAmount() {
+		return paymentAmount;
+	}
+
+	public synchronized void setPaymentAmount(String paymentAmount) {
+		this.paymentAmount = paymentAmount;
+	}
+
+	public synchronized String getOtherPersonName() {
+		return otherPersonName;
+	}
+
+	public synchronized void setOtherPersonName(String otherPersonName) {
+		this.otherPersonName = otherPersonName;
 	}
  
 	
