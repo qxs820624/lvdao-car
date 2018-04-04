@@ -238,7 +238,7 @@
 	      	<if test="selectDate != null and selectDate != ''" >
 	        	D.CREATE_TIME LIKE CONCAT('%',#{selectDate, jdbcType=VARCHAR},'%') AND 
 	      	</if>
-			D.ACTIVE = '1'  
+			D.ACTIVE = '1'  ORDER BY CREATE_TIME DESC
 		</where>
 	</select>
 	
