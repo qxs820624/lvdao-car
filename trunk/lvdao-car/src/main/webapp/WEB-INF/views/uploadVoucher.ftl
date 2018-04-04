@@ -49,18 +49,24 @@
                         </div>
                     </div>
                     <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">付款金额</label>
+                        <div class="layui-input-block" style="margin-left:40%;">
+                            <input type="tel" id="paymentAmount" name="paymentAmount" lay-verify="required" autocomplete="off" class="layui-input" value="">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
                         <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">加盟人手机号</label>
                         <div class="layui-input-block" style="margin-left:40%;">
                             <input type="tel" id="addUserMoblile" name="addUserMoblile" lay-verify="required|phone" autocomplete="off" class="layui-input" value="${user.userName}">
                         </div>
                     </div>
                     
-                   <div class="layui-form-item">
+                   <!--<div class="layui-form-item">
                         <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">加盟人姓名</label>
                         <div class="layui-input-block" style="margin-left:40%;">
                             <input type="tel" id="addUserRealName" name="addUserRealName" lay-verify="required" autocomplete="off" class="layui-input" value="">
                         </div>
-                    </div>
+                    </div>-->
                   <div class="layui-form-item">
                      <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">我的推荐人</label>
                      <div class="layui-input-block" style="margin-left:40%;">
@@ -114,7 +120,7 @@
 	            	var addType = $("#addType option:selected").val();
 	            	var payMethod = $("#payMethod option:selected").val();
 	            	var addUserMoblile = $("#addUserMoblile").val();
-	            	var addUserRealName = $("#addUserRealName").val();
+	            	var paymentAmount = $("#paymentAmount").val();
 	            	var orderType = $("#orderType").val();
 	            	if(picUrl == '' || picUrl == null) {
 	            		layer.alert("请上传凭证");
@@ -123,6 +129,11 @@
 	            	
 	            	if(addType == '' || addType == null) {
 	            		layer.alert("请选择加盟类型");
+	            		return false;
+	            	}
+	            	
+	            	if(paymentAmount == '' || paymentAmount == null) {
+	            		layer.alert("请填写付款金额");
 	            		return false;
 	            	}
 	            	
@@ -143,8 +154,8 @@
 							"addType":addType,
 							"orderType":orderType,
 							"payMethod":payMethod,
-							"addUserMoblile":addUserMoblile
-							"addUserRealName":addUserRealName
+							"addUserMoblile":addUserMoblile,
+							"paymentAmount":paymentAmount
 						},
 				        async : false,
 				        type : "POST",
