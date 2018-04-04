@@ -421,15 +421,37 @@ public class UserController {
 				mav.addObject("rmbAccount", roundByScale(accountRmbAmount, 2));
 			}
 
-			// 股票积分账户
+			// YECO股账户
 			map.clear();
 			map.put("userId", user.getUserId());
-			map.put("accountId", AccountEnum.STOCK.getId());
+			map.put("accountId", AccountEnum.YECO_STOCK.getId());
 			List<UserAccountEntity> stockAccountList = userAccountService.queryList(map);
 
 			if (stockAccountList != null && stockAccountList.size() > CommonConst.DIGIT_ZERO) {
 				String accountStockAmount = stockAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
-				mav.addObject("stockAccount", roundByScale(accountStockAmount, 2));
+				mav.addObject("yecoStock", roundByScale(accountStockAmount, 2));
+			}
+			
+			// 英吉尔股账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.INGEO_STOCK.getId());
+			List<UserAccountEntity> ingeoAccountList = userAccountService.queryList(map);
+
+			if (ingeoAccountList != null && ingeoAccountList.size() > CommonConst.DIGIT_ZERO) {
+				String ingeoStockAmount = ingeoAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("ingeoStock", roundByScale(ingeoStockAmount, 2));
+			}
+			
+			// 英吉尔股账户
+			map.clear();
+			map.put("userId", user.getUserId());
+			map.put("accountId", AccountEnum.HONG_KONG_STOCK.getId());
+			List<UserAccountEntity> hongKongAccountList = userAccountService.queryList(map);
+
+			if (hongKongAccountList != null && hongKongAccountList.size() > CommonConst.DIGIT_ZERO) {
+				String hongKongStockAmount = hongKongAccountList.get(CommonConst.DIGIT_ZERO).getAccountAmount();
+				mav.addObject("hongKongStock", roundByScale(hongKongStockAmount, 2));
 			}
 
 			// 分享补贴账户
