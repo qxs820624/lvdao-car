@@ -252,7 +252,7 @@ public class OrderController {
 				
 				if(insert == CommonConst.DIGIT_ZERO) {
 					map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-					map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请成功 请耐心等待工作人员审批");
+					map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请失败，请重试！");
 					return map;
 				} else {
 					map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
