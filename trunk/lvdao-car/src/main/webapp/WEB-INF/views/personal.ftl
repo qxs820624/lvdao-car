@@ -35,7 +35,7 @@
                                 <h4>燃油包</h4>
                                 <span><#if ownAmount??>${ownAmount}个</span><#else>0个</#if></span>
                                 <div class="button income_account_btn outer">
-                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=24'">收入明细</button>
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=24'">账户明细</button>
                                 </div>
                             </div>
                         </div>
@@ -84,12 +84,34 @@
                         -->
                         <div class="swiper-slide">
                             <div class="personal_box usa">
-                                <h4>股券积分账户<#if stockAccount??>${stockAccount}</span><#else>0</#if></h4>
-                                <div class="shares"><i>市值</i>股</div>
+                                <h4>YECO股券账户</h4>
+                                <div class="shares" ><i><#if yecoStock??>${yecoStock}</span><#else>0</#if></i>股</div>
+                                <!--<div class="button commended_btn outer" style="background-color: ##9E905C;">
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=22'">账户明细</button>
+                                </div>-->
                             </div>
                         </div>
-                       
                         
+                          
+                       <div class="swiper-slide">
+                            <div class="personal_box hongkong">
+                                <h4>港股股券账户</h4>
+                                <div class="shares"><i><#if hongKongStock??>${hongKongStock}</span><#else>0</#if></i>股</div>
+                                <!--<div class="button commended_btn outer">
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=28'">账户明细</button>
+                                </div>-->
+                            </div>
+                        </div>
+                        
+                        <div class="swiper-slide">
+                            <div class="personal_box mainland">
+                                <h4>英吉尔股券账户</h4>
+                                <div class="shares"><i><#if ingeoStock??>${ingeoStock}</span><#else>0</#if></i>股</div>
+                                <!--<div class="button commended_btn outer">
+                                    <button onclick="javascript:window.location.href='/user/accountListDetail.do?logType=27'">账户明细</button>
+                                </div>-->
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="swiper-container personal_data">
@@ -143,6 +165,22 @@
                                 <li class="outer">
                                     <p>过期时间</p>
                                     <span><#if expirationDate??>${expirationDate}<#else>无</#if></span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <ul class="mainland_data">
+                                <li class="outer">
+                                    <p>份额单价</p>
+                                    <span>以市值为准</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="swiper-slide">
+                            <ul class="mainland_data">
+                                <li class="outer">
+                                    <p>份额单价</p>
+                                    <span>以市值为准</span>
                                 </li>
                             </ul>
                         </div>
