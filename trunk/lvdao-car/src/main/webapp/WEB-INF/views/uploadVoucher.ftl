@@ -55,7 +55,12 @@
                         </div>
                     </div>
                     
-                   
+                   <div class="layui-form-item">
+                        <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">加盟人姓名</label>
+                        <div class="layui-input-block" style="margin-left:40%;">
+                            <input type="tel" id="addUserRealName" name="addUserRealName" lay-verify="required" autocomplete="off" class="layui-input" value="">
+                        </div>
+                    </div>
                   <div class="layui-form-item">
                      <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">我的推荐人</label>
                      <div class="layui-input-block" style="margin-left:40%;">
@@ -109,6 +114,7 @@
 	            	var addType = $("#addType option:selected").val();
 	            	var payMethod = $("#payMethod option:selected").val();
 	            	var addUserMoblile = $("#addUserMoblile").val();
+	            	var addUserRealName = $("#addUserRealName").val();
 	            	var orderType = $("#orderType").val();
 	            	if(picUrl == '' || picUrl == null) {
 	            		layer.alert("请上传凭证");
@@ -138,6 +144,7 @@
 							"orderType":orderType,
 							"payMethod":payMethod,
 							"addUserMoblile":addUserMoblile
+							"addUserRealName":addUserRealName
 						},
 				        async : false,
 				        type : "POST",
