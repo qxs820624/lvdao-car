@@ -8,6 +8,7 @@
     <result column="VEHICLE_NO" property="vehicleNo" jdbcType="VARCHAR" />
     <result column="PAID_STATUS" property="paidStatus" jdbcType="TINYINT" />
     <result column="ORDER_MONEY" property="orderMoney" jdbcType="VARCHAR" />
+    <result column="PAYMENT_AMOUNT" property="paymentAmount" jdbcType="VARCHAR" />
     <result column="TRANSACTION_ID" property="transactionId" jdbcType="VARCHAR" />
     <result column="ORDER_ID" property="orderId" jdbcType="VARCHAR" />
     <result column="ROUTE_ID" property="routeId" jdbcType="VARCHAR" />
@@ -24,6 +25,7 @@
     <result column="PASSENGER_ORDER_ID" property="passengerOrderId" jdbcType="VARCHAR" />
     <result column="ADD_METHOD" property="addMethod" jdbcType="VARCHAR" />
     <result column="OTHER_PERSON_MOBILE" property="otherPersonMobile" jdbcType="VARCHAR" />
+    <result column="OTHER_PERSON_NAME" property="otherPersonName" jdbcType="VARCHAR" />
     <result column="ACTIVE" property="active" jdbcType="TINYINT" />
     <result column="CREATE_USER_ID" property="createUserId" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -42,6 +44,7 @@
     VEHICLE_NO, 
     PAID_STATUS, 
     ORDER_MONEY, 
+    PAYMENT_AMOUNT,
     TRANSACTION_ID, 
     ORDER_ID, 
     ROUTE_ID, 
@@ -82,6 +85,7 @@
 	VEHICLE_NO,
 	PAID_STATUS,
 	ORDER_MONEY,
+	PAYMENT_AMOUNT,
 	TRANSACTION_ID,
 	ORDER_ID,
 	ROUTE_ID,
@@ -98,6 +102,7 @@
 	PASSENGER_ORDER_ID,
 	ADD_METHOD,
     OTHER_PERSON_MOBILE,
+    OTHER_PERSON_NAME,
 	ACTIVE,
 	CREATE_USER_ID,
 	CREATE_TIME,
@@ -112,6 +117,7 @@
 	#{vehicleNo,jdbcType=VARCHAR},
 	#{paidStatus,jdbcType=TINYINT},
 	#{orderMoney,jdbcType=VARCHAR},
+	#{paymentAmount,jdbcType=VARCHAR},
 	#{transactionId,jdbcType=VARCHAR},
 	#{orderId,jdbcType=VARCHAR},
 	#{routeId,jdbcType=VARCHAR},
@@ -128,6 +134,7 @@
 	#{passengerOrderId,jdbcType=VARCHAR},
 	#{addMethod,jdbcType=VARCHAR},
 	#{otherPersonMobile,jdbcType=VARCHAR},
+	#{otherPersonName,jdbcType=VARCHAR},
 	#{active,jdbcType=TINYINT},
 	#{createUserId,jdbcType=VARCHAR},
 	#{createTime,jdbcType=TIMESTAMP},
@@ -157,6 +164,9 @@
       </if>
       <if test="orderMoney != null" >
         ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR},
+      </if>
+      <if test="paymentAmount != null" >
+        PAYMENT_AMOUNT = #{orderMoney,jdbcType=VARCHAR},
       </if>
       <if test="transactionId != null" >
         TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
@@ -203,6 +213,9 @@
       <if test="otherPersonMobile != null and otherPersonMobile !=''" >
         OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR},
       </if>
+      <if test="otherPersonName != null and otherPersonName !=''" >
+        OTHER_PERSON_NAME = #{otherPersonName,jdbcType=VARCHAR},
+      </if>
       <if test="active != null" >
         ACTIVE = #{active,jdbcType=TINYINT},
       </if>
@@ -237,6 +250,7 @@
       VEHICLE_NO = #{vehicleNo,jdbcType=VARCHAR},
       PAID_STATUS = #{paidStatus,jdbcType=TINYINT},
       ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR},
+      PAYMENT_AMOUNT = #{paymentAmount,jdbcType=VARCHAR},
       TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR},
       ORDER_ID = #{orderId,jdbcType=VARCHAR},
       ROUTE_ID = #{routeId,jdbcType=VARCHAR},
@@ -286,6 +300,9 @@
 	      <if test="orderMoney != null and orderMoney !=''" >
 	        AND ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR}
 	      </if>
+	      <if test="paymentAmount != null and paymentAmount !=''" >
+	        AND PAYMENT_AMOUNT = #{paymentAmount,jdbcType=VARCHAR}
+	      </if>
 	      <if test="transactionId != null and transactionId !=''" >
 	        AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
 	      </if>
@@ -334,6 +351,9 @@
 	      <if test="otherPersonMobile != null and otherPersonMobile !=''" >
 	        AND OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR}
 	      </if>
+	      <if test="otherPersonName != null and otherPersonName !=''" >
+	        AND OTHER_PERSON_Name = #{otherPersonName,jdbcType=VARCHAR}
+	      </if>
 		</where>
  	</select>
  	
@@ -355,6 +375,9 @@
       </if>
       <if test="orderMoney != null and orderMoney != ''" >
         AND ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR}
+      </if>
+      <if test="paymentAmount != null and paymentAmount !=''" >
+        AND PAYMENT_AMOUNT = #{paymentAmount,jdbcType=VARCHAR}
       </if>
       <if test="transactionId != null and transactionId != ''" >
         AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
@@ -386,6 +409,9 @@
       <if test="otherPersonMobile != null and otherPersonMobile !=''" >
         AND OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR}
       </if>
+     <if test="otherPersonName != null and otherPersonName !=''" >
+        AND OTHER_PERSON_Name = #{otherPersonName,jdbcType=VARCHAR}
+      </if>
      <if test="startTime != null and startTime != ''">
      		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
 	  </if>
@@ -415,6 +441,9 @@
 		      </if>
 		      <if test="orderMoney != null and orderMoney != ''" >
 		         AND ORDER_MONEY = #{orderMoney,jdbcType=VARCHAR}
+		      </if>
+		      <if test="paymentAmount != null and paymentAmount !=''" >
+		        AND PAYMENT_AMOUNT = #{paymentAmount,jdbcType=VARCHAR}
 		      </if>
 		      <if test="transactionId != null and transactionId != ''" >
 		         AND TRANSACTION_ID = #{transactionId,jdbcType=VARCHAR}
@@ -448,6 +477,9 @@
 		      </if>
 		      <if test="otherPersonMobile != null and otherPersonMobile !=''" >
 		        AND OTHER_PERSON_MOBILE = #{otherPersonMobile,jdbcType=VARCHAR}
+		      </if>
+		      <if test="otherPersonName != null and otherPersonName !=''" >
+		        AND OTHER_PERSON_Name = #{otherPersonName,jdbcType=VARCHAR}
 		      </if>
 		     <if test="startTime != null">
 		     		<![CDATA[ AND CREATE_TIME >= #{startTime,jdbcType=TIMESTAMP}]]>
