@@ -164,6 +164,8 @@ public class OrderController {
 		String payMethod = request.getParameter("payMethod");
 		//订单价格
 		String orderType = request.getParameter("orderType");
+		//打款金额(用以财务审核通过是校验所用)
+		String paymentAmount = request.getParameter("paymentAmount");
 		//推荐人手机号
 		String recommendUserMoblile = request.getParameter("recommendMoblile");
 		//加盟人手机号
@@ -240,6 +242,7 @@ public class OrderController {
 				userOrderEntity.setCreateTime(new Date());
 				userOrderEntity.setPaidStatus(CommonConst.DIGIT_ZERO);//订单状态
 				userOrderEntity.setOrderMoney(orderAmount); //加盟金额 
+				userOrderEntity.setPaymentAmount(paymentAmount); //打款金额 
 				userOrderEntity.setAddMethod(CommonConst.STRING_ONE);
 				userOrderEntity.setOtherPersonMobile(user.getUserName());
 				userOrderEntity.setOtherPersonRealName(user.getUserRealName());
@@ -276,6 +279,7 @@ public class OrderController {
 			userOrderEntity.setCreateTime(new Date());
 			userOrderEntity.setPaidStatus(CommonConst.DIGIT_ZERO);// 订单状态
 			userOrderEntity.setOrderMoney(orderAmount); // 加盟金额
+			userOrderEntity.setPaymentAmount(paymentAmount); //打款金额 
 			userOrderEntity.setAddMethod(CommonConst.STRING_ZERO);
 			userOrderEntity.setRemark(picRealUrl);// 凭证图片 存放组id
 			userOrderEntity.setActive(true);
@@ -283,7 +287,7 @@ public class OrderController {
 
 			if (insert == CommonConst.DIGIT_ZERO) {
 				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
-				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请失败 请联系工作人员审批");
+				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "加盟申请失败,请重试！");
 				return map;
 			} else {
 				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_SUCCESS);
