@@ -30,11 +30,13 @@ public enum LogTypeEnum {
 	LOG_TYPE_CHANGE_ROLE_INFO("19", "角色变更日志"),
 	LOG_TYPE_BOUNS_RETURN("20", "燃油补贴"),
 	LOG_TYPE_OUT_CAR_RETURN("21", "上车补贴"),
-	LOG_TYPE_REWARD_STOCK("22", "加盟返股票记录"),
+	LOG_TYPE_YECO_STOCK("22", "YECO股券账户变更日志"),
 	LOG_TYPE_RIDE_CUPON("23", "乘车券记录"),
 	LOG_TYPE_REWARD_PACKAGE("24", "燃油包变更记录"),//	 用desc做加减统计
 	LOG_TYPE_REFUSE_WITHDRAW("25", "拒绝提现申请"),
-	LOG_TYPE_OUT_CAR_COMPENSATE("26", "出车补贴");
+	LOG_TYPE_OUT_CAR_COMPENSATE("26", "出车补贴"),
+	LOG_TYPE_INGEO_STOCK("27", "英吉尔股券账户变更日志"),
+	LOG_TYPE_HONG_KONG_STOCK("28", "港股账户变更日志");
 	
 
     private String id;
