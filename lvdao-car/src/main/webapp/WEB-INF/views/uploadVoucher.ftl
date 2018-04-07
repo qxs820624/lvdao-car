@@ -67,7 +67,7 @@
                             <input type="tel" id="addUserRealName" name="addUserRealName" lay-verify="required" autocomplete="off" class="layui-input" value="">
                         </div>
                     </div>-->
-                  <div class="layui-form-item">
+                  <div class="layui-form-item" style="display: none;">
                      <label class="layui-form-label" style="width:85px;text-align:right;padding:9px 0;">我的推荐人</label>
                      <div class="layui-input-block" style="margin-left:40%;">
                         <input type="text"  class="layui-input" readonly disabled value="<#if userParentName??>${userParentName}</#if>">
