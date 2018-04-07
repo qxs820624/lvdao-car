@@ -222,7 +222,14 @@ public class OrderController {
 				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "代人加盟 加盟人的手机号为空,请填写");
 				return map;
 			}
-	     
+			String sessionUserId = user.getUserId();
+			UserEntity sessionUserEntity = userService.getUserEntityByUserId(sessionUserId);
+			String sessionUserMobile = sessionUserEntity.getUserMobile();
+			if (sessionUserMobile.equals(addUserMoblile)) {
+				map.put(CommonConst.RESPONSE_STATUS, CommonConst.RESPONSE_STATUS_FAIL);
+				map.put(CommonConst.RESPONSE_ERROR_MESSAGE, "申请人为自己本人则勾选自主加盟");
+				return map;
+			}
 			Boolean checkMoblile = checkMobileSecond(addUserMoblile);
 			
 			if(checkMoblile) {
